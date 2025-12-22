@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xayrillo Ne'matov - Cybersecurity Enthusiast</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
+            --text: #1f2937;
+            --text-light: #6b7280;
+            --bg: #ffffff;
+            --bg-secondary: #f9fafb;
+            --border: #e5e7eb;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 2rem;
+        }
+
+        nav .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section:first-of-type {
+            margin-top: 60px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text);
+            border-bottom: 3px solid var(--primary);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: left;
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin-bottom: 2rem;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* About Section */
+        #about {
+            background: var(--bg-secondary);
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .about-text p {
+            margin-bottom: 1rem;
+            line-height: 1.8;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(37, 99, 235, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            margin: 1.5rem 0;
+            font-style: italic;
+        }
+
+        .stats {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .skill-category h3 {
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 0.5rem 0;
+            color: var(--text-light);
+        }
+
+        .skill-list li:before {
+            content: "▹ ";
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Projects Section */
+        #projects {
+            background: var(--bg-secondary);
+        }
+
+        .projects-grid {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-content {
+            padding: 2rem;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .project-links a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1.25rem;
+        }
+
+        .project-description {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        .project-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            background: var(--bg-secondary);
+            padding: 0.25rem 0.75rem;
+            border-radius: 1rem;
+            font-size: 0.875rem;
+            color: var(--primary);
+        }
+
+        .project-metrics {
+            display: flex;
+            gap: 2rem;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .metric {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .metric-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .metric-label {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+
+        /* Achievements Section */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .achievement-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--primary);
+        }
+
+        .achievement-title {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-subtitle {
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .achievement-detail {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Contact Section */
+        #contact {
+            background: var(--bg-secondary);
+            text-align: center;
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text);
+            transition: color 0.3s;
+        }
+
+        .contact-link:hover {
+            color: var(--primary);
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 3rem 1rem;
+            }
+
+            .hero-links {
+                flex-direction: column;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">XN</div>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#achievements">Achievements</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="hero-subtitle">Hi, my name is</div>
+        <h1>Xayrillo Ne'matov</h1>
+        <div class="hero-subtitle">Cybersecurity Enthusiast & Developer</div>
+        <p class="hero-description">
+            High school student from Uzbekistan passionate about cybersecurity, building tools to solve real problems, 
+            and learning how to protect digital systems. Currently exploring defensive security and reverse engineering.
+        </p>
+        <div class="hero-links">
+            <a href="#projects" class="btn btn-primary">View My Work</a>
+            <a href="mailto:mr.khayrulloh@gmail.com" class="btn btn-secondary">Get in Touch</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <p>
+                    My journey into cybersecurity began with a $500 lesson I'll never forget. At 15, I fell victim to an 
+                    online scam that taught me more about digital security than any tutorial could. Instead of just moving 
+                    on, I became obsessed with understanding how it happened and how to prevent it.
+                </p>
+                
+                <div class="highlight">
+                    "After watching the Snowden documentary and discovering Darknet Diaries, I realized cybersecurity 
+                    isn't just about protecting money—it's about protecting privacy, freedom, and building a safer digital world."
+                </div>
+                
+                <p>
+                    I taught myself Python, built my first real project—a Telegram movie bot serving 800+ users—and 
+                    discovered a passion for defensive security. I've failed many times (my first web scraping attempts 
+                    were disasters), but each failure taught me to think more systematically about security.
+                </p>
+                
+                <p>
+                    What drives me now is seeing the massive cybersecurity gap in Uzbekistan and Central Asia. Small 
+                    businesses have no protection, government systems lag behind modern threats, and young people share 
+                    everything online without understanding the risks. I want to help fill this gap, but I need the right 
+                    education to do it effectively.
+                </p>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number">7.5</div>
+                    <div class="stat-label">IELTS Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4.3/5.0</div>
+                    <div class="stat-label">GPA</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Top 0.25%</div>
+                    <div class="stat-label">IBRAT MARAFON</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">800+</div>
+                    <div class="stat-label">Bot Users</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2>Technical Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Programming</h3>
+                <ul class="skill-list">
+                    <li>Python (Advanced)</li>
+                    <li>JavaScript (Intermediate)</li>
+                    <li>SQL (Familiar)</li>
+                    <li>HTML/CSS</li>
+                    <li>Git & GitHub</li>
+                </ul>
+            </div>
+            
+            <div class="skill-category">
+                <h3>Cybersecurity</h3>
+                <ul class="skill-list">
+                    <li>Penetration Testing</li>
+                    <li>Vulnerability Analysis</li>
+                    <li>CTF Challenges</li>
+                    <li>Network Security</li>
+                    <li>Encryption Concepts</li>
+                </ul>
+            </div>
+            
+            <div class="skill-category">
+                <h3>Tools & Platforms</h3>
+                <ul class="skill-list">
+                    <li>Kali Linux</li>
+                    <li>TryHackMe</li>
+                    <li>Telegram Bot API</li>
+                    <li>VS Code</li>
+                    <li>VirtualBox/VMware</li>
+                </ul>
+            </div>
+            
+            <div class="skill-category">
+                <h3>Soft Skills</h3>
+                <ul class="skill-list">
+                    <li>Problem Solving</li>
+                    <li>Self-Directed Learning</li>
+                    <li>Teaching/Mentoring</li>
+                    <li>Communication</li>
+                    <li>Persistence</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2>Featured Projects</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>Telegram Movie Search Bot</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/xayrullonematov" title="View on GitHub">⚡</a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        An advanced movie discovery platform that integrates TMDB API to provide real-time movie data. 
+                        Features inline search, genre categorization, year-based filtering, and custom recommendations. 
+                        Taught myself API integration and deployed a production-ready bot serving hundreds of daily users.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Telegram Bot API</span>
+                        <span class="tag">TMDB API</span>
+                        <span class="tag">REST APIs</span>
+                    </div>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <span class="metric-value">800+</span>
+                            <span class="metric-label">Active Users</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">1,200+</span>
+                            <span class="metric-label">Daily Queries</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">96%</span>
+                            <span class="metric-label">Uptime</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>Cybersecurity Learning Journey</h3>
+                        <div class="project-links">
+                            <a href="https://github.com/xayrullonematov" title="View Progress">🔒</a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Self-directed cybersecurity education through hands-on practice. Completed 25+ labs on TryHackMe, 
+                        studying common vulnerabilities (SQL injection, XSS, CSRF), practicing with CTF challenges, and 
+                        researching defensive security strategies. Currently pursuing Google Cybersecurity Certificate.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Kali Linux</span>
+                        <span class="tag">CTF</span>
+                        <span class="tag">Penetration Testing</span>
+                        <span class="tag">OWASP Top 10</span>
+                    </div>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <span class="metric-value">25+</span>
+                            <span class="metric-label">Labs Completed</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">2</span>
+                            <span class="metric-label">Certifications</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-content">
+                    <div class="project-header">
+                        <h3>English Speaking Club</h3>
+                        <div class="project-links">
+                            <a href="#" title="Community Project">👥</a>
+                        </div>
+                    </div>
+                    <p class="project-description">
+                        Founded and lead weekly English conversation club for 30+ students. Designed interactive activities, 
+                        technical presentation workshops, and debate sessions. Helped 15+ classmates prepare for IELTS exams 
+                        with average score improvement of 1.0 band. Demonstrates leadership and communication skills essential 
+                        for collaborative cybersecurity work.
+                    </p>
+                    <div class="project-tags">
+                        <span class="tag">Leadership</span>
+                        <span class="tag">Teaching</span>
+                        <span class="tag">Communication</span>
+                        <span class="tag">Mentoring</span>
+                    </div>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <span class="metric-value">30+</span>
+                            <span class="metric-label">Students</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-value">+1.0</span>
+                            <span class="metric-label">Avg. IELTS Improvement</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements">
+        <h2>Achievements & Recognition</h2>
+        <div class="achievements-grid">
+            <div class="achievement-card">
+                <div class="achievement-title">IELTS Academic</div>
+                <div class="achievement-subtitle">International English Language Testing System</div>
+                <div class="achievement-detail">Band Score: 7.5 (L: 8.5, R: 7.5, W: 6.5, S: 7.0)</div>
+                <p style="margin-top: 0.5rem; color: var(--text-light);">2024</p>
+            </div>
+
+            <div class="achievement-card">
+                <div class="achievement-title">IBRAT MARAFON Competition</div>
+                <div class="achievement-subtitle">English Language & Critical Thinking</div>
+                <div class="achievement-detail">Top 50 out of 20,000+ participants (Top 0.25%)</div>
+                <p style="margin-top: 0.5rem; color: var(--text-light);">2023-2025</p>
+            </div>
+
+            <div class="achievement-card">
+                <div class="achievement-title">Cisco Cybersecurity Certificate</div>
+                <div class="achievement-subtitle">Introduction to Cybersecurity</div>
+                <div class="achievement-detail">Completed 15-hour comprehensive course</div>
+                <p style="margin-top: 0.5rem; color: var(--text-light);">2024</p>
+            </div>
+
+            <div class="achievement-card">
+                <div class="achievement-title">English Olympiad</div>
+                <div class="achievement-subtitle">Regional & State Level Competition</div>
+                <div class="achievement-detail">Top scores in essay writing and grammar</div>
+                <p style="margin-top: 0.5rem; color: var(--text-light);">2024</p>
+            </div>
+
+            <div class="achievement-card">
+                <div class="achievement-title">Computer Science Excellence</div>
+                <div class="achievement-subtitle">Academic Performance</div>
+                <div class="achievement-detail">Top performer in CS I & II since 9th grade</div>
+                <p style="margin-top: 0.5rem; color: var(--text-light);">2022-Present</p>
+            </div>
+
+            <div class="achievement-card">
+                <div class="achievement-title">Google Cybersecurity Certificate</div>
+                <div class="achievement-subtitle">Professional Certificate Program</div>
+                <div class="achievement-detail">In Progress (Expected March 2025)</div>
+                <p style="margin-top: 0.5rem; color: var(--text-light);">2024-2025</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Get In Touch</h2>
+        <div class="contact-content">
+            <p style="margin-bottom: 2rem; color: var(--text-light);">
+                I'm currently looking for university opportunities in Computer Science and Cybersecurity. 
+                Whether you're an admissions officer, a fellow student, or just want to connect, I'd love to hear from you!
+            </p>
+            <a href="mailto:mr.khayrulloh@gmail.com" class="btn btn-primary">Send Me an Email</a>
+            
+            <div class="contact-links">
+                <a href="https://github.com/xayrullonematov" class="contact-link" target="_blank">
+                    <div class="contact-icon">💻</div>
+                    <div>GitHub</div>
+                </a>
+                <a href="mailto:mr.khayrulloh@gmail.com" class="contact-link">
+                    <div class="contact-icon">📧</div>
+                    <div>Email</div>
+                </a>
+                <a href="#" class="contact-link">
+                    <div class="contact-icon">📄</div>
+                    <div>Resume</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>Designed & Built by Xayrillo Ne'matov</p>
+        <p style="margin-top: 0.5rem; opacity: 0.7;">© 2024 | Samarkand, Uzbekistan</p>
+    </footer>
+
+    <script>
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add subtle animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and sections
+        document.querySelectorAll('.project-card, .achievement-card, .skill-category').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
