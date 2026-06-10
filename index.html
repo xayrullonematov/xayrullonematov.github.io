@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Xayrillo Ne'matov // Systems & Backend Engineer</title>
+    <title>Xayrillo Ne'matov // Core Console</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* ── GEOMETRIC BRUTALIST DESIGN TOKENS ── */
+        /* ── TERAFAB GLOBAL GEOMETRIC DESIGN TOKENS ── */
         :root {
             --bg: #000000;
             --bg-surface: #0A0A0A;
@@ -21,860 +21,600 @@
             --accent-green: #00E87A;
             --text-primary: #FFFFFF;
             --text-muted: #888888;
-            --text-faint: #767676;
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --text-faint: #666666;
             --font-mono: 'JetBrains Mono', monospace;
         }
 
-        /* ── RESET & GLOBAL GATES ── */
+        /* ── CRITICAL STRUCTURE RESET ── */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            border-radius: 0 !important; /* Non-negotiable: zero rounded corners */
-            box-shadow: none !important;  /* Non-negotiable: zero drop shadows */
+            border-radius: 0 !important; /* Non-negotiable: pure zero-radius */
+            box-shadow: none !important;  /* Non-negotiable: zero elevation */
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-sans);
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
             background-color: var(--bg);
             color: var(--text-primary);
-            line-height: 1.6;
+            font-family: var(--font-mono);
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Tactical Scanline Overlay */
+        /* Scanline Overlay Grid */
         body::before {
             content: '';
             position: fixed;
             inset: 0;
             background: repeating-linear-gradient(
                 0deg, transparent, transparent 2px,
-                rgba(255, 255, 255, 0.015) 2px, rgba(255, 255, 255, 0.015) 3px
+                rgba(255, 255, 255, 0.012) 2px, rgba(255, 255, 255, 0.012) 3px
             );
             pointer-events: none;
             z-index: 9999;
         }
 
-        /* Typography */
-        h1, h2, h3, h4 {
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        h1 {
-            font-size: clamp(2rem, 6vw, 3.5rem);
-            line-height: 1.1;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            color: var(--text-primary);
-            border: 1px solid var(--border-strong);
-            background: var(--bg-surface);
-            padding: 0.5rem 1rem;
-            margin-bottom: 2.5rem;
-            display: inline-block;
-        }
-
-        /* Layout Framework */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--bg);
-            border-bottom: 1px solid var(--border);
-            z-index: 1000;
-            height: 56px;
-        }
-
-        nav .container {
-            max-width: 1300px;
-            height: 100%;
-            margin: 0 auto;
-            padding: 0 2rem;
+        /* ── WORKSPACE SPLIT WINDOWS ── */
+        .workspace {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: var(--border);
+            gap: 1px; /* Stark 1px wireframe grid line */
         }
 
-        nav .logo {
-            font-family: var(--font-mono);
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--accent-cyan);
-            letter-spacing: 0.2em;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
+        .pane {
             height: 100%;
-        }
-
-        nav ul li {
-            height: 100%;
-        }
-
-        nav a {
-            display: flex;
-            align-items: center;
-            height: 100%;
-            padding: 0 1.5rem;
-            text-decoration: none;
-            color: var(--text-muted);
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            border-left: 1px solid var(--border);
-            transition: all 0.2s;
-        }
-
-        nav ul li:last-child a {
-            border-right: 1px solid var(--border);
-        }
-
-        nav a:hover {
-            color: var(--text-primary);
-            background: var(--bg-surface);
-        }
-
-        section {
-            padding: 6rem 2rem;
-            max-width: 1300px;
-            margin: 0 auto;
-            border-bottom: 1px solid var(--border);
-        }
-
-        section:first-of-type {
-            margin-top: 56px;
-        }
-
-        /* Hero Section */
-        #hero {
-            min-height: 85vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-        }
-
-        .hero-eyebrow {
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            color: var(--accent-amber);
-            letter-spacing: 0.25em;
-            text-transform: uppercase;
-            margin-bottom: 1rem;
-        }
-
-        .hero-title-sub {
-            font-size: clamp(1.25rem, 4vw, 2rem);
-            color: var(--text-muted);
-            margin-top: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .hero-description {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            max-width: 650px;
-            margin-bottom: 3rem;
-            line-height: 1.7;
-        }
-
-        .hero-links {
-            display: flex;
-            gap: 1rem;
-        }
-
-        /* Operational Buttons */
-        .btn {
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-            padding: 1rem 2rem;
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.2s;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .btn-primary {
-            background: var(--text-primary);
-            color: var(--bg);
-        }
-
-        .btn-primary:hover {
-            background: var(--accent-cyan);
-            color: var(--bg);
-        }
-
-        .btn-secondary {
-            border: 1px solid var(--border-strong);
-            color: var(--text-primary);
-            background: transparent;
-        }
-
-        .btn-secondary:hover {
-            border-color: var(--text-primary);
-            background: var(--bg-surface);
-        }
-
-        /* About Section */
-        #about {
-            background: var(--bg-surface);
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 4rem;
-        }
-
-        .about-text p {
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-            color: var(--text-muted);
-        }
-
-        .about-text strong {
-            color: var(--text-primary);
-        }
-
-        .wireframe-quote {
+            overflow: hidden;
             background: var(--bg);
-            border: 1px solid var(--border-strong);
-            border-left: 4px solid var(--accent-amber);
-            padding: 1.5rem;
-            margin: 2rem 0;
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            color: var(--accent-amber);
         }
 
-        .stats-grid-container {
-            display: grid;
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
+        /* Left Pane: Static Operational Manifesto */
+        .pane-manifesto {
+            width: 45%;
+            padding: 3rem 2.5rem;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
         }
+        .pane-manifesto::-webkit-scrollbar { display: none; }
 
-        .stat-card {
-            background: var(--bg-card);
-            padding: 1.5rem;
-        }
-
-        .stat-number {
-            font-family: var(--font-mono);
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .stat-label {
-            font-family: var(--font-mono);
-            color: var(--text-faint);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: 0.25rem;
-        }
-
-        /* Skills Section */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-        }
-
-        .skill-category {
-            background: var(--bg-card);
-            padding: 2rem;
-        }
-
-        .skill-category h3 {
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            margin-bottom: 1.5rem;
-            color: var(--accent-cyan);
-        }
-
-        .skill-list {
-            list-style: none;
-        }
-
-        .skill-list li {
-            padding: 0.4rem 0;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .skill-list li:before {
-            content: "$ ";
-            color: var(--border-strong);
-            font-family: var(--font-mono);
-        }
-
-        /* Projects Section */
-        #projects {
-            background: var(--bg-surface);
-        }
-
-        .projects-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .project-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
+        /* Right Pane: Interactive Live Terminal Surface */
+        .pane-terminal {
+            width: 55%;
             position: relative;
         }
 
-        .project-card::before {
+        /* ── SYSTEM TYPOGRAPHY & HEADER STRIPS ── */
+        .strip-header {
+            flex: 0 0 auto;
+            height: 32px;
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1rem;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: var(--text-faint);
+            text-transform: uppercase;
+        }
+        .strip-header span.active {
+            color: var(--accent-cyan);
+            font-weight: 700;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .eyebrow {
+            font-size: 0.75rem;
+            color: var(--accent-amber);
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+        }
+
+        h2 {
+            font-size: 1rem;
+            color: var(--bg);
+            background: var(--text-primary);
+            padding: 0.25rem 0.75rem;
+            margin: 2.5rem 0 1.5rem 0;
+            display: inline-block;
+            letter-spacing: 0.1em;
+        }
+
+        p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin-bottom: 1.25rem;
+        }
+        p strong { color: var(--text-primary); }
+
+        .wireframe-block {
+            border: 1px solid var(--border-strong);
+            background: var(--bg-surface);
+            padding: 1.25rem;
+            margin: 1.5rem 0;
+            font-size: 0.8rem;
+            line-height: 1.6;
+            color: var(--accent-amber);
+            border-left: 3px solid var(--accent-amber);
+        }
+
+        /* ── GRID BLOCKS ── */
+        .data-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+        }
+
+        .data-card {
+            background: var(--bg-card);
+            padding: 1.2rem;
+        }
+
+        .data-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .data-label {
+            font-size: 0.65rem;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.2rem;
+        }
+
+        /* Project Nodes */
+        .deployment-node {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            padding: 1.5rem;
+            margin-bottom: 1.25rem;
+            position: relative;
+        }
+        .deployment-node::before {
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0;
             height: 2px;
             background: var(--border-strong);
         }
-
-        .project-card:hover::before {
+        .deployment-node:hover::before {
             background: var(--accent-cyan);
         }
 
-        .project-content {
-            padding: 2.5rem;
-        }
-
-        .project-header {
+        .node-header {
             display: flex;
             justify-content: space-between;
-            align-items: start;
-            margin-bottom: 1rem;
+            align-items: center;
+            margin-bottom: 0.75rem;
         }
 
-        .project-title {
-            font-size: 1.35rem;
+        .node-title {
+            font-size: 1rem;
+            font-weight: 700;
             color: var(--text-primary);
         }
 
-        .project-link-icon {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-family: var(--font-mono);
-            font-size: 1.1rem;
-            transition: color 0.2s;
-        }
-
-        .project-link-icon:hover {
-            color: var(--text-primary);
-        }
-
-        .project-description {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .project-tags {
+        .node-tags {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
+            gap: 0.4rem;
+            margin: 1rem 0;
         }
 
         .tag {
             background: var(--bg-surface);
             border: 1px solid var(--border);
-            padding: 0.2rem 0.6rem;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
+            padding: 0.15rem 0.5rem;
+            font-size: 0.7rem;
             color: var(--accent-amber);
         }
 
-        .project-metrics {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 1rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
+        /* ── LIVE INTERACTIVE TTY SURFACE ── */
+        .terminal-container {
+            flex: 1 1 0;
+            min-height: 0;
+            position: relative;
+            background-color: #000000;
+            overflow: hidden;
         }
 
-        .metric {
+        #matrix-canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            pointer-events: none;
+        }
+
+        .terminal-scrollback {
+            position: absolute;
+            inset: 0;
+            padding: 1.5rem;
+            overflow-y: auto;
             display: flex;
             flex-direction: column;
-        }
-
-        .metric-value {
-            font-family: var(--font-mono);
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .metric-label {
-            font-family: var(--font-mono);
-            font-size: 0.7rem;
-            color: var(--text-faint);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 0.15rem;
-        }
-
-        /* Achievements Section */
-        .achievements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-        }
-
-        .achievement-card {
-            background: var(--bg-card);
-            padding: 2rem;
-            border-left: 3px solid var(--border-strong);
-            transition: border-left-color 0.2s;
-        }
-
-        .achievement-card:hover {
-            border-left-color: var(--accent-cyan);
-        }
-
-        .achievement-title {
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .achievement-subtitle {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-faint);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 1rem;
-        }
-
-        .achievement-detail {
-            font-family: var(--font-mono);
-            color: var(--accent-cyan);
+            gap: 0.5rem;
             font-size: 0.85rem;
+            -webkit-overflow-scrolling: touch;
+            z-index: 10;
+        }
+        .terminal-scrollback::-webkit-scrollbar { display: none; }
+
+        .tty-line {
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .tty-input-line {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .tty-prompt {
+            color: var(--accent-cyan);
             font-weight: 700;
+            flex: 0 0 auto;
         }
 
-        .achievement-date {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-ghost);
-            margin-top: 0.5rem;
-        }
-
-        /* Contact Section */
-        #contact {
-            background: var(--bg-surface);
-            text-align: center;
-        }
-
-        .contact-content {
-            max-width: 650px;
-            margin: 0 auto;
-        }
-
-        .contact-content p {
-            color: var(--text-muted);
-            margin-bottom: 2.5rem;
-        }
-
-        .contact-links {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-        }
-
-        .contact-link {
-            background: var(--bg-card);
-            padding: 2rem 1rem;
-            text-decoration: none;
-            color: var(--text-muted);
-            transition: all 0.2s;
-        }
-
-        .contact-link:hover {
-            background: var(--bg);
+        .tty-input {
+            background: transparent;
+            border: none;
+            outline: none;
             color: var(--text-primary);
-        }
-
-        .contact-icon {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-label {
             font-family: var(--font-mono);
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
+            font-size: 0.85rem;
+            flex: 1;
+            caret-color: var(--accent-amber);
         }
 
-        /* Footer */
-        footer {
-            background: var(--bg);
+        /* System Specific Text Colors */
+        .sys-green { color: var(--accent-green); }
+        .sys-amber { color: var(--accent-amber); }
+        .sys-red   { color: var(--accent-red); }
+        .sys-cyan  { color: var(--accent-cyan); }
+
+        /* Links block footer */
+        .manifesto-footer {
+            margin-top: 4rem;
+            padding-top: 1.5rem;
             border-top: 1px solid var(--border);
+            font-size: 0.75rem;
             color: var(--text-faint);
             text-align: center;
-            padding: 2.5rem;
-            font-family: var(--font-mono);
-            font-size: 0.8rem;
-            letter-spacing: 0.05em;
         }
 
-        footer p + p {
-            margin-top: 0.5rem;
-            color: var(--text-ghost);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            nav ul {
-                display: none; /* Desktop navigation hidden on mobile terminal layouts */
-            }
-
-            section {
-                padding: 4rem 1.25rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 2.5rem;
-            }
-
-            .hero-links {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-
-            .project-content {
-                padding: 1.5rem;
-            }
-
-            .contact-links {
-                grid-template-columns: 1fr;
-            }
+        /* Mobile Layout Adaptations */
+        @media (max-width: 900px) {
+            .workspace { flex-direction: column; }
+            .pane-manifesto { width: 100%; height: 50%; }
+            .pane-terminal { width: 100%; height: 50%; }
+            body::before { display: none; }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav>
-        <div class="container">
-            <div class="logo">NE'MATOV // OPERATIVE</div>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#achievements">Achievements</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </nav>
 
-    <!-- Hero Section -->
-    <section id="hero">
-        <div class="hero-eyebrow">Initialize Core Infrastructure...</div>
-        <h1>Xayrillo Ne'matov</h1>
-        <div class="hero-title-sub">Systems & Asynchronous Backend Engineer</div>
-        <p class="hero-description">
-            Software developer from Uzbekistan specializing in cross-platform systems, local-first zero-trust data safety, 
-            and decoupled asynchronous architectures. Currently bridging low-level compilation cycles with applied mathematics.
-        </p>
-        <div class="hero-links">
-            <a href="#projects" class="btn btn-primary">Declassify Portfolio</a>
-            <a href="https://t.me/mr_khayrulloh" class="btn btn-secondary">Establish Link</a>
-        </div>
-    </section>
+    <div class="workspace">
+        
+        <!-- LEFT WORKSPACE: MANIFESTO PANE -->
+        <div class="pane pane-manifesto">
+            <div class="eyebrow">CORE METADATA AGGREGATE // v2026.06</div>
+            <h1>Xayrillo Ne'matov</h1>
+            <p class="hero-title-sub">Systems & Asynchronous Backend Engineer</p>
+            
+            <p>
+                Software architect operating from Samarkand, Uzbekistan. Defensive specialization inside 
+                <strong>decoupled asynchronous runtimes</strong>, high-concurrency event loops, and localized, 
+                zero-telemetry application architecture.
+            </p>
 
-    <!-- About Section -->
-    <section id="about">
-        <h2>System Profile</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p>
-                    My obsession with security boundaries originated from a clear vector of failure. At 15, falling victim to a 
-                    highly optimized online scam provided an intense, practical baseline in digital exploit mechanics. Rather than absorption 
-                    of the loss, I became driven to map out the low-level systems execution underneath.
-                </p>
+            <div class="wireframe-block">
+                CRITICAL_POSTURE: Independent edge execution mitigates explicit attack vectors. Software must protect user data data boundaries at rest without reliance on speculative telemetry pipelines.
+            </div>
+
+            <h2>Telemetry Matrix</h2>
+            <div class="data-grid">
+                <div class="data-card">
+                    <div class="data-value">3,701</div>
+                    <div class="data-label">ML Datasets Orchestrated</div>
+                </div>
+                <div class="data-card">
+                    <div class="data-value">7.5</div>
+                    <div class="data-label">IELTS Academic Baseline</div>
+                </div>
+                <div class="data-card">
+                    <div class="data-value">4.3 / 5.0</div>
+                    <div class="data-label">GPA Static Track</div>
+                </div>
+                <div class="data-card">
+                    <div class="data-value">127.0.0.1</div>
+                    <div class="data-label">Local Host Enforcement</div>
+                </div>
+            </div>
+
+            <h2>Declassified Deployments</h2>
+            <div class="projects-grid">
                 
-                <div class="wireframe-quote">
-                    SYSTEM_LOG: "Analyzing the architecture of localized systems and network bridges revealed that defensive technology 
-                    is fundamentally a constraint of mathematical parameters and data ownership."
-                </div>
-                
-                <p>
-                    I established a deep command over asynchronous runtime environments, designing modular backend pipelines and local-first cross-platform clients. 
-                    I write software explicitly engineered to operate reliably in heavily constrained, air-gapped, or emergency environments, eliminating cloud-telemetry dependency entirely.
-                </p>
-                
-                <p>
-                    With Central Asia facing critical optimization and local software security deficits, my structural methodology leverages hands-on low-level native compilation—bypassing raw framework abstraction to guarantee data safety at the edge execution layers.
-                </p>
-            </div>
-            
-            <div class="stats-grid-container">
-                <div class="stat-card">
-                    <div class="stat-number">3,701</div>
-                    <div class="stat-label">ML Tuned Datasets</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">7.5</div>
-                    <div class="stat-label">IELTS Academic</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">4.3 / 5.0</div>
-                    <div class="stat-label">GPA Baseline</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">100k+</div>
-                    <div class="stat-label">Concurrent Requests</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Skills Section -->
-    <section id="skills">
-        <h2>Technical Matrix</h2>
-        <div class="skills-grid">
-            <div class="skill-category">
-                <h3>Core Languages</h3>
-                <ul class="skill-list">
-                    <li>Python (Asyncio/FastAPI)</li>
-                    <li>C++ (Native Interop/FFI)</li>
-                    <li>Dart & Flutter Engine</li>
-                    <li>TypeScript (Next.js/React)</li>
-                    <li>SQL & Advanced Schema Design</li>
-                </ul>
-            </div>
-            
-            <div class="skill-category">
-                <h3>Systems & Caching</h3>
-                <ul class="skill-list">
-                    <li>Redis (Pub/Sub & Distributed Locks)</li>
-                    <li>PostgreSQL (Asyncpg/Pooling)</li>
-                    <li>MongoDB (Motor Async Drive)</li>
-                    <li>Debian Linux & i3wm Environment</li>
-                    <li>Nginx Proxy Architectures</li>
-                </ul>
-            </div>
-            
-            <div class="skill-category">
-                <h3>Applied Cryptography</h3>
-                <ul class="skill-list">
-                    <li>Argon2id Key Derivation</li>
-                    <li>AES-256-GCM Vault Hardening</li>
-                    <li>Local Loopback Enforcements</li>
-                    <li>Zero-Trust Client Pipelines</li>
-                    <li>Token-Based CSRF Mitigations</li>
-                </ul>
-            </div>
-            
-            <div class="skill-category">
-                <h3>DevOps & Operations</h3>
-                <ul class="skill-list">
-                    <li>Multi-Stage Docker Monorepos</li>
-                    <li>GitHub Actions CI Platforms</li>
-                    <li>Native Client Distribution</li>
-                    <li>Binary Metadata Parsing</li>
-                    <li>Fuzzy String Search Topologies</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section -->
-    <section id="projects">
-        <h2>Declassified Deployments</h2>
-        <div class="projects-grid">
-            
-            <!-- HAMMA -->
-            <div class="project-card">
-                <div class="project-content">
-                    <div class="project-header">
-                        <h3 class="project-title">HAMMA — Zero-Trust Local AI SSH Client</h3>
-                        <a href="https://github.com/xayrullonematov" class="project-link-icon">⚡</a>
+                <div class="deployment-node">
+                    <div class="node-header">
+                        <div class="node-title">HAMMA Client Engine</div>
+                        <span class="sys-cyan">ONLINE</span>
                     </div>
-                    <p class="project-description">
-                        A privacy-centric, local-first cross-platform terminal and SFTP dashboard. Bypasses standard third-party proxy loops 
-                        by driving client connections straight from the device using custom low-level interop layers. Integrates an entirely 
-                        offline, on-device AI copilot running a custom fine-tuned 8B model hard-locked to loopback sockets to guarantee zero telemetry leakage.
+                    <p>
+                        A completely localized, zero-telemetry cross-platform SSH and SFTP manager. Bridges cross-platform 
+                        compilations using native FFI pathways. Embeds an entirely offline on-device 8B local language engine hard-locked 
+                        to loopback interfaces to physically block runtime payload data exfiltration.
                     </p>
-                    <div class="project-tags">
+                    <div class="node-tags">
                         <span class="tag">Flutter Engine</span>
                         <span class="tag">Dart FFI</span>
                         <span class="tag">C++ Interop</span>
-                        <span class="tag">Argon2id / AES-256-GCM</span>
-                    </div>
-                    <div class="project-metrics">
-                        <div class="metric">
-                            <span class="metric-value">1,400+</span>
-                            <span class="metric-label">Model Downloads</span>
-                        </div>
-                        <div class="metric">
-                            <span class="metric-value">127.0.0.1</span>
-                            <span class="metric-label">Network Lock</span>
-                        </div>
-                        <div class="metric">
-                            <span class="metric-value">0 Bytes</span>
-                            <span class="metric-label">Cloud Leakage</span>
-                        </div>
+                        <span class="tag">Argon2id Vault</span>
                     </div>
                 </div>
-            </div>
 
-            <!-- BUNKER X -->
-            <div class="project-card">
-                <div class="project-content">
-                    <div class="project-header">
-                        <h3 class="project-title">Bunker X — Real-Time Async State Engine</h3>
-                        <a href="https://github.com/xayrullonematov" class="project-link-icon">🔒</a>
+                <div class="deployment-node">
+                    <div class="node-header">
+                        <div class="node-title">Bunker X Async Core</div>
+                        <span class="sys-amber">STANDBY</span>
                     </div>
-                    <p class="project-description">
-                        A real-time, asynchronous game orchestration engine and Telegram Mini App. Features complex resource decay algorithms, 
-                        dynamic transaction locks, and live event syncing across distinct runtimes. Scaled around non-blocking event drivers 
-                        and transactional state definitions to completely eradicate concurrent synchronization bugs.
+                    <p>
+                        Asynchronous game orchestration backend driven by distributed memory models. Manages deep state queues, 
+                        resource-decay timers, and synchronous player actions across volatile networks. Employs transactional atomicity 
+                        and custom concurrency gates to eliminate thread collision vectors.
                     </p>
-                    <div class="project-tags">
+                    <div class="node-tags">
                         <span class="tag">Python Asyncio</span>
-                        <span class="tag">Redis Pub/Sub</span>
+                        <span class="tag">Redis Cluster</span>
                         <span class="tag">FastAPI BFF</span>
-                        <span class="tag">Vite / TS WebApp</span>
-                    </div>
-                    <div class="project-metrics">
-                        <div class="metric">
-                            <span class="metric-value">&lt; 1.5s</span>
-                            <span class="metric-label">Throttling Gate</span>
-                        </div>
-                        <div class="metric">
-                            <span class="metric-value">100%</span>
-                            <span class="metric-label">Non-Blocking I/O</span>
-                        </div>
+                        <span class="tag">WebSockets</span>
                     </div>
                 </div>
-            </div>
 
-            <!-- AUTO TESTLAR -->
-            <div class="project-card">
-                <div class="project-content">
-                    <div class="project-header">
-                        <h3>Auto Testlar — Anti-Cheat Monorepo</h3>
-                        <a href="https://github.com/xayrullonematov" class="project-link-icon">🎯</a>
+                <div class="deployment-node">
+                    <div class="node-header">
+                        <div class="node-title">Auto Testlar Architecture</div>
+                        <span class="sys-green">SECURED</span>
                     </div>
-                    <p class="project-description">
-                        A production-grade driver testing baseline leveraging Next.js 14 App Router and a high-performance backend. Built with 
-                        strict structural parameters including an idempotent test attempt processing engine, robust session-ttl verification, 
-                        and automated anti-cheat tracking loops.
+                    <p>
+                        Production baseline engineered for automated driver testing optimization. Implements full anti-cheat state tracking, 
+                        idempotent submission scoring, and decoupled schema management via isolated migration cycles.
                     </p>
-                    <div class="project-tags">
+                    <div class="node-tags">
                         <span class="tag">Next.js 14</span>
-                        <span class="tag">FastAPI</span>
                         <span class="tag">SQLAlchemy</span>
-                        <span class="tag">Alembic</span>
+                        <span class="tag">Alembic Engine</span>
+                        <span class="tag">PostgreSQL</span>
                     </div>
-                    <div class="project-metrics">
-                        <div class="metric">
-                            <span class="metric-value">5,000+</span>
-                            <span class="metric-label">Question Bank</span>
-                        </div>
-                        <div class="metric">
-                            <span class="metric-value">Idempotent</span>
-                            <span class="metric-label">Submit Flow</span>
-                        </div>
+                </div>
+
+            </div>
+
+            <div class="manifesto-footer">
+                <p>Architected & Evaluated by Xayrillo Ne'matov</p>
+                <p>Samarkand, UZ // Absolute Zero Telemetry Guaranteed</p>
+            </div>
+        </div>
+
+        <!-- RIGHT WORKSPACE: LIVE INTERACTIVE TERMINAL PANE -->
+        <div class="pane pane-terminal">
+            <div class="strip-header">
+                <div>console_session_0.tty</div>
+                <div class="active">interactive_mode</div>
+            </div>
+            
+            <div class="terminal-container" id="terminal-clickbox">
+                <canvas id="matrix-canvas"></canvas>
+                
+                <div class="terminal-scrollback" id="scrollback">
+                    <div class="tty-line sys-cyan">============================================================</div>
+                    <div class="tty-line sys-cyan">   NE'MATOV CORE OPERATIONAL CONSOLE // ARCHITECTURE PROMPT</div>
+                    <div class="tty-line sys-cyan">============================================================</div>
+                    <div class="tty-line sys-amber">Status: SECURE LOCAL SESSION DETECTED</div>
+                    <div class="tty-line">Type <span class="sys-cyan">"help"</span> to pull an index of available execution parameters.</div>
+                    <div class="tty-line">&nbsp;</div>
+                    
+                    <!-- Dynamic line injections target -->
+                    <div id="tty-history"></div>
+
+                    <!-- Active Input Interface -->
+                    <div class="tty-input-line">
+                        <span class="tty-prompt">guest@nematov_core:~$</span>
+                        <input type="text" id="tty-stdin" class="tty-input" autofocus autocomplete="off" spellcheck="false">
                     </div>
                 </div>
             </div>
         </div>
-    </section>
 
-    <!-- Achievements Section -->
-    <section id="achievements">
-        <h2>Declassified Milestones</h2>
-        <div class="achievements-grid">
-            <div class="achievement-card">
-                <div class="achievement-title">Gemma 4 Good Hackathon</div>
-                <div class="achievement-subtitle">Google Machine Learning Competition</div>
-                <div class="achievement-detail">Custom Fine-Tuned 8B DevOps Model Aggregate</div>
-                <div class="achievement-date">3,701 Trained Datasets</div>
-            </div>
+    </div>
 
-            <div class="achievement-card">
-                <div class="achievement-title">IELTS Academic Standard</div>
-                <div class="achievement-subtitle">Cambridge Language Evaluation</div>
-                <div class="achievement-detail">Band Score: 7.5 (Listening: 8.5, Reading: 7.5)</div>
-                <div class="achievement-date">Verified Competency</div>
-            </div>
+    <!-- ── INTERACTIVE PARSER & ANIMATION ENGINE ── -->
+    <script>
+        const stdin = document.getElementById('tty-stdin');
+        const history = document.getElementById('tty-history');
+        const scrollback = document.getElementById('scrollback');
+        const clickbox = document.getElementById('terminal-clickbox');
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
 
-            <div class="achievement-card">
-                <div class="achievement-title">IBRAT MARAFON Arena</div>
-                <div class="achievement-subtitle">Critical Thinking & Analysis</div>
-                <div class="achievement-detail">Top 50 Selected out of 20,000+ Competitors</div>
-                <div class="achievement-date">Top 0.25% Baseline</div>
-            </div>
+        let matrixInterval = null;
 
-            <div class="achievement-card">
-                <div class="achievement-title">Advanced Alternative Ecosystems</div>
-                <div class="achievement-subtitle">Binary Asset Engineering</div>
-                <div class="achievement-detail">Androguard Binary Manifest Parsers & Telegram CDN Storage Architectures</div>
-                <div class="achievement-date">Optimized file_id Caching</div>
-            </div>
-        </div>
-    </section>
+        // Force input focus on terminal pane click
+        clickbox.addEventListener('click', () => stdin.focus());
 
-    <!-- Contact Section -->
-    <section id="contact">
-        <h2>Secure Connection Request</h2>
-        <div class="contact-content">
-            <p>
-                Actively seeking highly specialized higher education placements or collaborative challenges in structural computer science 
-                and low-level secure software paradigms. Initiate connection via validated endpoints below.
-            </p>
-            <a href="https://t.me/mr_khayrulloh" class="btn btn-primary">Initialize Link Request</a>
-            
-            <div class="contact-links">
-                <a href="https://github.com/xayrullonematov" class="contact-link" target="_blank">
-                    <div class="contact-icon">💻</div>
-                    <div class="contact-label">GitHub</div>
-                </a>
-                <a href="mailto:mr.khayrulloh@gmail.com" class="contact-link">
-                    <div class="contact-icon">📧</div>
-                    <div class="contact-label">Secure Mail</div>
-                </a>
-                <a href="https://drive.google.com/file/d/14vTyjkhZXlrCojBOD3gBcjUYvYyTHL3u/view?usp=drivesdk" class="contact-link" target="_blank">
-                    <div class="contact-icon">📄</div>
-                    <div class="contact-label">Manifesto / CV</div>
-                </a>
-            </div>
-        </div>
-    </section>
+        // Command registry processing pipeline
+        stdin.addEventListener('keydown', async (e) => {
+            if (e.key === 'Enter') {
+                const commandRaw = stdin.value;
+                const command = commandRaw.trim().toLowerCase();
+                stdin.value = '';
 
-    <footer>
-        <p>Architected & Programmed by Xayrillo Ne'matov</p>
-        <p>© 2026 // Samarkand, Uzbekistan // Zero Telemetry Active</p>
-    </footer>
+                // Echo the input command back to the screen
+                appendLine(`guest@nematov_core:~$ ${commandRaw}`, 'tty-input-line');
+
+                if (command.length > 0) {
+                    await parseAndExecute(command);
+                }
+                
+                // Keep viewport locked to bottom execution bounds
+                scrollback.scrollTop = scrollback.scrollHeight;
+            }
+        });
+
+        function appendLine(text, className = 'tty-line') {
+            const line = document.createElement('div');
+            line.className = className;
+            line.innerHTML = text;
+            history.appendChild(line);
+        }
+
+        async function parseAndExecute(cmd) {
+            const parts = cmd.split(' ');
+            const baseCmd = parts[0];
+
+            switch(baseCmd) {
+                case 'help':
+                    appendLine(`Available subroutines inside this terminal aggregate:`);
+                    appendLine(`  <span class="sys-cyan">help</span>      - Outputs active command catalog.`);
+                    appendLine(`  <span class="sys-cyan">sysinfo</span>   - Evaluates static core metrics and engine parameters.`);
+                    appendLine(`  <span class="sys-cyan">ls -la</span>    - Scans localized file directories.`);
+                    appendLine(`  <span class="sys-cyan">cat [log]</span> - Streams specific deployment profiles (e.g., <span class="sys-amber">cat hamma.log</span>).`);
+                    appendLine(`  <span class="sys-cyan">matrix</span>    - Toggles raw memory loopback canvas digital rain background shader.`);
+                    appendLine(`  <span class="sys-cyan">clear</span>     - Purges active scrollback memory pipeline.`);
+                    break;
+
+                case 'sysinfo':
+                    appendLine(`[EVALUATING SYSTEM INTEGRITY...]`);
+                    appendLine(`  • Identity: Xayrillo Ne'matov`);
+                    appendLine(`  • Location: Samarkand, Uzbekistan [40.6563° N, 71.2464° E]`);
+                    appendLine(`  • Operational Stack: Async Python, Native C++ Interop, Dart/Flutter Engine, TS`);
+                    appendLine(`  • Linguistic Matrix: IELTS Academic 7.5 [Verified Competency]`);
+                    appendLine(`  • Target Destination: Mathematics specialization // University of Debrecen`);
+                    break;
+
+                case 'ls':
+                    if (parts[1] === '-la') {
+                        appendLine(`drwxr-xr-x  2 root root  4096 Jun 2026 .`);
+                        appendLine(`drwxr-xr-x  2 root root  4096 Jun 2026 ..`);
+                        appendLine(`-rw-r--r--  1 root root  5340 Jun 2026 hamma.log`);
+                        appendLine(`-rw-r--r--  1 root root  2048 Jun 2026 bunker_x.conf`);
+                        appendLine(`-rw-r--r--  1 root root  1420 Jun 2026 autotestlar.ini`);
+                    } else {
+                        appendLine(`hamma.log   bunker_x.conf   autotestlar.ini (Try "ls -la" for raw allocation blocks)`);
+                    }
+                    break;
+
+                case 'cat':
+                    const targetFile = parts[1];
+                    if (!targetFile) {
+                        appendLine(`ERR_PARAMETER_NULL: Specify target vector asset. Usage: cat [filename]`, 'sys-red');
+                    } else if (targetFile === 'hamma.log') {
+                        appendLine(`[STREAMING: hamma.log]`);
+                        appendLine(`  -> SECURE_VAULT_INIT: Derived encryption key via Argon2id.`);
+                        appendLine(`  -> LOOPBACK_GUARD: Binding local server socket strictly to 127.0.0.1.`);
+                        appendLine(`  -> INTEROP: Initializing Dart Foreign Function Interface interop sequence.`);
+                        appendLine(`  -> STATUS: On-device ML Copilot active. 0 leakage metrics registered.`);
+                    } else if (targetFile === 'bunker_x.conf') {
+                        appendLine(`[STREAMING: bunker_x.conf]`);
+                        appendLine(`  -> ENGINE_DRIVER: Asyncio event architecture compiled.`);
+                        appendLine(`  -> PUBSUB_SYNC: Redis broker listening on port 6379.`);
+                        appendLine(`  -> LOCK_GATING: Transactional idempotency blocks verified.`);
+                    } else if (targetFile === 'autotestlar.ini') {
+                        appendLine(`[STREAMING: autotestlar.ini]`);
+                        appendLine(`  -> APP_ROUTER: Next.js 14 production client verified.`);
+                        appendLine(`  -> DB_POOL: PostgreSQL connection pooling instantiated.`);
+                        appendLine(`  -> MIGRATIONS: Alembic linear schema engine synchronized.`);
+                    } else {
+                        appendLine(`ERR_NOT_FOUND: Resource pointer "${targetFile}" invalid.`, 'sys-red');
+                    }
+                    break;
+
+                case 'clear':
+                    history.innerHTML = '';
+                    break;
+
+                case 'matrix':
+                    toggleMatrixShader();
+                    break;
+
+                default:
+                    appendLine(`COMMAND_NOT_RECOGNIZED: "${baseCmd}". Type <span class="sys-cyan">"help"</span> for directive paths.`, 'sys-red');
+            }
+        }
+
+        // ── RAW CANVAS LOOPBACK MATRIX SHADER ──
+        function toggleMatrixShader() {
+            if (matrixInterval) {
+                clearInterval(matrixInterval);
+                matrixInterval = null;
+                canvas.style.opacity = 0;
+                appendLine(`Matrix canvas background pipeline: <span class="sys-red">DISABLED</span>`);
+                return;
+            }
+
+            appendLine(`Matrix canvas background pipeline: <span class="sys-green">ENABLED</span>`);
+            canvas.style.opacity = 0.08; // Ultra-subtle background accent tracking
+
+            // Handle dynamic window container size tracking
+            const resize = () => {
+                canvas.width = clickbox.clientWidth;
+                canvas.height = clickbox.clientHeight;
+            };
+            resize();
+            window.addEventListener('resize', resize);
+
+            const columns = Math.floor(canvas.width / 14) + 1;
+            const yPositions = Array(columns).fill(0);
+
+            function step() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                ctx.fillStyle = '#00E87A';
+                ctx.font = '10px monospace';
+
+                yPositions.forEach((y, index) => {
+                    const text = String.fromCharCode(Math.floor(Math.random() * 96) + 33);
+                    const x = index * 14;
+                    ctx.fillText(text, x, y);
+
+                    if (y > canvas.height && Math.random() > 0.975) {
+                        yPositions[index] = 0;
+                    } else {
+                        yPositions[index] = y + 10;
+                    }
+                });
+            }
+            matrixInterval = setInterval(step, 33);
+        }
+    </script>
 </body>
 </html>
