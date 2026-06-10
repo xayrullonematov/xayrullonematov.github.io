@@ -2,230 +2,312 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xayrillo Ne'matov - Cybersecurity Enthusiast</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Xayrillo Ne'matov // Systems & Backend Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* ── GEOMETRIC BRUTALIST DESIGN TOKENS ── */
+        :root {
+            --bg: #000000;
+            --bg-surface: #0A0A0A;
+            --bg-card: #111111;
+            --border: #222222;
+            --border-strong: #444444;
+            --accent-cyan: #4ECDC4;
+            --accent-amber: #FFB800;
+            --accent-red: #FF0000;
+            --accent-green: #00E87A;
+            --text-primary: #FFFFFF;
+            --text-muted: #888888;
+            --text-faint: #767676;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+        }
+
+        /* ── RESET & GLOBAL GATES ── */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            border-radius: 0 !important; /* Non-negotiable: zero rounded corners */
+            box-shadow: none !important;  /* Non-negotiable: zero drop shadows */
         }
 
-        :root {
-            --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --text: #1f2937;
-            --text-light: #6b7280;
-            --bg: #ffffff;
-            --bg-secondary: #f9fafb;
-            --border: #e5e7eb;
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            font-family: var(--font-sans);
+            background-color: var(--bg);
+            color: var(--text-primary);
             line-height: 1.6;
-            color: var(--text);
-            background: var(--bg);
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Navigation */
+        /* Tactical Scanline Overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg, transparent, transparent 2px,
+                rgba(255, 255, 255, 0.015) 2px, rgba(255, 255, 255, 0.015) 3px
+            );
+            pointer-events: none;
+            z-index: 9999;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+            line-height: 1.1;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            border: 1px solid var(--border-strong);
+            background: var(--bg-surface);
+            padding: 0.5rem 1rem;
+            margin-bottom: 2.5rem;
+            display: inline-block;
+        }
+
+        /* Layout Framework */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: var(--bg);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
-            padding: 1rem 2rem;
+            height: 56px;
         }
 
         nav .container {
-            max-width: 1200px;
+            max-width: 1300px;
+            height: 100%;
             margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         nav .logo {
-            font-size: 1.25rem;
+            font-family: var(--font-mono);
+            font-size: 1rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--accent-cyan);
+            letter-spacing: 0.2em;
         }
 
         nav ul {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            height: 100%;
+        }
+
+        nav ul li {
+            height: 100%;
         }
 
         nav a {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 0 1.5rem;
             text-decoration: none;
-            color: var(--text);
-            font-weight: 500;
-            transition: color 0.3s;
+            color: var(--text-muted);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-left: 1px solid var(--border);
+            transition: all 0.2s;
+        }
+
+        nav ul li:last-child a {
+            border-right: 1px solid var(--border);
         }
 
         nav a:hover {
-            color: var(--primary);
+            color: var(--text-primary);
+            background: var(--bg-surface);
         }
 
-        /* Sections */
         section {
-            padding: 5rem 2rem;
-            max-width: 1200px;
+            padding: 6rem 2rem;
+            max-width: 1300px;
             margin: 0 auto;
+            border-bottom: 1px solid var(--border);
         }
 
         section:first-of-type {
-            margin-top: 60px;
-        }
-
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--text);
-        }
-
-        h2 {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: var(--text);
-            border-bottom: 3px solid var(--primary);
-            display: inline-block;
-            padding-bottom: 0.5rem;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--text);
+            margin-top: 56px;
         }
 
         /* Hero Section */
         #hero {
-            min-height: 80vh;
+            min-height: 85vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            text-align: left;
         }
 
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: var(--primary);
+        .hero-eyebrow {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--accent-amber);
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
             margin-bottom: 1rem;
         }
 
+        .hero-title-sub {
+            font-size: clamp(1.25rem, 4vw, 2rem);
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
         .hero-description {
-            font-size: 1.125rem;
-            color: var(--text-light);
-            max-width: 600px;
-            margin-bottom: 2rem;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 650px;
+            margin-bottom: 3rem;
+            line-height: 1.7;
         }
 
         .hero-links {
             display: flex;
             gap: 1rem;
-            margin-bottom: 2rem;
         }
 
+        /* Operational Buttons */
         .btn {
-            padding: 0.75rem 1.5rem;
-            border-radius: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 1rem 2rem;
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: inline-block;
+            font-weight: 700;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .btn-primary {
-            background: var(--primary);
-            color: white;
+            background: var(--text-primary);
+            color: var(--bg);
         }
 
         .btn-primary:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+            background: var(--accent-cyan);
+            color: var(--bg);
         }
 
         .btn-secondary {
-            border: 2px solid var(--primary);
-            color: var(--primary);
+            border: 1px solid var(--border-strong);
+            color: var(--text-primary);
+            background: transparent;
         }
 
         .btn-secondary:hover {
-            background: var(--primary);
-            color: white;
+            border-color: var(--text-primary);
+            background: var(--bg-surface);
         }
 
         /* About Section */
         #about {
-            background: var(--bg-secondary);
+            background: var(--bg-surface);
         }
 
         .about-content {
             display: grid;
             grid-template-columns: 2fr 1fr;
-            gap: 3rem;
-            align-items: start;
+            gap: 4rem;
         }
 
         .about-text p {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
             line-height: 1.8;
+            color: var(--text-muted);
         }
 
-        .highlight {
-            background: linear-gradient(120deg, rgba(37, 99, 235, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%);
+        .about-text strong {
+            color: var(--text-primary);
+        }
+
+        .wireframe-quote {
+            background: var(--bg);
+            border: 1px solid var(--border-strong);
+            border-left: 4px solid var(--accent-amber);
             padding: 1.5rem;
-            border-left: 4px solid var(--primary);
-            margin: 1.5rem 0;
-            font-style: italic;
+            margin: 2rem 0;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent-amber);
         }
 
-        .stats {
+        .stats-grid-container {
             display: grid;
-            gap: 1rem;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 0.5rem;
+            gap: 1px;
+            background: var(--border);
             border: 1px solid var(--border);
         }
 
+        .stat-card {
+            background: var(--bg-card);
+            padding: 1.5rem;
+        }
+
         .stat-number {
+            font-family: var(--font-mono);
             font-size: 2rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--text-primary);
         }
 
         .stat-label {
-            color: var(--text-light);
-            font-size: 0.9rem;
+            font-family: var(--font-mono);
+            color: var(--text-faint);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-top: 0.25rem;
         }
 
         /* Skills Section */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-category {
-            background: white;
-            padding: 2rem;
-            border-radius: 0.5rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1px;
+            background: var(--border);
             border: 1px solid var(--border);
         }
 
+        .skill-category {
+            background: var(--bg-card);
+            padding: 2rem;
+        }
+
         .skill-category h3 {
-            margin-bottom: 1rem;
-            color: var(--primary);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-cyan);
         }
 
         .skill-list {
@@ -233,41 +315,48 @@
         }
 
         .skill-list li {
-            padding: 0.5rem 0;
-            color: var(--text-light);
+            padding: 0.4rem 0;
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
         .skill-list li:before {
-            content: "▹ ";
-            color: var(--primary);
-            font-weight: bold;
+            content: "$ ";
+            color: var(--border-strong);
+            font-family: var(--font-mono);
         }
 
         /* Projects Section */
         #projects {
-            background: var(--bg-secondary);
+            background: var(--bg-surface);
         }
 
         .projects-grid {
-            display: grid;
+            display: flex;
+            flex-direction: column;
             gap: 2rem;
         }
 
         .project-card {
-            background: white;
-            border-radius: 0.5rem;
-            overflow: hidden;
+            background: var(--bg-card);
             border: 1px solid var(--border);
-            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
         }
 
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--border-strong);
+        }
+
+        .project-card:hover::before {
+            background: var(--accent-cyan);
         }
 
         .project-content {
-            padding: 2rem;
+            padding: 2.5rem;
         }
 
         .project-header {
@@ -277,42 +366,51 @@
             margin-bottom: 1rem;
         }
 
-        .project-links {
-            display: flex;
-            gap: 0.5rem;
+        .project-title {
+            font-size: 1.35rem;
+            color: var(--text-primary);
         }
 
-        .project-links a {
-            color: var(--primary);
+        .project-link-icon {
+            color: var(--text-muted);
             text-decoration: none;
-            font-size: 1.25rem;
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            transition: color 0.2s;
+        }
+
+        .project-link-icon:hover {
+            color: var(--text-primary);
         }
 
         .project-description {
-            color: var(--text-light);
-            margin-bottom: 1rem;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
         }
 
         .project-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-top: 1rem;
+            margin-bottom: 1.5rem;
         }
 
         .tag {
-            background: var(--bg-secondary);
-            padding: 0.25rem 0.75rem;
-            border-radius: 1rem;
-            font-size: 0.875rem;
-            color: var(--primary);
+            background: var(--bg-surface);
+            border: 1px solid var(--border);
+            padding: 0.2rem 0.6rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--accent-amber);
         }
 
         .project-metrics {
-            display: flex;
-            gap: 2rem;
-            margin-top: 1rem;
-            padding-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            padding-top: 1.5rem;
             border-top: 1px solid var(--border);
         }
 
@@ -322,120 +420,163 @@
         }
 
         .metric-value {
-            font-size: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 1.35rem;
             font-weight: 700;
-            color: var(--primary);
+            color: var(--text-primary);
         }
 
         .metric-label {
-            font-size: 0.875rem;
-            color: var(--text-light);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.15rem;
         }
 
         /* Achievements Section */
         .achievements-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
         }
 
         .achievement-card {
-            background: white;
+            background: var(--bg-card);
             padding: 2rem;
-            border-radius: 0.5rem;
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--primary);
+            border-left: 3px solid var(--border-strong);
+            transition: border-left-color 0.2s;
+        }
+
+        .achievement-card:hover {
+            border-left-color: var(--accent-cyan);
         }
 
         .achievement-title {
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
         }
 
         .achievement-subtitle {
-            color: var(--text-light);
-            margin-bottom: 0.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-faint);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
         }
 
         .achievement-detail {
-            color: var(--primary);
-            font-weight: 600;
+            font-family: var(--font-mono);
+            color: var(--accent-cyan);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .achievement-date {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-ghost);
+            margin-top: 0.5rem;
         }
 
         /* Contact Section */
         #contact {
-            background: var(--bg-secondary);
+            background: var(--bg-surface);
             text-align: center;
         }
 
         .contact-content {
-            max-width: 600px;
+            max-width: 650px;
             margin: 0 auto;
         }
 
+        .contact-content p {
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+        }
+
         .contact-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
+            border: 1px solid var(--border);
         }
 
         .contact-link {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: var(--bg-card);
+            padding: 2rem 1rem;
             text-decoration: none;
-            color: var(--text);
-            transition: color 0.3s;
+            color: var(--text-muted);
+            transition: all 0.2s;
         }
 
         .contact-link:hover {
-            color: var(--primary);
+            background: var(--bg);
+            color: var(--text-primary);
         }
 
         .contact-icon {
-            font-size: 2rem;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
+        }
+
+        .contact-label {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
         }
 
         /* Footer */
         footer {
-            background: var(--text);
-            color: white;
+            background: var(--bg);
+            border-top: 1px solid var(--border);
+            color: var(--text-faint);
             text-align: center;
-            padding: 2rem;
+            padding: 2.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            letter-spacing: 0.05em;
+        }
+
+        footer p + p {
+            margin-top: 0.5rem;
+            color: var(--text-ghost);
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             nav ul {
-                gap: 1rem;
+                display: none; /* Desktop navigation hidden on mobile terminal layouts */
             }
 
-            h1 {
-                font-size: 2rem;
-            }
-
-            h2 {
-                font-size: 1.5rem;
+            section {
+                padding: 4rem 1.25rem;
             }
 
             .about-content {
                 grid-template-columns: 1fr;
-            }
-
-            section {
-                padding: 3rem 1rem;
+                gap: 2.5rem;
             }
 
             .hero-links {
                 flex-direction: column;
+                gap: 0.75rem;
             }
-        }
 
-        /* Smooth scroll */
-        html {
-            scroll-behavior: smooth;
+            .project-content {
+                padding: 1.5rem;
+            }
+
+            .contact-links {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -443,7 +584,7 @@
     <!-- Navigation -->
     <nav>
         <div class="container">
-            <div class="logo">VIPStone </div>
+            <div class="logo">NE'MATOV // OPERATIVE</div>
             <ul>
                 <li><a href="#about">About</a></li>
                 <li><a href="#skills">Skills</a></li>
@@ -456,65 +597,61 @@
 
     <!-- Hero Section -->
     <section id="hero">
-        <div class="hero-subtitle">Hi, my name is</div>
+        <div class="hero-eyebrow">Initialize Core Infrastructure...</div>
         <h1>Xayrillo Ne'matov</h1>
-        <div class="hero-subtitle">Cybersecurity Enthusiast & Developer</div>
+        <div class="hero-title-sub">Systems & Asynchronous Backend Engineer</div>
         <p class="hero-description">
-            High school student from Uzbekistan passionate about cybersecurity, building tools to solve real problems, 
-            and learning how to protect digital systems. Currently exploring defensive security and reverse engineering.
+            Software developer from Uzbekistan specializing in cross-platform systems, local-first zero-trust data safety, 
+            and decoupled asynchronous architectures. Currently bridging low-level compilation cycles with applied mathematics.
         </p>
         <div class="hero-links">
-            <a href="#projects" class="btn btn-primary">View My Work</a>
-            <a href="https://t.me/mr_khayrulloh" class="btn btn-secondary">Get in Touch</a>
+            <a href="#projects" class="btn btn-primary">Declassify Portfolio</a>
+            <a href="https://t.me/mr_khayrulloh" class="btn btn-secondary">Establish Link</a>
         </div>
     </section>
 
     <!-- About Section -->
     <section id="about">
-        <h2>About Me</h2>
+        <h2>System Profile</h2>
         <div class="about-content">
             <div class="about-text">
                 <p>
-                    My journey into cybersecurity began with a $500 lesson I'll never forget. At 15, I fell victim to an 
-                    online scam that taught me more about digital security than any tutorial could. Instead of just moving 
-                    on, I became obsessed with understanding how it happened and how to prevent it.
+                    My obsession with security boundaries originated from a clear vector of failure. At 15, falling victim to a 
+                    highly optimized online scam provided an intense, practical baseline in digital exploit mechanics. Rather than absorption 
+                    of the loss, I became driven to map out the low-level systems execution underneath.
                 </p>
                 
-                <div class="highlight">
-                    "After watching the Snowden documentary and discovering Darknet Diaries, I realized cybersecurity 
-                    isn't just about protecting money—it's about protecting privacy, freedom, and building a safer digital world."
+                <div class="wireframe-quote">
+                    SYSTEM_LOG: "Analyzing the architecture of localized systems and network bridges revealed that defensive technology 
+                    is fundamentally a constraint of mathematical parameters and data ownership."
                 </div>
                 
                 <p>
-                    I taught myself Python, built my first real project—a Telegram movie bot serving 800+ users—and 
-                    discovered a passion for defensive security. I've failed many times (my first web scraping attempts 
-                    were disasters), but each failure taught me to think more systematically about security.
+                    I established a deep command over asynchronous runtime environments, designing modular backend pipelines and local-first cross-platform clients. 
+                    I write software explicitly engineered to operate reliably in heavily constrained, air-gapped, or emergency environments, eliminating cloud-telemetry dependency entirely.
                 </p>
                 
                 <p>
-                    What drives me now is seeing the massive cybersecurity gap in Uzbekistan and Central Asia. Small 
-                    businesses have no protection, government systems lag behind modern threats, and young people share 
-                    everything online without understanding the risks. I want to help fill this gap, but I need the right 
-                    education to do it effectively.
+                    With Central Asia facing critical optimization and local software security deficits, my structural methodology leverages hands-on low-level native compilation—bypassing raw framework abstraction to guarantee data safety at the edge execution layers.
                 </p>
             </div>
             
-            <div class="stats">
+            <div class="stats-grid-container">
+                <div class="stat-card">
+                    <div class="stat-number">3,701</div>
+                    <div class="stat-label">ML Tuned Datasets</div>
+                </div>
                 <div class="stat-card">
                     <div class="stat-number">7.5</div>
-                    <div class="stat-label">IELTS Score</div>
+                    <div class="stat-label">IELTS Academic</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">4.3/5.0</div>
-                    <div class="stat-label">GPA</div>
+                    <div class="stat-number">4.3 / 5.0</div>
+                    <div class="stat-label">GPA Baseline</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">Top 0.25%</div>
-                    <div class="stat-label">IBRAT MARAFON</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">800+</div>
-                    <div class="stat-label">Bot Users</div>
+                    <div class="stat-number">100k+</div>
+                    <div class="stat-label">Concurrent Requests</div>
                 </div>
             </div>
         </div>
@@ -522,48 +659,49 @@
 
     <!-- Skills Section -->
     <section id="skills">
-        <h2>Technical Skills</h2>
+        <h2>Technical Matrix</h2>
         <div class="skills-grid">
             <div class="skill-category">
-                <h3>Programming</h3>
+                <h3>Core Languages</h3>
                 <ul class="skill-list">
-                    <li>Python (Advanced)</li>
-                    <li>JavaScript (Intermediate)</li>
-                    <li>SQL (Familiar)</li>
-                    <li>HTML/CSS(Familiar)</li>
-                    <li>Git & GitHub</li>
+                    <li>Python (Asyncio/FastAPI)</li>
+                    <li>C++ (Native Interop/FFI)</li>
+                    <li>Dart & Flutter Engine</li>
+                    <li>TypeScript (Next.js/React)</li>
+                    <li>SQL & Advanced Schema Design</li>
                 </ul>
             </div>
             
             <div class="skill-category">
-                <h3>Cybersecurity</h3>
+                <h3>Systems & Caching</h3>
                 <ul class="skill-list">
-                    <li>Penetration Testing</li>
-                    <li>Vulnerability Analysis</li>
-                    <li>CTF Challenges</li>
-                    <li>Network Security</li>
-                    <li>Encryption Concepts</li>
+                    <li>Redis (Pub/Sub & Distributed Locks)</li>
+                    <li>PostgreSQL (Asyncpg/Pooling)</li>
+                    <li>MongoDB (Motor Async Drive)</li>
+                    <li>Debian Linux & i3wm Environment</li>
+                    <li>Nginx Proxy Architectures</li>
                 </ul>
             </div>
             
             <div class="skill-category">
-                <h3>Tools & Platforms</h3>
+                <h3>Applied Cryptography</h3>
                 <ul class="skill-list">
-                    <li>Kali Linux</li>
-                    <li>TryHackMe</li>
-                    <li>VS Code</li>
-                    <li>VirtualBox/VMware</li>
+                    <li>Argon2id Key Derivation</li>
+                    <li>AES-256-GCM Vault Hardening</li>
+                    <li>Local Loopback Enforcements</li>
+                    <li>Zero-Trust Client Pipelines</li>
+                    <li>Token-Based CSRF Mitigations</li>
                 </ul>
             </div>
             
             <div class="skill-category">
-                <h3>Soft Skills</h3>
+                <h3>DevOps & Operations</h3>
                 <ul class="skill-list">
-                    <li>Problem Solving</li>
-                    <li>Self-Directed Learning</li>
-                    <li>Teaching/Mentoring</li>
-                    <li>Communication</li>
-                    <li>Persistence</li>
+                    <li>Multi-Stage Docker Monorepos</li>
+                    <li>GitHub Actions CI Platforms</li>
+                    <li>Native Client Distribution</li>
+                    <li>Binary Metadata Parsing</li>
+                    <li>Fuzzy String Search Topologies</li>
                 </ul>
             </div>
         </div>
@@ -571,104 +709,101 @@
 
     <!-- Projects Section -->
     <section id="projects">
-        <h2>Featured Projects</h2>
+        <h2>Declassified Deployments</h2>
         <div class="projects-grid">
+            
+            <!-- HAMMA -->
             <div class="project-card">
                 <div class="project-content">
                     <div class="project-header">
-                        <h3>Telegram Movie Search Bot</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/xayrullonematov" title="View on GitHub">⚡</a>
-                        </div>
+                        <h3 class="project-title">HAMMA — Zero-Trust Local AI SSH Client</h3>
+                        <a href="https://github.com/xayrullonematov" class="project-link-icon">⚡</a>
                     </div>
                     <p class="project-description">
-                        An advanced movie discovery platform that integrates TMDB API to provide real-time movie data. 
-                        Features inline search, genre categorization, year-based filtering, and custom recommendations. 
-                        Taught myself API integration and deployed a production-ready bot serving hundreds of daily users.
+                        A privacy-centric, local-first cross-platform terminal and SFTP dashboard. Bypasses standard third-party proxy loops 
+                        by driving client connections straight from the device using custom low-level interop layers. Integrates an entirely 
+                        offline, on-device AI copilot running a custom fine-tuned 8B model hard-locked to loopback sockets to guarantee zero telemetry leakage.
                     </p>
                     <div class="project-tags">
-                        <span class="tag">Python</span>
-                        <span class="tag">Telegram Bot API</span>
-                        <span class="tag">TMDB API</span>
-                        <span class="tag">REST APIs</span>
+                        <span class="tag">Flutter Engine</span>
+                        <span class="tag">Dart FFI</span>
+                        <span class="tag">C++ Interop</span>
+                        <span class="tag">Argon2id / AES-256-GCM</span>
                     </div>
                     <div class="project-metrics">
                         <div class="metric">
-                            <span class="metric-value">800+</span>
-                            <span class="metric-label">Active Users</span>
+                            <span class="metric-value">1,400+</span>
+                            <span class="metric-label">Model Downloads</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-value">1,200+</span>
-                            <span class="metric-label">Daily Queries</span>
+                            <span class="metric-value">127.0.0.1</span>
+                            <span class="metric-label">Network Lock</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-value">96%</span>
-                            <span class="metric-label">Uptime</span>
+                            <span class="metric-value">0 Bytes</span>
+                            <span class="metric-label">Cloud Leakage</span>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- BUNKER X -->
             <div class="project-card">
                 <div class="project-content">
                     <div class="project-header">
-                        <h3>Cybersecurity Learning Journey</h3>
-                        <div class="project-links">
-                            <a href="https://github.com/xayrullonematov" title="View Progress">🔒</a>
-                        </div>
+                        <h3 class="project-title">Bunker X — Real-Time Async State Engine</h3>
+                        <a href="https://github.com/xayrullonematov" class="project-link-icon">🔒</a>
                     </div>
                     <p class="project-description">
-                        Self-directed cybersecurity education through hands-on practice. Completed 25+ labs on TryHackMe, 
-                        studying common vulnerabilities (SQL injection, XSS, CSRF), practicing with CTF challenges, and 
-                        researching defensive security strategies. Currently pursuing Google Cybersecurity Certificate.
+                        A real-time, asynchronous game orchestration engine and Telegram Mini App. Features complex resource decay algorithms, 
+                        dynamic transaction locks, and live event syncing across distinct runtimes. Scaled around non-blocking event drivers 
+                        and transactional state definitions to completely eradicate concurrent synchronization bugs.
                     </p>
                     <div class="project-tags">
-                        <span class="tag">Kali Linux</span>
-                        <span class="tag">CTF</span>
-                        <span class="tag">Penetration Testing</span>
-                        <span class="tag">OWASP Top 10</span>
+                        <span class="tag">Python Asyncio</span>
+                        <span class="tag">Redis Pub/Sub</span>
+                        <span class="tag">FastAPI BFF</span>
+                        <span class="tag">Vite / TS WebApp</span>
                     </div>
                     <div class="project-metrics">
                         <div class="metric">
-                            <span class="metric-value">25+</span>
-                            <span class="metric-label">Labs Completed</span>
+                            <span class="metric-value">&lt; 1.5s</span>
+                            <span class="metric-label">Throttling Gate</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-value">2</span>
-                            <span class="metric-label">Certifications</span>
+                            <span class="metric-value">100%</span>
+                            <span class="metric-label">Non-Blocking I/O</span>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- AUTO TESTLAR -->
             <div class="project-card">
                 <div class="project-content">
                     <div class="project-header">
-                        <h3>English Speaking Club</h3>
-                        <div class="project-links">
-                            <a href="#" title="Community Project">👥</a>
-                        </div>
+                        <h3>Auto Testlar — Anti-Cheat Monorepo</h3>
+                        <a href="https://github.com/xayrullonematov" class="project-link-icon">🎯</a>
                     </div>
                     <p class="project-description">
-                        Founded and lead weekly English conversation club for 30+ students. Designed interactive activities, 
-                        technical presentation workshops, and debate sessions. Helped 15+ classmates prepare for IELTS exams 
-                        with average score improvement of 1.0 band. Demonstrates leadership and communication skills essential 
-                        for collaborative cybersecurity work.
+                        A production-grade driver testing baseline leveraging Next.js 14 App Router and a high-performance backend. Built with 
+                        strict structural parameters including an idempotent test attempt processing engine, robust session-ttl verification, 
+                        and automated anti-cheat tracking loops.
                     </p>
                     <div class="project-tags">
-                        <span class="tag">Leadership</span>
-                        <span class="tag">Teaching</span>
-                        <span class="tag">Communication</span>
-                        <span class="tag">Mentoring</span>
+                        <span class="tag">Next.js 14</span>
+                        <span class="tag">FastAPI</span>
+                        <span class="tag">SQLAlchemy</span>
+                        <span class="tag">Alembic</span>
                     </div>
                     <div class="project-metrics">
                         <div class="metric">
-                            <span class="metric-value">30+</span>
-                            <span class="metric-label">Students</span>
+                            <span class="metric-value">5,000+</span>
+                            <span class="metric-label">Question Bank</span>
                         </div>
                         <div class="metric">
-                            <span class="metric-value">+1.0</span>
-                            <span class="metric-label">Avg. IELTS Improvement</span>
+                            <span class="metric-value">Idempotent</span>
+                            <span class="metric-label">Submit Flow</span>
                         </div>
                     </div>
                 </div>
@@ -678,121 +813,68 @@
 
     <!-- Achievements Section -->
     <section id="achievements">
-        <h2>Achievements & Recognition</h2>
+        <h2>Declassified Milestones</h2>
         <div class="achievements-grid">
             <div class="achievement-card">
-                <div class="achievement-title">IELTS Academic</div>
-                <div class="achievement-subtitle">International English Language Testing System</div>
-                <div class="achievement-detail">Band Score: 7.5 (L: 8.5, R: 7.5, W: 6.5, S: 7.0)</div>
-                <p style="margin-top: 0.5rem; color: var(--text-light);">2024</p>
+                <div class="achievement-title">Gemma 4 Good Hackathon</div>
+                <div class="achievement-subtitle">Google Machine Learning Competition</div>
+                <div class="achievement-detail">Custom Fine-Tuned 8B DevOps Model Aggregate</div>
+                <div class="achievement-date">3,701 Trained Datasets</div>
             </div>
 
             <div class="achievement-card">
-                <div class="achievement-title">IBRAT MARAFON Competition</div>
-                <div class="achievement-subtitle">English Language & Critical Thinking</div>
-                <div class="achievement-detail">Top 50 out of 20,000+ participants (Top 0.25%)</div>
-                <p style="margin-top: 0.5rem; color: var(--text-light);">2023-2025</p>
+                <div class="achievement-title">IELTS Academic Standard</div>
+                <div class="achievement-subtitle">Cambridge Language Evaluation</div>
+                <div class="achievement-detail">Band Score: 7.5 (Listening: 8.5, Reading: 7.5)</div>
+                <div class="achievement-date">Verified Competency</div>
             </div>
 
             <div class="achievement-card">
-                <div class="achievement-title">Cisco Cybersecurity Certificate</div>
-                <div class="achievement-subtitle">Introduction to Cybersecurity</div>
-                <div class="achievement-detail">Completed 15-hour comprehensive course</div>
-                <p style="margin-top: 0.5rem; color: var(--text-light);">2024</p>
+                <div class="achievement-title">IBRAT MARAFON Arena</div>
+                <div class="achievement-subtitle">Critical Thinking & Analysis</div>
+                <div class="achievement-detail">Top 50 Selected out of 20,000+ Competitors</div>
+                <div class="achievement-date">Top 0.25% Baseline</div>
             </div>
 
             <div class="achievement-card">
-                <div class="achievement-title">English Olympiad</div>
-                <div class="achievement-subtitle">Regional & State Level Competition</div>
-                <div class="achievement-detail">Top scores in essay writing and grammar</div>
-                <p style="margin-top: 0.5rem; color: var(--text-light);">2024</p>
-            </div>
-
-            <div class="achievement-card">
-                <div class="achievement-title">Computer Science Excellence</div>
-                <div class="achievement-subtitle">Academic Performance</div>
-                <div class="achievement-detail">Top performer in CS I & II since 9th grade</div>
-                <p style="margin-top: 0.5rem; color: var(--text-light);">2022-Present</p>
-            </div>
-
-            <div class="achievement-card">
-                <div class="achievement-title">Google Cybersecurity Certificate</div>
-                <div class="achievement-subtitle">Professional Certificate Program</div>
-                <div class="achievement-detail">In Progress (Expected March 2025)</div>
-                <p style="margin-top: 0.5rem; color: var(--text-light);">2024-2025</p>
+                <div class="achievement-title">Advanced Alternative Ecosystems</div>
+                <div class="achievement-subtitle">Binary Asset Engineering</div>
+                <div class="achievement-detail">Androguard Binary Manifest Parsers & Telegram CDN Storage Architectures</div>
+                <div class="achievement-date">Optimized file_id Caching</div>
             </div>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact">
-        <h2>Get In Touch</h2>
+        <h2>Secure Connection Request</h2>
         <div class="contact-content">
-            <p style="margin-bottom: 2rem; color: var(--text-light);">
-                I'm currently looking for university opportunities in Computer Science and Cybersecurity. 
-                Whether you're an admissions officer, a fellow student, or just want to connect, I'd love to hear from you!
+            <p>
+                Actively seeking highly specialized higher education placements or collaborative challenges in structural computer science 
+                and low-level secure software paradigms. Initiate connection via validated endpoints below.
             </p>
-            <a href="https://t.me/mr_khayrulloh" class="btn btn-primary">Send Me an Email</a>
+            <a href="https://t.me/mr_khayrulloh" class="btn btn-primary">Initialize Link Request</a>
             
             <div class="contact-links">
                 <a href="https://github.com/xayrullonematov" class="contact-link" target="_blank">
                     <div class="contact-icon">💻</div>
-                    <div>GitHub</div>
+                    <div class="contact-label">GitHub</div>
                 </a>
                 <a href="mailto:mr.khayrulloh@gmail.com" class="contact-link">
                     <div class="contact-icon">📧</div>
-                    <div>Email</div>
+                    <div class="contact-label">Secure Mail</div>
                 </a>
-                <a href="https://drive.google.com/file/d/14vTyjkhZXlrCojBOD3gBcjUYvYyTHL3u/view?usp=drivesdk" class="contact-link">
+                <a href="https://drive.google.com/file/d/14vTyjkhZXlrCojBOD3gBcjUYvYyTHL3u/view?usp=drivesdk" class="contact-link" target="_blank">
                     <div class="contact-icon">📄</div>
-                    <div>Resume</div>
+                    <div class="contact-label">Manifesto / CV</div>
                 </a>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>Designed & Built by Xayrillo Ne'matov</p>
-        <p style="margin-top: 0.5rem; opacity: 0.7;">© 2025 | Samarkand, Uzbekistan</p>
+        <p>Architected & Programmed by Xayrillo Ne'matov</p>
+        <p>© 2026 // Samarkand, Uzbekistan // Zero Telemetry Active</p>
     </footer>
-
-    <script>
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add subtle animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe all cards and sections
-        document.querySelectorAll('.project-card, .achievement-card, .skill-category').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-    </script>
 </body>
 </html>
