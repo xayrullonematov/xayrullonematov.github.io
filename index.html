@@ -2,619 +2,667 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Xayrillo Ne'matov // Core Console</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio of Xayrillo Ne'matov, a young developer from Samarkand building local-first AI tools, Telegram products, and async backend systems.">
+    <title>Xayrillo Ne'matov — Young Developer & Builder</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        /* ── TERAFAB GLOBAL GEOMETRIC DESIGN TOKENS ── */
         :root {
-            --bg: #000000;
-            --bg-surface: #0A0A0A;
-            --bg-card: #111111;
-            --border: #222222;
-            --border-strong: #444444;
-            --accent-cyan: #4ECDC4;
-            --accent-amber: #FFB800;
-            --accent-red: #FF0000;
-            --accent-green: #00E87A;
-            --text-primary: #FFFFFF;
-            --text-muted: #888888;
-            --text-faint: #666666;
-            --font-mono: 'JetBrains Mono', monospace;
+            --bg: #07110f;
+            --bg-deep: #030706;
+            --surface: rgba(255, 255, 255, 0.07);
+            --surface-strong: rgba(255, 255, 255, 0.12);
+            --border: rgba(255, 255, 255, 0.16);
+            --text: #f3fbf7;
+            --muted: #a5b7af;
+            --soft: #d7fff1;
+            --mint: #69f0ae;
+            --cyan: #5eead4;
+            --amber: #ffd166;
+            --rose: #ff8fab;
+            --shadow: 0 24px 90px rgba(0, 0, 0, 0.38);
+            --sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            --mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
         }
 
-        /* ── CRITICAL STRUCTURE RESET ── */
         * {
-            margin: 0;
-            padding: 0;
             box-sizing: border-box;
-            border-radius: 0 !important; /* Non-negotiable: pure zero-radius */
-            box-shadow: none !important;  /* Non-negotiable: zero elevation */
         }
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: var(--bg);
-            color: var(--text-primary);
-            font-family: var(--font-mono);
-            -webkit-font-smoothing: antialiased;
+        html {
+            scroll-behavior: smooth;
         }
 
-        /* Scanline Overlay Grid */
+        body {
+            margin: 0;
+            min-height: 100vh;
+            color: var(--text);
+            font-family: var(--sans);
+            background:
+                radial-gradient(circle at 18% 12%, rgba(105, 240, 174, 0.28), transparent 32rem),
+                radial-gradient(circle at 85% 8%, rgba(94, 234, 212, 0.20), transparent 28rem),
+                linear-gradient(135deg, var(--bg-deep), var(--bg) 48%, #0f1715);
+            overflow-x: hidden;
+        }
+
         body::before {
             content: '';
             position: fixed;
             inset: 0;
-            background: repeating-linear-gradient(
-                0deg, transparent, transparent 2px,
-                rgba(255, 255, 255, 0.012) 2px, rgba(255, 255, 255, 0.012) 3px
-            );
             pointer-events: none;
-            z-index: 9999;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+            background-size: 48px 48px;
+            mask-image: linear-gradient(to bottom, rgba(0,0,0,0.75), transparent 75%);
         }
 
-        /* ── WORKSPACE SPLIT WINDOWS ── */
-        .workspace {
-            display: flex;
-            width: 100vw;
-            height: 100vh;
-            overflow: hidden;
-            background: var(--border);
-            gap: 1px; /* Stark 1px wireframe grid line */
+        a {
+            color: inherit;
+            text-decoration: none;
         }
 
-        .pane {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            background: var(--bg);
-        }
-
-        /* Left Pane: Static Operational Manifesto */
-        .pane-manifesto {
-            width: 45%;
-            padding: 3rem 2.5rem;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        .pane-manifesto::-webkit-scrollbar { display: none; }
-
-        /* Right Pane: Interactive Live Terminal Surface */
-        .pane-terminal {
-            width: 55%;
+        .page-shell {
+            width: min(1180px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 28px 0 56px;
             position: relative;
+            z-index: 1;
         }
 
-        /* ── SYSTEM TYPOGRAPHY & HEADER STRIPS ── */
-        .strip-header {
-            flex: 0 0 auto;
-            height: 32px;
-            background: var(--bg-surface);
-            border-bottom: 1px solid var(--border);
+        .nav {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 1rem;
-            font-size: 0.7rem;
-            letter-spacing: 0.15em;
-            color: var(--text-faint);
-            text-transform: uppercase;
-        }
-        .strip-header span.active {
-            color: var(--accent-cyan);
-            font-weight: 700;
+            gap: 24px;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            border-radius: 28px;
+            background: rgba(3, 7, 6, 0.62);
+            backdrop-filter: blur(18px);
+            box-shadow: var(--shadow);
         }
 
-        h1 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            line-height: 1.1;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 800;
+            letter-spacing: -0.04em;
+        }
+
+        .brand-mark {
+            display: grid;
+            place-items: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 14px;
+            color: #05231b;
+            background: linear-gradient(135deg, var(--mint), var(--cyan));
+            font-family: var(--mono);
+            font-size: 0.8rem;
+            box-shadow: 0 0 34px rgba(105, 240, 174, 0.32);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--muted);
+            font-size: 0.92rem;
+            font-weight: 600;
+        }
+
+        .nav-links a {
+            padding: 10px 14px;
+            border-radius: 999px;
+            transition: 180ms ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+            background: var(--surface);
+        }
+
+        .hero {
+            display: grid;
+            grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+            gap: 28px;
+            align-items: stretch;
+            padding: 70px 0 34px;
+        }
+
+        .hero-copy,
+        .profile-card,
+        .panel {
+            border: 1px solid var(--border);
+            background: linear-gradient(145deg, rgba(255,255,255,0.11), rgba(255,255,255,0.045));
+            backdrop-filter: blur(22px);
+            box-shadow: var(--shadow);
+        }
+
+        .hero-copy {
+            position: relative;
+            overflow: hidden;
+            border-radius: 42px;
+            padding: clamp(32px, 6vw, 64px);
+        }
+
+        .hero-copy::after {
+            content: '';
+            position: absolute;
+            right: -120px;
+            bottom: -160px;
+            width: 360px;
+            height: 360px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(105, 240, 174, 0.28), transparent 68%);
         }
 
         .eyebrow {
-            font-size: 0.75rem;
-            color: var(--accent-amber);
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-        }
-
-        h2 {
-            font-size: 1rem;
-            color: var(--bg);
-            background: var(--text-primary);
-            padding: 0.25rem 0.75rem;
-            margin: 2.5rem 0 1.5rem 0;
-            display: inline-block;
-            letter-spacing: 0.1em;
-        }
-
-        p {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.7;
-            margin-bottom: 1.25rem;
-        }
-        p strong { color: var(--text-primary); }
-
-        .wireframe-block {
-            border: 1px solid var(--border-strong);
-            background: var(--bg-surface);
-            padding: 1.25rem;
-            margin: 1.5rem 0;
-            font-size: 0.8rem;
-            line-height: 1.6;
-            color: var(--accent-amber);
-            border-left: 3px solid var(--accent-amber);
-        }
-
-        /* ── GRID BLOCKS ── */
-        .data-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1px;
-            background: var(--border);
-            border: 1px solid var(--border);
-            margin-bottom: 1.5rem;
-        }
-
-        .data-card {
-            background: var(--bg-card);
-            padding: 1.2rem;
-        }
-
-        .data-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .data-label {
-            font-size: 0.65rem;
-            color: var(--text-faint);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-top: 0.2rem;
-        }
-
-        /* Project Nodes */
-        .deployment-node {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            padding: 1.5rem;
-            margin-bottom: 1.25rem;
-            position: relative;
-        }
-        .deployment-node::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 2px;
-            background: var(--border-strong);
-        }
-        .deployment-node:hover::before {
-            background: var(--accent-cyan);
-        }
-
-        .node-header {
-            display: flex;
-            justify-content: space-between;
+            display: inline-flex;
             align-items: center;
-            margin-bottom: 0.75rem;
+            gap: 10px;
+            margin: 0 0 22px;
+            padding: 8px 12px;
+            border: 1px solid rgba(105, 240, 174, 0.32);
+            border-radius: 999px;
+            color: var(--soft);
+            background: rgba(105, 240, 174, 0.08);
+            font-family: var(--mono);
+            font-size: 0.76rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
         }
 
-        .node-title {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-primary);
+        .pulse {
+            width: 9px;
+            height: 9px;
+            border-radius: 999px;
+            background: var(--mint);
+            box-shadow: 0 0 20px var(--mint);
         }
 
-        .node-tags {
+        h1 {
+            margin: 0;
+            max-width: 760px;
+            font-size: clamp(3.2rem, 8vw, 6.9rem);
+            line-height: 0.9;
+            letter-spacing: -0.09em;
+        }
+
+        .hero-lede {
+            max-width: 690px;
+            margin: 28px 0 0;
+            color: var(--muted);
+            font-size: clamp(1rem, 2vw, 1.22rem);
+            line-height: 1.75;
+        }
+
+        .hero-actions {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem;
-            margin: 1rem 0;
+            gap: 12px;
+            margin-top: 34px;
         }
 
-        .tag {
-            background: var(--bg-surface);
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-height: 48px;
+            padding: 0 18px;
             border: 1px solid var(--border);
-            padding: 0.15rem 0.5rem;
-            font-size: 0.7rem;
-            color: var(--accent-amber);
+            border-radius: 999px;
+            font-weight: 800;
+            transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
         }
 
-        /* ── LIVE INTERACTIVE TTY SURFACE ── */
-        .terminal-container {
-            flex: 1 1 0;
-            min-height: 0;
-            position: relative;
-            background-color: #000000;
+        .button.primary {
+            color: #05231b;
+            border-color: transparent;
+            background: linear-gradient(135deg, var(--mint), var(--cyan));
+        }
+
+        .button.secondary {
+            color: var(--text);
+            background: rgba(255,255,255,0.06);
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            border-color: rgba(105, 240, 174, 0.48);
+        }
+
+        .profile-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 24px;
+            border-radius: 42px;
+            padding: 28px;
+            min-height: 100%;
+        }
+
+        .portrait {
+            min-height: 260px;
+            border-radius: 32px;
+            background:
+                linear-gradient(135deg, rgba(105, 240, 174, 0.22), rgba(94, 234, 212, 0.05)),
+                repeating-linear-gradient(135deg, rgba(255,255,255,0.08) 0 1px, transparent 1px 18px);
+            border: 1px solid rgba(255,255,255,0.15);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 22px;
             overflow: hidden;
         }
 
-        #matrix-canvas {
+        .portrait-code {
+            font-family: var(--mono);
+            color: var(--soft);
+            font-size: 0.83rem;
+            line-height: 1.8;
+        }
+
+        .portrait-name {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.06em;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .stat {
+            padding: 18px;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            background: rgba(0,0,0,0.22);
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1.42rem;
+            letter-spacing: -0.04em;
+        }
+
+        .stat span {
+            display: block;
+            margin-top: 5px;
+            color: var(--muted);
+            font-size: 0.82rem;
+        }
+
+        .section {
+            padding-top: 34px;
+        }
+
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 24px;
+            margin-bottom: 18px;
+        }
+
+        .section-heading h2 {
+            margin: 0;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            letter-spacing: -0.075em;
+        }
+
+        .section-heading p {
+            max-width: 470px;
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.7;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 18px;
+        }
+
+        .panel {
+            border-radius: 30px;
+            padding: 24px;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            min-height: 360px;
+        }
+
+        .project-card::before {
+            content: '';
             position: absolute;
             inset: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            background: radial-gradient(circle at 70% 0%, var(--glow, rgba(105,240,174,0.24)), transparent 52%);
+            opacity: 0.86;
             pointer-events: none;
         }
 
-        .terminal-scrollback {
-            position: absolute;
-            inset: 0;
-            padding: 1.5rem;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-            -webkit-overflow-scrolling: touch;
-            z-index: 10;
-        }
-        .terminal-scrollback::-webkit-scrollbar { display: none; }
-
-        .tty-line {
-            line-height: 1.5;
-            white-space: pre-wrap;
-            word-break: break-all;
+        .project-card > * {
+            position: relative;
         }
 
-        .tty-input-line {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .tty-prompt {
-            color: var(--accent-cyan);
+        .project-kicker {
+            display: inline-flex;
+            padding: 6px 10px;
+            border-radius: 999px;
+            color: #041411;
+            background: var(--accent, var(--mint));
+            font-family: var(--mono);
+            font-size: 0.72rem;
             font-weight: 700;
-            flex: 0 0 auto;
+            text-transform: uppercase;
         }
 
-        .tty-input {
-            background: transparent;
-            border: none;
-            outline: none;
-            color: var(--text-primary);
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            flex: 1;
-            caret-color: var(--accent-amber);
+        .project-card h3 {
+            margin: 26px 0 14px;
+            font-size: 1.55rem;
+            line-height: 1.05;
+            letter-spacing: -0.05em;
         }
 
-        /* System Specific Text Colors */
-        .sys-green { color: var(--accent-green); }
-        .sys-amber { color: var(--accent-amber); }
-        .sys-red   { color: var(--accent-red); }
-        .sys-cyan  { color: var(--accent-cyan); }
-
-        /* Links block footer */
-        .manifesto-footer {
-            margin-top: 4rem;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-            font-size: 0.75rem;
-            color: var(--text-faint);
-            text-align: center;
+        .project-card p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin: 0;
         }
 
-        /* Mobile Layout Adaptations */
-        @media (max-width: 900px) {
-            .workspace { flex-direction: column; }
-            .pane-manifesto { width: 100%; height: 50%; }
-            .pane-terminal { width: 100%; height: 50%; }
-            body::before { display: none; }
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 24px;
+        }
+
+        .tag {
+            padding: 8px 10px;
+            border-radius: 999px;
+            color: var(--soft);
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.055);
+            font-size: 0.78rem;
+            font-weight: 700;
+        }
+
+        .project-link {
+            width: fit-content;
+            margin-top: 24px;
+        }
+
+        .stack-panel {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 18px;
+            align-items: stretch;
+        }
+
+        .terminal {
+            min-height: 360px;
+            border-radius: 30px;
+            border: 1px solid rgba(105, 240, 174, 0.25);
+            background: rgba(0,0,0,0.5);
+            overflow: hidden;
+            font-family: var(--mono);
+        }
+
+        .terminal-bar {
+            display: flex;
+            justify-content: space-between;
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.78rem;
+        }
+
+        .terminal-body {
+            padding: 20px;
+            color: var(--soft);
+            font-size: 0.9rem;
+            line-height: 1.95;
+        }
+
+        .terminal-body span {
+            color: var(--mint);
+        }
+
+        .skill-list {
+            display: grid;
+            gap: 12px;
+        }
+
+        .skill-item {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 18px;
+            border-radius: 22px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.045);
+        }
+
+        .skill-item strong {
+            display: block;
+        }
+
+        .skill-item span {
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            margin-top: 34px;
+            padding: 24px 0 0;
+            color: var(--muted);
+            font-size: 0.94rem;
+        }
+
+        @media (max-width: 920px) {
+            .hero,
+            .stack-panel,
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading {
+                align-items: start;
+                flex-direction: column;
+            }
+
+            .nav {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .page-shell {
+                width: min(100% - 24px, 1180px);
+                padding-top: 12px;
+            }
+
+            .hero {
+                padding-top: 28px;
+            }
+
+            .hero-copy,
+            .profile-card,
+            .panel {
+                border-radius: 28px;
+            }
+
+            .stat-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
-
-    <div class="workspace">
-        
-        <!-- LEFT WORKSPACE: MANIFESTO PANE -->
-        <div class="pane pane-manifesto">
-            <div class="eyebrow">CORE METADATA AGGREGATE // v2026.06</div>
-            <h1>Xayrillo Ne'matov</h1>
-            <p class="hero-title-sub">Systems & Asynchronous Backend Engineer</p>
-            
-            <p>
-                Software architect operating from Samarkand, Uzbekistan. Defensive specialization inside 
-                <strong>decoupled asynchronous runtimes</strong>, high-concurrency event loops, and localized, 
-                zero-telemetry application architecture.
-            </p>
-
-            <div class="wireframe-block">
-                CRITICAL_POSTURE: Independent edge execution mitigates explicit attack vectors. Software must protect user data data boundaries at rest without reliance on speculative telemetry pipelines.
+    <main class="page-shell">
+        <nav class="nav" aria-label="Primary navigation">
+            <a class="brand" href="#top" aria-label="Xayrillo Ne'matov home">
+                <span class="brand-mark">XN</span>
+                <span>Xayrillo Ne'matov</span>
+            </a>
+            <div class="nav-links">
+                <a href="#work">Work</a>
+                <a href="#proof">Proof</a>
+                <a href="https://github.com/xayrullonematov">GitHub</a>
+                <a href="https://t.me/xayrullonematov">Telegram</a>
             </div>
+        </nav>
 
-            <h2>Telemetry Matrix</h2>
-            <div class="data-grid">
-                <div class="data-card">
-                    <div class="data-value">3,701</div>
-                    <div class="data-label">ML Datasets Orchestrated</div>
-                </div>
-                <div class="data-card">
-                    <div class="data-value">7.5</div>
-                    <div class="data-label">IELTS Academic Baseline</div>
-                </div>
-                <div class="data-card">
-                    <div class="data-value">4.3 / 5.0</div>
-                    <div class="data-label">GPA Static Track</div>
-                </div>
-                <div class="data-card">
-                    <div class="data-value">127.0.0.1</div>
-                    <div class="data-label">Local Host Enforcement</div>
+        <section class="hero" id="top">
+            <div class="hero-copy">
+                <p class="eyebrow"><span class="pulse"></span> Startup-minded developer from Samarkand</p>
+                <h1>Young developer. Strong fundamentals. Real shipped products.</h1>
+                <p class="hero-lede">
+                    I build practical software with serious engineering underneath: local-first AI, Telegram-native products,
+                    async backends, and tools that turn technical curiosity into products people can actually use.
+                </p>
+                <div class="hero-actions">
+                    <a class="button primary" href="https://github.com/xayrullonematov">View my GitHub</a>
+                    <a class="button secondary" href="#work">See projects</a>
                 </div>
             </div>
 
-            <h2>Declassified Deployments</h2>
-            <div class="projects-grid">
-                
-                <div class="deployment-node">
-                    <div class="node-header">
-                        <div class="node-title">HAMMA Client Engine</div>
-                        <span class="sys-cyan">ONLINE</span>
+            <aside class="profile-card" aria-label="Profile summary">
+                <div class="portrait">
+                    <div class="portrait-code">
+                        const engineer = {<br>
+                        &nbsp;&nbsp;focus: 'shipping products',<br>
+                        &nbsp;&nbsp;proof: 'real users + tests',<br>
+                        &nbsp;&nbsp;location: 'Samarkand'<br>
+                        }
                     </div>
+                    <div class="portrait-name">From Stone Age<br>to Cyber Punk.</div>
+                </div>
+                <div class="stat-grid">
+                    <div class="stat"><strong>10k+</strong><span>Auto Testlar users</span></div>
+                    <div class="stat"><strong>1.4k+</strong><span>HAMMA model downloads in 48h</span></div>
+                    <div class="stat"><strong>746/747</strong><span>HAMMA tests passing</span></div>
+                    <div class="stat"><strong>7.5</strong><span>IELTS Academic</span></div>
+                </div>
+            </aside>
+        </section>
+
+        <section class="section" id="work">
+            <div class="section-heading">
+                <h2>Proof of work</h2>
+                <p>A startup-like snapshot for a general audience: real products, clear outcomes, and code-first proof that the fundamentals are there.</p>
+            </div>
+
+            <div class="project-grid">
+                <article class="panel project-card" style="--accent: var(--mint); --glow: rgba(105,240,174,0.24);">
+                    <span class="project-kicker">Gemma 4 Good · Local AI</span>
+                    <h3>HAMMA</h3>
                     <p>
-                        A completely localized, zero-telemetry cross-platform SSH and SFTP manager. Bridges cross-platform 
-                        compilations using native FFI pathways. Embeds an entirely offline on-device 8B local language engine hard-locked 
-                        to loopback interfaces to physically block runtime payload data exfiltration.
+                        AI-powered SSH/SFTP client for Linux, Windows, macOS, Android, and iOS. Its DevOps assistant runs locally,
+                        hard-locked to loopback, with a custom Gemma 4 LoRA model trained for server failure diagnosis.
                     </p>
-                    <div class="node-tags">
-                        <span class="tag">Flutter Engine</span>
+                    <div class="tags">
+                        <span class="tag">Flutter</span>
                         <span class="tag">Dart FFI</span>
-                        <span class="tag">C++ Interop</span>
-                        <span class="tag">Argon2id Vault</span>
+                        <span class="tag">C++</span>
+                        <span class="tag">Argon2id</span>
+                        <span class="tag">1,400+ downloads</span>
+                        <span class="tag">746/747 tests</span>
                     </div>
-                </div>
+                    <a class="button secondary project-link" href="https://github.com/xayrullonematov/hamma">View on GitHub</a>
+                </article>
 
-                <div class="deployment-node">
-                    <div class="node-header">
-                        <div class="node-title">Bunker X Async Core</div>
-                        <span class="sys-amber">STANDBY</span>
-                    </div>
+                <article class="panel project-card" style="--accent: var(--amber); --glow: rgba(255,209,102,0.20);">
+                    <span class="project-kicker">Telegram-native game</span>
+                    <h3>Bunker X Backend</h3>
                     <p>
-                        Asynchronous game orchestration backend driven by distributed memory models. Manages deep state queues, 
-                        resource-decay timers, and synchronous player actions across volatile networks. Employs transactional atomicity 
-                        and custom concurrency gates to eliminate thread collision vectors.
+                        Backend for a Telegram-native multiplayer social deduction game: group chat orchestration, realtime game state,
+                        WebSocket bridge for the Mini App, persistence, timers, and event-driven player actions.
                     </p>
-                    <div class="node-tags">
-                        <span class="tag">Python Asyncio</span>
-                        <span class="tag">Redis Cluster</span>
-                        <span class="tag">FastAPI BFF</span>
+                    <div class="tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Asyncio</span>
+                        <span class="tag">Redis</span>
                         <span class="tag">WebSockets</span>
                     </div>
-                </div>
+                </article>
 
-                <div class="deployment-node">
-                    <div class="node-header">
-                        <div class="node-title">Auto Testlar Architecture</div>
-                        <span class="sys-green">SECURED</span>
-                    </div>
+                <article class="panel project-card" style="--accent: var(--rose); --glow: rgba(255,143,171,0.18);">
+                    <span class="project-kicker">Live product · 10k+ users</span>
+                    <h3>Auto Testlar</h3>
                     <p>
-                        Production baseline engineered for automated driver testing optimization. Implements full anti-cheat state tracking, 
-                        idempotent submission scoring, and decoupled schema management via isolated migration cycles.
+                        Uzbekistan driving licence test-prep platform with 1,200+ questions, Telegram Web App flow, freemium pricing,
+                        detailed statistics, and public traction from thousands of learners.
                     </p>
-                    <div class="node-tags">
-                        <span class="tag">Next.js 14</span>
+                    <div class="tags">
+                        <span class="tag">Next.js</span>
                         <span class="tag">SQLAlchemy</span>
-                        <span class="tag">Alembic Engine</span>
+                        <span class="tag">Alembic</span>
                         <span class="tag">PostgreSQL</span>
+                        <span class="tag">10,000+ users</span>
+                        <span class="tag">98% success</span>
                     </div>
+                    <a class="button secondary project-link" href="https://autotestlar.uz/">Visit live product</a>
+                </article>
+            </div>
+        </section>
+
+        <section class="section stack-panel" id="proof">
+            <div class="panel">
+                <div class="section-heading">
+                    <h2>Why this page exists</h2>
                 </div>
-
-            </div>
-
-            <div class="manifesto-footer">
-                <p>Architected & Evaluated by Xayrillo Ne'matov</p>
-                <p>Samarkand, UZ // Absolute Zero Telemetry Guaranteed</p>
-            </div>
-        </div>
-
-        <!-- RIGHT WORKSPACE: LIVE INTERACTIVE TERMINAL PANE -->
-        <div class="pane pane-terminal">
-            <div class="strip-header">
-                <div>console_session_0.tty</div>
-                <div class="active">interactive_mode</div>
-            </div>
-            
-            <div class="terminal-container" id="terminal-clickbox">
-                <canvas id="matrix-canvas"></canvas>
-                
-                <div class="terminal-scrollback" id="scrollback">
-                    <div class="tty-line sys-cyan">============================================================</div>
-                    <div class="tty-line sys-cyan">   NE'MATOV CORE OPERATIONAL CONSOLE // ARCHITECTURE PROMPT</div>
-                    <div class="tty-line sys-cyan">============================================================</div>
-                    <div class="tty-line sys-amber">Status: SECURE LOCAL SESSION DETECTED</div>
-                    <div class="tty-line">Type <span class="sys-cyan">"help"</span> to pull an index of available execution parameters.</div>
-                    <div class="tty-line">&nbsp;</div>
-                    
-                    <!-- Dynamic line injections target -->
-                    <div id="tty-history"></div>
-
-                    <!-- Active Input Interface -->
-                    <div class="tty-input-line">
-                        <span class="tty-prompt">guest@nematov_core:~$</span>
-                        <input type="text" id="tty-stdin" class="tty-input" autofocus autocomplete="off" spellcheck="false">
-                    </div>
+                <div class="skill-list">
+                    <div class="skill-item"><strong>Main audience</strong><span>General: recruiters, collaborators, users, and curious builders.</span></div>
+                    <div class="skill-item"><strong>Tone</strong><span>Startup-like, ambitious, but backed by specific numbers.</span></div>
+                    <div class="skill-item"><strong>20-second takeaway</strong><span>A talented young developer with strong fundamentals.</span></div>
                 </div>
             </div>
-        </div>
 
-    </div>
+            <div class="terminal" aria-label="Developer proof terminal preview">
+                <div class="terminal-bar">
+                    <span>xayrullo@github/proof</span>
+                    <span>public</span>
+                </div>
+                <div class="terminal-body">
+                    <div><span>$</span> cat public-proof.txt</div>
+                    <div>✓ GitHub profile: xayrullonematov</div>
+                    <div>✓ HAMMA: local-first AI SSH/SFTP client</div>
+                    <div>✓ Auto Testlar: live Telegram Web App with 10k+ users</div>
+                    <div>✓ IELTS Academic: 7.5</div>
+                    <br>
+                    <div><span>$</span> stack</div>
+                    <div>Python · Asyncio · Redis · PostgreSQL · Flutter · Dart FFI · C++ · TypeScript</div>
+                </div>
+            </div>
+        </section>
 
-    <!-- ── INTERACTIVE PARSER & ANIMATION ENGINE ── -->
-    <script>
-        const stdin = document.getElementById('tty-stdin');
-        const history = document.getElementById('tty-history');
-        const scrollback = document.getElementById('scrollback');
-        const clickbox = document.getElementById('terminal-clickbox');
-        const canvas = document.getElementById('matrix-canvas');
-        const ctx = canvas.getContext('2d');
-
-        let matrixInterval = null;
-
-        // Force input focus on terminal pane click
-        clickbox.addEventListener('click', () => stdin.focus());
-
-        // Command registry processing pipeline
-        stdin.addEventListener('keydown', async (e) => {
-            if (e.key === 'Enter') {
-                const commandRaw = stdin.value;
-                const command = commandRaw.trim().toLowerCase();
-                stdin.value = '';
-
-                // Echo the input command back to the screen
-                appendLine(`guest@nematov_core:~$ ${commandRaw}`, 'tty-input-line');
-
-                if (command.length > 0) {
-                    await parseAndExecute(command);
-                }
-                
-                // Keep viewport locked to bottom execution bounds
-                scrollback.scrollTop = scrollback.scrollHeight;
-            }
-        });
-
-        function appendLine(text, className = 'tty-line') {
-            const line = document.createElement('div');
-            line.className = className;
-            line.innerHTML = text;
-            history.appendChild(line);
-        }
-
-        async function parseAndExecute(cmd) {
-            const parts = cmd.split(' ');
-            const baseCmd = parts[0];
-
-            switch(baseCmd) {
-                case 'help':
-                    appendLine(`Available subroutines inside this terminal aggregate:`);
-                    appendLine(`  <span class="sys-cyan">help</span>      - Outputs active command catalog.`);
-                    appendLine(`  <span class="sys-cyan">sysinfo</span>   - Evaluates static core metrics and engine parameters.`);
-                    appendLine(`  <span class="sys-cyan">ls -la</span>    - Scans localized file directories.`);
-                    appendLine(`  <span class="sys-cyan">cat [log]</span> - Streams specific deployment profiles (e.g., <span class="sys-amber">cat hamma.log</span>).`);
-                    appendLine(`  <span class="sys-cyan">matrix</span>    - Toggles raw memory loopback canvas digital rain background shader.`);
-                    appendLine(`  <span class="sys-cyan">clear</span>     - Purges active scrollback memory pipeline.`);
-                    break;
-
-                case 'sysinfo':
-                    appendLine(`[EVALUATING SYSTEM INTEGRITY...]`);
-                    appendLine(`  • Identity: Xayrillo Ne'matov`);
-                    appendLine(`  • Location: Samarkand, Uzbekistan [40.6563° N, 71.2464° E]`);
-                    appendLine(`  • Operational Stack: Async Python, Native C++ Interop, Dart/Flutter Engine, TS`);
-                    appendLine(`  • Linguistic Matrix: IELTS Academic 7.5 [Verified Competency]`);
-                    appendLine(`  • Target Destination: Mathematics specialization // University of Debrecen`);
-                    break;
-
-                case 'ls':
-                    if (parts[1] === '-la') {
-                        appendLine(`drwxr-xr-x  2 root root  4096 Jun 2026 .`);
-                        appendLine(`drwxr-xr-x  2 root root  4096 Jun 2026 ..`);
-                        appendLine(`-rw-r--r--  1 root root  5340 Jun 2026 hamma.log`);
-                        appendLine(`-rw-r--r--  1 root root  2048 Jun 2026 bunker_x.conf`);
-                        appendLine(`-rw-r--r--  1 root root  1420 Jun 2026 autotestlar.ini`);
-                    } else {
-                        appendLine(`hamma.log   bunker_x.conf   autotestlar.ini (Try "ls -la" for raw allocation blocks)`);
-                    }
-                    break;
-
-                case 'cat':
-                    const targetFile = parts[1];
-                    if (!targetFile) {
-                        appendLine(`ERR_PARAMETER_NULL: Specify target vector asset. Usage: cat [filename]`, 'sys-red');
-                    } else if (targetFile === 'hamma.log') {
-                        appendLine(`[STREAMING: hamma.log]`);
-                        appendLine(`  -> SECURE_VAULT_INIT: Derived encryption key via Argon2id.`);
-                        appendLine(`  -> LOOPBACK_GUARD: Binding local server socket strictly to 127.0.0.1.`);
-                        appendLine(`  -> INTEROP: Initializing Dart Foreign Function Interface interop sequence.`);
-                        appendLine(`  -> STATUS: On-device ML Copilot active. 0 leakage metrics registered.`);
-                    } else if (targetFile === 'bunker_x.conf') {
-                        appendLine(`[STREAMING: bunker_x.conf]`);
-                        appendLine(`  -> ENGINE_DRIVER: Asyncio event architecture compiled.`);
-                        appendLine(`  -> PUBSUB_SYNC: Redis broker listening on port 6379.`);
-                        appendLine(`  -> LOCK_GATING: Transactional idempotency blocks verified.`);
-                    } else if (targetFile === 'autotestlar.ini') {
-                        appendLine(`[STREAMING: autotestlar.ini]`);
-                        appendLine(`  -> APP_ROUTER: Next.js 14 production client verified.`);
-                        appendLine(`  -> DB_POOL: PostgreSQL connection pooling instantiated.`);
-                        appendLine(`  -> MIGRATIONS: Alembic linear schema engine synchronized.`);
-                    } else {
-                        appendLine(`ERR_NOT_FOUND: Resource pointer "${targetFile}" invalid.`, 'sys-red');
-                    }
-                    break;
-
-                case 'clear':
-                    history.innerHTML = '';
-                    break;
-
-                case 'matrix':
-                    toggleMatrixShader();
-                    break;
-
-                default:
-                    appendLine(`COMMAND_NOT_RECOGNIZED: "${baseCmd}". Type <span class="sys-cyan">"help"</span> for directive paths.`, 'sys-red');
-            }
-        }
-
-        // ── RAW CANVAS LOOPBACK MATRIX SHADER ──
-        function toggleMatrixShader() {
-            if (matrixInterval) {
-                clearInterval(matrixInterval);
-                matrixInterval = null;
-                canvas.style.opacity = 0;
-                appendLine(`Matrix canvas background pipeline: <span class="sys-red">DISABLED</span>`);
-                return;
-            }
-
-            appendLine(`Matrix canvas background pipeline: <span class="sys-green">ENABLED</span>`);
-            canvas.style.opacity = 0.08; // Ultra-subtle background accent tracking
-
-            // Handle dynamic window container size tracking
-            const resize = () => {
-                canvas.width = clickbox.clientWidth;
-                canvas.height = clickbox.clientHeight;
-            };
-            resize();
-            window.addEventListener('resize', resize);
-
-            const columns = Math.floor(canvas.width / 14) + 1;
-            const yPositions = Array(columns).fill(0);
-
-            function step() {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-                ctx.fillStyle = '#00E87A';
-                ctx.font = '10px monospace';
-
-                yPositions.forEach((y, index) => {
-                    const text = String.fromCharCode(Math.floor(Math.random() * 96) + 33);
-                    const x = index * 14;
-                    ctx.fillText(text, x, y);
-
-                    if (y > canvas.height && Math.random() > 0.975) {
-                        yPositions[index] = 0;
-                    } else {
-                        yPositions[index] = y + 10;
-                    }
-                });
-            }
-            matrixInterval = setInterval(step, 33);
-        }
-    </script>
+        <footer class="footer">
+            <span>Built around real proof: GitHub, shipped products, and strong fundamentals.</span>
+            <span>Samarkand, Uzbekistan · me.myrepo.xyz</span>
+        </footer>
+    </main>
 </body>
 </html>
