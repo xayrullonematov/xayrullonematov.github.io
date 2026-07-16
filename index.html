@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Xayrillo Ne'matov — Builder & Engineer</title>
+  <meta name="description" content="Xayrillo Ne'matov builds local-first AI tools, developer infrastructure, and products for real communities.">
+  <meta property="og:title" content="Xayrillo Ne'matov — Builder & Engineer"><meta property="og:description" content="From Stone Age to Cyber Punk. Building useful, private, ambitious software from Samarkand.">
+  <style>@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@500;600;700;800&display=swap');
+
+:root {
+  --paper: #f2f0e9;
+  --ink: #10120f;
+  --muted: #696c63;
+  --line: #c9c8bf;
+  --acid: #c7ff2e;
+  --orange: #ff6b35;
+  --blue: #5d7dff;
+  --purple: #a871ff;
+  --red: #ff4e4e;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family: 'DM Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+button { font: inherit; }
+.shell { width: min(1240px, calc(100% - 48px)); margin-inline: auto; }
+
+.nav {
+  height: 92px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+.monogram {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 50%;
+  font: 600 13px 'IBM Plex Mono', monospace;
+  letter-spacing: -.06em;
+  transition: transform .2s ease, background .2s ease;
+}
+.monogram:hover { transform: rotate(-9deg); background: #33382e; }
+.navLinks { display: flex; align-items: center; gap: 30px; font-size: 14px; font-weight: 600; }
+.navLinks > a { transition: opacity .2s ease; }
+.navLinks > a:not(.navCta):hover { opacity: .5; }
+.navCta {
+  padding: 12px 17px;
+  border: 1px solid var(--ink);
+  border-radius: 99px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  transition: background .2s ease, color .2s ease;
+}
+.navCta:hover { background: var(--ink); color: var(--paper); }
+
+.hero { position: relative; padding: 98px 0 80px; min-height: 720px; }
+.heroStamp {
+  position: absolute;
+  top: 98px;
+  right: 0;
+  width: 128px;
+  aspect-ratio: 1;
+  border: 1px solid var(--ink);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font: 500 9px/1.6 'IBM Plex Mono', monospace;
+  letter-spacing: .16em;
+  transform: rotate(8deg);
+}
+.heroStamp::before { content: ''; width: 7px; height: 7px; background: var(--acid); border: 1px solid var(--ink); border-radius: 50%; margin-bottom: 8px; }
+.kicker, .sectionIndex {
+  margin: 0;
+  font: 500 11px 'IBM Plex Mono', monospace;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.kicker { display: flex; align-items: center; gap: 10px; }
+.statusDot { width: 9px; height: 9px; background: #57c84d; border-radius: 50%; box-shadow: 0 0 0 4px rgba(87, 200, 77, .14); }
+.hero h1 {
+  margin: 56px 0 72px;
+  font: 700 clamp(72px, 11.5vw, 160px)/.82 'Manrope', sans-serif;
+  letter-spacing: -.09em;
+  max-width: 1120px;
+}
+.hero h1 em, .manifesto h2 em { font-style: normal; position: relative; z-index: 0; }
+.hero h1 em::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  left: -2%; right: -2%; bottom: 4%; height: 27%;
+  background: var(--acid);
+  transform: rotate(-1.4deg);
+}
+.heroBottom { display: grid; grid-template-columns: 1fr auto; align-items: end; border-top: 1px solid var(--ink); padding-top: 26px; }
+.heroIntro { margin: 0; max-width: 660px; font-size: clamp(18px, 2.3vw, 29px); line-height: 1.35; letter-spacing: -.025em; }
+.roundArrow {
+  width: 64px; height: 64px; border: 1px solid var(--ink); border-radius: 50%; display: grid; place-items: center;
+  font-size: 24px; transition: transform .2s ease, background .2s ease;
+}
+.roundArrow:hover { transform: translateY(5px); background: var(--acid); }
+
+.proofStrip { background: var(--ink); color: var(--paper); }
+.proofInner { min-height: 150px; display: grid; grid-template-columns: repeat(4, 1fr); align-items: center; }
+.proofInner div { display: flex; flex-direction: column; gap: 7px; padding-left: 28px; border-left: 1px solid #3b3f38; }
+.proofInner strong { font: 700 34px 'Manrope', sans-serif; letter-spacing: -.05em; }
+.proofInner span { color: #aeb2a8; font: 11px 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .08em; }
+
+.work { padding: 130px 0 150px; }
+.sectionHead { display: grid; grid-template-columns: 1fr 1fr; align-items: end; gap: 40px; margin-bottom: 68px; }
+.sectionHead h2, .contact h2 {
+  margin: 26px 0 0;
+  font: 700 clamp(54px, 7vw, 96px)/.9 'Manrope', sans-serif;
+  letter-spacing: -.075em;
+}
+.filters { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.filters button { border: 1px solid var(--line); background: transparent; padding: 10px 15px; border-radius: 99px; cursor: pointer; color: var(--muted); font-size: 13px; }
+.filters button:hover, .filters button.active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+.projectList { border-top: 1px solid var(--ink); }
+.project {
+  display: block;
+  padding: 25px 0 28px;
+  border-bottom: 1px solid var(--line);
+  transition: padding .28s ease, background .28s ease;
+  position: relative;
+}
+.project::before { content: ''; position: absolute; inset: 0 -24px; background: var(--project-color); opacity: 0; z-index: -1; transition: opacity .25s ease; }
+.project:hover { padding-left: 18px; padding-right: 18px; }
+.project:hover::before { opacity: 1; }
+.project.lime { --project-color: var(--acid); }
+.project.orange { --project-color: #ff8c5f; }
+.project.blue { --project-color: #8aa1ff; }
+.project.purple { --project-color: #c6a5ff; }
+.project.red { --project-color: #ff7b7b; }
+.projectTop { display: grid; grid-template-columns: 70px 1fr auto; align-items: center; font: 500 10px 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .09em; }
+.projectType { color: var(--muted); }
+.projectArrow { font-size: 20px; }
+.projectBody { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: end; margin: 38px 0; }
+.project h3 { margin: 0 0 10px; font: 700 clamp(50px, 7vw, 92px)/.85 'Manrope', sans-serif; letter-spacing: -.08em; }
+.projectSummary { margin: 0; font-size: 18px; font-weight: 600; letter-spacing: -.02em; }
+.projectDetail { margin: 0; max-width: 520px; color: #474a43; font-size: 16px; line-height: 1.65; }
+.projectFoot { display: flex; align-items: end; justify-content: space-between; gap: 32px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips span, .proof { border: 1px solid #a6a79f; border-radius: 99px; padding: 6px 10px; font: 500 9px 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .06em; }
+.proof { border-color: var(--ink); white-space: nowrap; }
+
+.manifesto { background: #161914; color: var(--paper); padding: 130px 0; overflow: hidden; }
+.manifestoGrid { display: grid; grid-template-columns: .72fr 1.28fr; gap: 100px; }
+.sectionIndex.light { color: #aeb2a8; }
+.portraitWrap { margin-top: 45px; position: relative; width: min(100%, 390px); }
+.portraitWrap img { width: 100%; display: block; aspect-ratio: .86; object-fit: cover; filter: grayscale(1) contrast(1.08); }
+.portraitWrap::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 0 1px rgba(255,255,255,.2); }
+.portraitLabel { position: absolute; right: -20px; bottom: 34px; background: var(--acid); color: var(--ink); padding: 10px 14px; font: 600 10px 'IBM Plex Mono', monospace; letter-spacing: .12em; transform: rotate(-4deg); z-index: 1; }
+.manifesto h2 { margin: 0 0 50px; font: 600 clamp(46px, 6vw, 82px)/1 'Manrope', sans-serif; letter-spacing: -.065em; }
+.manifesto h2 em { color: var(--acid); }
+.manifestoCopy > p { max-width: 720px; color: #b9bdb4; font-size: 19px; line-height: 1.65; }
+.values { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #44483f; margin-top: 60px; }
+.values span { padding: 18px 0; border-bottom: 1px solid #44483f; font: 500 11px 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .08em; }
+
+.contact { padding: 135px 0 150px; }
+.contactGrid { display: grid; grid-template-columns: 1.05fr .95fr; gap: 100px; align-items: end; }
+.contactRight > p { max-width: 520px; color: var(--muted); font-size: 20px; line-height: 1.6; }
+.contactLinks { margin-top: 40px; border-top: 1px solid var(--ink); }
+.contactLinks a { display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--line); padding: 17px 0; font-weight: 600; transition: padding .2s ease; }
+.contactLinks a:hover { padding-left: 10px; padding-right: 10px; background: var(--acid); }
+footer { background: var(--acid); }
+.footerInner { min-height: 84px; display: flex; align-items: center; justify-content: space-between; font: 500 10px 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: .08em; }
+
+@media (max-width: 820px) {
+  .shell { width: min(100% - 28px, 1240px); }
+  .nav { height: 76px; }
+  .navLinks { gap: 14px; }
+  .navLinks > a:not(.navCta) { display: none; }
+  .hero { min-height: auto; padding: 70px 0 64px; }
+  .heroStamp { display: none; }
+  .kicker { max-width: 290px; line-height: 1.5; }
+  .hero h1 { margin: 50px 0 55px; font-size: clamp(58px, 18.5vw, 100px); line-height: .86; }
+  .heroBottom { grid-template-columns: 1fr; gap: 30px; }
+  .heroIntro { font-size: 20px; }
+  .roundArrow { width: 52px; height: 52px; }
+  .proofInner { grid-template-columns: 1fr 1fr; padding: 26px 0; gap: 26px 0; }
+  .proofInner div { padding-left: 14px; }
+  .proofInner strong { font-size: 28px; }
+  .work { padding: 90px 0 100px; }
+  .sectionHead, .projectBody, .manifestoGrid, .contactGrid { grid-template-columns: 1fr; }
+  .sectionHead { gap: 38px; }
+  .filters { justify-content: flex-start; }
+  .projectBody { gap: 24px; margin: 30px 0; }
+  .project h3 { font-size: 54px; }
+  .projectFoot { align-items: flex-start; flex-direction: column; gap: 18px; }
+  .proof { white-space: normal; }
+  .manifesto { padding: 90px 0; }
+  .manifestoGrid { gap: 70px; }
+  .portraitWrap { width: 70%; }
+  .manifesto h2 { font-size: 50px; }
+  .manifestoCopy > p { font-size: 17px; }
+  .contact { padding: 90px 0 100px; }
+  .contactGrid { gap: 50px; }
+  .footerInner { flex-direction: column; justify-content: center; align-items: flex-start; gap: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; }
+}
+</style>
+</head>
+<body><main>
+  <nav class="nav shell" aria-label="Primary navigation"><a class="monogram" href="#top" aria-label="Back to top">XN</a><div class="navLinks"><a href="#work">Work</a><a href="#about">About</a><a class="navCta" href="https://github.com/xayrullonematov" target="_blank" rel="noreferrer">GitHub <span>↗</span></a></div></nav>
+  <section class="hero shell" id="top"><div class="heroStamp" aria-hidden="true"><span>SAMARKAND</span><span>UZBEKISTAN</span><span>2026</span></div><p class="kicker"><span class="statusDot"></span> Independent builder · Student · Available for ambitious work</p><h1>From <em>Stone Age</em><br>to Cyber Punk.</h1><div class="heroBottom"><p class="heroIntro">I’m <strong>Xayrillo Ne'matov</strong>. I build local-first AI tools, developer infrastructure and products that solve real problems—starting from Uzbekistan.</p><a class="roundArrow" href="#work" aria-label="See selected work">↓</a></div></section>
+  <section class="proofStrip" aria-label="Highlights"><div class="shell proofInner"><div><strong>05</strong><span>serious products</span></div><div><strong>05</strong><span>platforms for HAMMA</span></div><div><strong>7.5</strong><span>IELTS Academic</span></div><div><strong>∞</strong><span>curiosity remaining</span></div></div></section>
+  <section class="work shell" id="work"><div class="sectionHead"><div><p class="sectionIndex">01 / SELECTED WORK</p><h2>Built, not<br>just imagined.</h2></div><div class="filters" aria-label="Filter projects"><button class="active" data-filter="all">All</button><button data-filter="ai">AI</button><button data-filter="tools">Developer Tools</button><button data-filter="products">Products</button></div></div><div class="projectList">
+  <a class="project lime" data-groups="ai tools" href="https://github.com/xayrullonematov/hamma" target="_blank" rel="noreferrer">
+    <div class="projectTop"><span class="projectNumber">01</span><span class="projectType">Local AI · DevOps</span><span class="projectArrow">↗</span></div>
+    <div class="projectBody"><div><h3>HAMMA</h3><p class="projectSummary">A private command center for your servers.</p></div><p class="projectDetail">SSH, SFTP, Docker, process management and a streaming AI copilot in one cross-platform app. Local models are hard-locked to loopback, so server context stays on your device.</p></div>
+    <div class="projectFoot"><div class="chips"><span>Flutter</span><span>Dart</span><span>C++</span><span>Argon2id</span><span>llama.cpp</span></div><span class="proof">5 platforms · 860 tests · zero telemetry</span></div>
+  </a>
+  <a class="project orange" data-groups="tools" href="https://github.com/xayrullonematov/hammadev" target="_blank" rel="noreferrer">
+    <div class="projectTop"><span class="projectNumber">02</span><span class="projectType">Developer Tools · CLI</span><span class="projectArrow">↗</span></div>
+    <div class="projectBody"><div><h3>HammaDev</h3><p class="projectSummary">Move work between AI coding agents without losing the plot.</p></div><p class="projectDetail">A local-only CLI that turns Codex, Claude Code and Grok sessions into compact, structured handoffs—complete with task state, Git context, verification signals and guarded redaction.</p></div>
+    <div class="projectFoot"><div class="chips"><span>TypeScript</span><span>Node.js</span><span>Zod</span><span>Vitest</span><span>Agent Skills</span></div><span class="proof">Codex ↔ Claude ↔ Grok · npm alpha</span></div>
+  </a>
+  <a class="project blue" data-groups="ai tools" href="https://github.com/xayrullonematov/RepoScope" target="_blank" rel="noreferrer">
+    <div class="projectTop"><span class="projectNumber">03</span><span class="projectType">Multi-agent AI · Code Review</span><span class="projectArrow">↗</span></div>
+    <div class="projectBody"><div><h3>RepoScope</h3><p class="projectSummary">Scope your repo before you ship.</p></div><p class="projectDetail">Four specialized AI agents inspect a repository for bugs, security risks, architecture flaws and performance issues, then negotiate a report with file-level evidence.</p></div>
+    <div class="projectFoot"><div class="chips"><span>Next.js</span><span>React</span><span>Prisma</span><span>AWS Bedrock</span><span>Event Sourcing</span></div><span class="proof">4 agents · 23 correctness properties</span></div>
+  </a>
+  <a class="project purple" data-groups="products" href="https://autotestlar.uz" target="_blank" rel="noreferrer">
+    <div class="projectTop"><span class="projectNumber">04</span><span class="projectType">EdTech · Uzbekistan</span><span class="projectArrow">↗</span></div>
+    <div class="projectBody"><div><h3>Auto Testlar</h3><p class="projectSummary">Driving-test preparation built for how people actually learn.</p></div><p class="projectDetail">A fast, mobile-first platform for Uzbekistan's driving licence exam, with tickets, practice, explanations, daily tests and progress tracking across web and Telegram.</p></div>
+    <div class="projectFoot"><div class="chips"><span>Next.js</span><span>Python</span><span>PostgreSQL</span><span>Telegram</span><span>Cloudflare R2</span></div><span class="proof">1,220 questions · live product</span></div>
+  </a>
+  <a class="project red" data-groups="products" href="https://github.com/xayrullonematov/bunker" target="_blank" rel="noreferrer">
+    <div class="projectTop"><span class="projectNumber">05</span><span class="projectType">Real-time Game · Telegram</span><span class="projectArrow">↗</span></div>
+    <div class="projectBody"><div><h3>Bunker X</h3><p class="projectSummary">A social deduction game that lives inside Telegram.</p></div><p class="projectDetail">A multiplayer survival game with live phases, hidden roles, voting, special actions and a Mini App—powered by an event-driven bot, WebSockets and Redis state.</p></div>
+    <div class="projectFoot"><div class="chips"><span>Python</span><span>FastAPI</span><span>React</span><span>Redis</span><span>PostgreSQL</span></div><span class="proof">Bot + Mini App · real-time multiplayer</span></div>
+  </a></div></section>
+  <section class="manifesto" id="about"><div class="shell manifestoGrid"><div><p class="sectionIndex light">02 / ABOUT</p><div class="portraitWrap"><img src="https://avatars.githubusercontent.com/u/227302343?v=4" alt="Xayrillo Ne'matov"><span class="portraitLabel">VIPSTONE</span></div></div><div class="manifestoCopy"><h2>I care about software that gives people <em>more control.</em></h2><p>That means AI that can stay on your machine. Tools that preserve your work instead of trapping it. Security that is designed in, not added later. And products built for communities big tech tends to overlook.</p><p>I’m a student from Urgut District, Samarkand, learning in public and shipping across AI, systems, cybersecurity and product engineering.</p><div class="values"><span>Privacy by design</span><span>Proof over hype</span><span>Build for real users</span><span>Learn relentlessly</span></div></div></div></section>
+  <section class="contact shell"><p class="sectionIndex">03 / NEXT</p><div class="contactGrid"><h2>Have a hard<br>problem?</h2><div class="contactRight"><p>I’m open to collaborating on AI tooling, cybersecurity, developer infrastructure and products with genuine usefulness.</p><div class="contactLinks"><a href="mailto:mr.khayrulloh@gmail.com">Email me <span>↗</span></a><a href="https://t.me/xayrullonematov" target="_blank" rel="noreferrer">Telegram <span>↗</span></a><a href="https://github.com/xayrullonematov" target="_blank" rel="noreferrer">GitHub <span>↗</span></a></div></div></div></section>
+  <footer><div class="shell footerInner"><span>© 2026 Xayrillo Ne'matov</span><span>Built from Samarkand · Shipped to the world</span></div></footer>
+</main><script>document.querySelectorAll('[data-filter]').forEach(button=>button.addEventListener('click',()=>{document.querySelectorAll('[data-filter]').forEach(item=>item.classList.toggle('active',item===button));const filter=button.dataset.filter;document.querySelectorAll('[data-groups]').forEach(card=>{card.hidden=filter!=='all'&&!card.dataset.groups.split(' ').includes(filter)})}));</script></body></html>
