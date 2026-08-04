@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -36,11 +36,17 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - name: Upload artifact
+      - name: Upload artifact for GitHub Actions deployment
         uses: actions/upload-pages-artifact@v3
         with:
           path: "./out"
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to GitHub Pages Action
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Deploy to gh-pages branch (fallback)
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: out
+          branch: gh-pages
