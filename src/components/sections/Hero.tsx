@@ -26,12 +26,12 @@ export function Hero() {
       {/* Ambient brand gradient backgrounds */}
       <div className="pointer-events-none absolute inset-0 grid-bg opacity-60" aria-hidden />
       <div
-        className="gradient-orb top-[-10%] left-[10%] h-[500px] w-[500px] opacity-25"
+        className="gradient-orb top-[-10%] left-[10%] h-[500px] w-[500px] opacity-20"
         style={{ background: "var(--accent)" }}
         aria-hidden
       />
       <div
-        className="gradient-orb right-[5%] bottom-[10%] h-[400px] w-[400px] opacity-20"
+        className="gradient-orb right-[5%] bottom-[10%] h-[400px] w-[400px] opacity-15"
         style={{ background: "var(--accent-purple)" }}
         aria-hidden
       />
@@ -107,39 +107,72 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right column: Futuristic 3D Glass Hero Showcase Card */}
+          {/* Right column: Bespoke Hamma Labs Software Topology UI Card */}
           <motion.div
             className="lg:col-span-5"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="group relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 bg-[#0c1017] p-4 shadow-2xl transition-all duration-700 hover:border-accent/40">
-              <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/5 bg-[#080a0f]">
-                {/* 3D AI Sphere Artwork */}
-                <img
-                  src="/images/hero_sphere.jpg"
-                  alt="AI Neural Sphere artwork"
-                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                />
+            <div className="group relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 glass-panel p-5 shadow-2xl transition-all duration-500 hover:border-accent/40">
+              <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-[#080b11] p-5 flex flex-col justify-between select-none">
+                
+                {/* Top Bar with PNG Logo & Studio Info */}
+                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                  <div className="flex items-center gap-3">
+                    <img
+                      src="/images/logo.png"
+                      alt="Hamma Labs Logo"
+                      className="h-9 w-9 rounded-xl object-contain p-0.5 border border-white/10 bg-[#0e131d]"
+                    />
+                    <div>
+                      <h3 className="mono text-xs font-semibold text-text">Hamma Labs</h3>
+                      <p className="mono text-[10px] text-accent">Local-First AI Studio</p>
+                    </div>
+                  </div>
+                  <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-mono font-medium border border-emerald-500/20">
+                    AIR-GAPPED
+                  </span>
+                </div>
 
-                {/* Overlaid Studio Badge with official PNG logo */}
-                <div className="absolute top-4 left-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-black/80 px-4 py-2.5 backdrop-blur-md shadow-xl">
-                  <img
-                    src="/images/logo.png"
-                    alt="Hamma Labs Logo"
-                    className="h-8 w-8 rounded-lg object-contain p-0.5"
-                  />
-                  <div>
-                    <p className="mono text-xs font-semibold text-white">Hamma Labs</p>
-                    <p className="mono text-[10px] text-accent">Local-first AI Studio</p>
+                {/* Center Software Architecture Nodes Visual */}
+                <div className="my-4 py-4 space-y-2 font-mono text-xs">
+                  <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-3">Flagship Systems</div>
+                  
+                  {/* System Node 1 */}
+                  <div className="p-2.5 rounded-lg bg-[#0e1420] border border-accent/30 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-accent" />
+                      <span className="text-slate-200 font-semibold">HammaDev</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400">Agent Memory Engine</span>
+                  </div>
+
+                  {/* System Node 2 */}
+                  <div className="p-2.5 rounded-lg bg-[#0e1420] border border-purple-500/30 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-purple-400" />
+                      <span className="text-slate-200 font-semibold">Hamma</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400">Local AI SSH Client</span>
+                  </div>
+
+                  {/* System Node 3 */}
+                  <div className="p-2.5 rounded-lg bg-[#0e1420] border border-slate-800 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 rounded-full bg-blue-400" />
+                      <span className="text-slate-200 font-semibold">RepoScope</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400">Multi-Agent Review</span>
                   </div>
                 </div>
 
-                {/* Overlaid Active Agents Badge */}
-                <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-xl border border-white/10 bg-black/80 px-3.5 py-2 backdrop-blur-md shadow-xl">
-                  <span className="mono text-[11px] text-accent-purple">Active Agent Memory Engine</span>
+                {/* Bottom System Status Summary */}
+                <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-[10px] font-mono text-slate-400">
+                  <span>Zero Telemetry</span>
+                  <span className="text-accent font-semibold">3 Flagship Products</span>
                 </div>
+
               </div>
             </div>
           </motion.div>

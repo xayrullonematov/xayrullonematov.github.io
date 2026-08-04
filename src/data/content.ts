@@ -36,7 +36,7 @@ export const projects = [
     github: "https://github.com/xayrullonematov/hammadev",
     demo: null as string | null,
     npm: "https://www.npmjs.com/package/hammadev",
-    accent: "#6C63FF",
+    accent: "#F06F52",
     visual: "memory" as const,
     highlights: [
       "Agent-agnostic handoffs",
@@ -58,7 +58,7 @@ export const projects = [
     github: "https://github.com/xayrullonematov/hamma",
     demo: null as string | null,
     npm: null as string | null,
-    accent: "#00D4AA",
+    accent: "#7257E8",
     visual: "terminal" as const,
     highlights: [
       "On-device AI copilot",
@@ -80,7 +80,7 @@ export const projects = [
     github: "https://github.com/xayrullonematov/RepoScope",
     demo: "https://reposcope.myrepo.xyz",
     npm: null as string | null,
-    accent: "#A78BFA",
+    accent: "#F06F52",
     visual: "swarm" as const,
     highlights: [
       "Adversarial multi-agent debate",
@@ -91,6 +91,7 @@ export const projects = [
   },
 ];
 
+// Streamlined public repositories — focused strictly on flagship projects
 export const repositories = [
   {
     name: "hammadev",
@@ -102,15 +103,6 @@ export const repositories = [
     url: "https://github.com/xayrullonematov/hammadev",
   },
   {
-    name: "RepoScope",
-    description:
-      "Multi-agent engineering room where four AI specialists negotiate structured code reviews.",
-    language: "TypeScript",
-    languageColor: "#3178c6",
-    stars: 3,
-    url: "https://github.com/xayrullonematov/RepoScope",
-  },
-  {
     name: "hamma",
     description:
       "Local-first AI SSH client for fleet management with zero telemetry.",
@@ -120,28 +112,13 @@ export const repositories = [
     url: "https://github.com/xayrullonematov/hamma",
   },
   {
-    name: "OverTheWire",
-    description: "Hands-on security and systems practice through OverTheWire challenges.",
-    language: "Shell",
-    languageColor: "#89e051",
+    name: "RepoScope",
+    description:
+      "Multi-agent engineering room where four AI specialists negotiate structured code reviews.",
+    language: "TypeScript",
+    languageColor: "#3178c6",
     stars: 3,
-    url: "https://github.com/xayrullonematov/OverTheWire",
-  },
-  {
-    name: "bunker",
-    description: "Python-based systems tooling and infrastructure experiments.",
-    language: "Python",
-    languageColor: "#3572A5",
-    stars: 1,
-    url: "https://github.com/xayrullonematov/bunker",
-  },
-  {
-    name: "xayrullonematov",
-    description: "Profile README — From Stone Age to Cyber Punk.",
-    language: "Markdown",
-    languageColor: "#083fa1",
-    stars: 2,
-    url: "https://github.com/xayrullonematov/xayrullonematov",
+    url: "https://github.com/xayrullonematov/RepoScope",
   },
 ];
 
