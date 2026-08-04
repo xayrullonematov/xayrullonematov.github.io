@@ -1,0 +1,191 @@
+- main [ref=f4e2]:
+  - navigation "Primary navigation" [ref=f4e3]:
+    - link "Back to top" [ref=f4e4] [cursor=pointer]:
+      - /url: "#top"
+      - text: XN
+    - generic [ref=f4e5]:
+      - link "Work" [ref=f4e6] [cursor=pointer]:
+        - /url: "#work"
+      - link "About" [ref=f4e7] [cursor=pointer]:
+        - /url: "#about"
+      - link "GitHub ↗" [ref=f4e8] [cursor=pointer]:
+        - /url: https://github.com/xayrullonematov
+        - text: GitHub
+        - generic [ref=f4e9]: ↗
+  - generic [ref=f4e10]:
+    - generic [ref=f4e11]:
+      - generic [ref=f4e12]: SAMARKAND
+      - generic [ref=f4e13]: UZBEKISTAN
+      - generic [ref=f4e14]: "2026"
+    - paragraph [ref=f4e15]: Independent builder · Student · Available for ambitious work
+    - heading [level=1] [ref=f4e17]:
+      - text: From
+      - emphasis [ref=f4e18]: Stone Age
+      - text: to Cyber Punk.
+    - generic [ref=f4e19]:
+      - paragraph [ref=f4e20]:
+        - text: I’m
+        - strong [ref=f4e21]: Xayrillo Ne'matov
+        - text: . I build local-first AI tools, developer infrastructure and products that solve real problems—starting from Uzbekistan.
+      - link "See selected work" [ref=f4e22] [cursor=pointer]:
+        - /url: "#work"
+        - text: ↓
+  - region "Highlights" [ref=f4e23]:
+    - generic [ref=f4e24]:
+      - generic [ref=f4e25]:
+        - strong [ref=f4e26]: "05"
+        - generic [ref=f4e27]: serious products
+      - generic [ref=f4e28]:
+        - strong [ref=f4e29]: "05"
+        - generic [ref=f4e30]: platforms for HAMMA
+      - generic [ref=f4e31]:
+        - strong [ref=f4e32]: "7.5"
+        - generic [ref=f4e33]: IELTS Academic
+      - generic [ref=f4e34]:
+        - strong [ref=f4e35]: ∞
+        - generic [ref=f4e36]: curiosity remaining
+  - generic [ref=f4e37]:
+    - generic [ref=f4e38]:
+      - generic [ref=f4e39]:
+        - paragraph [ref=f4e40]: 01 / SELECTED WORK
+        - heading "Built, not just imagined." [level=2] [ref=f4e41]: Built, notjust imagined.
+      - generic "Filter projects" [ref=f4e42]:
+        - button "All" [ref=f4e43] [cursor=pointer]
+        - button "AI" [ref=f4e44] [cursor=pointer]
+        - button "Developer Tools" [ref=f4e45] [cursor=pointer]
+        - button "Products" [ref=f4e46] [cursor=pointer]
+    - generic [ref=f4e47]:
+      - link "01 Local AI · DevOps ↗ HAMMA A private command center for your servers. SSH, SFTP, Docker, process management and a streaming AI copilot in one cross-platform app. Local models are hard-locked to loopback, so server context stays on your device. Flutter Dart C++ Argon2id llama.cpp 5 platforms · 860 tests · zero telemetry" [ref=f4e48] [cursor=pointer]:
+        - /url: https://github.com/xayrullonematov/hamma
+        - generic [ref=f4e49]:
+          - generic [ref=f4e50]: "01"
+          - generic [ref=f4e51]: Local AI · DevOps
+          - generic [ref=f4e52]: ↗
+        - generic [ref=f4e53]:
+          - generic [ref=f4e54]:
+            - heading "HAMMA" [level=3] [ref=f4e55]
+            - paragraph [ref=f4e56]: A private command center for your servers.
+          - paragraph [ref=f4e57]: SSH, SFTP, Docker, process management and a streaming AI copilot in one cross-platform app. Local models are hard-locked to loopback, so server context stays on your device.
+        - generic [ref=f4e58]:
+          - generic [ref=f4e59]:
+            - generic [ref=f4e60]: Flutter
+            - generic [ref=f4e61]: Dart
+            - generic [ref=f4e62]: C++
+            - generic [ref=f4e63]: Argon2id
+            - generic [ref=f4e64]: llama.cpp
+          - generic [ref=f4e65]: 5 platforms · 860 tests · zero telemetry
+      - link "02 Developer Tools · CLI ↗ HammaDev Move work between AI coding agents without losing the plot. A local-only CLI that turns Codex, Claude Code and Grok sessions into compact, structured handoffs—complete with task state, Git context, verification signals and guarded redaction. TypeScript Node.js Zod Vitest Agent Skills Codex ↔ Claude ↔ Grok · npm alpha" [ref=f4e66] [cursor=pointer]:
+        - /url: https://github.com/xayrullonematov/hammadev
+        - generic [ref=f4e67]:
+          - generic [ref=f4e68]: "02"
+          - generic [ref=f4e69]: Developer Tools · CLI
+          - generic [ref=f4e70]: ↗
+        - generic [ref=f4e71]:
+          - generic [ref=f4e72]:
+            - heading "HammaDev" [level=3] [ref=f4e73]
+            - paragraph [ref=f4e74]: Move work between AI coding agents without losing the plot.
+          - paragraph [ref=f4e75]: A local-only CLI that turns Codex, Claude Code and Grok sessions into compact, structured handoffs—complete with task state, Git context, verification signals and guarded redaction.
+        - generic [ref=f4e76]:
+          - generic [ref=f4e77]:
+            - generic [ref=f4e78]: TypeScript
+            - generic [ref=f4e79]: Node.js
+            - generic [ref=f4e80]: Zod
+            - generic [ref=f4e81]: Vitest
+            - generic [ref=f4e82]: Agent Skills
+          - generic [ref=f4e83]: Codex ↔ Claude ↔ Grok · npm alpha
+      - link "03 Multi-agent AI · Code Review ↗ RepoScope Scope your repo before you ship. Four specialized AI agents inspect a repository for bugs, security risks, architecture flaws and performance issues, then negotiate a report with file-level evidence. Next.js React Prisma AWS Bedrock Event Sourcing 4 agents · 23 correctness properties" [ref=f4e84] [cursor=pointer]:
+        - /url: https://github.com/xayrullonematov/RepoScope
+        - generic [ref=f4e85]:
+          - generic [ref=f4e86]: "03"
+          - generic [ref=f4e87]: Multi-agent AI · Code Review
+          - generic [ref=f4e88]: ↗
+        - generic [ref=f4e89]:
+          - generic [ref=f4e90]:
+            - heading "RepoScope" [level=3] [ref=f4e91]
+            - paragraph [ref=f4e92]: Scope your repo before you ship.
+          - paragraph [ref=f4e93]: Four specialized AI agents inspect a repository for bugs, security risks, architecture flaws and performance issues, then negotiate a report with file-level evidence.
+        - generic [ref=f4e94]:
+          - generic [ref=f4e95]:
+            - generic [ref=f4e96]: Next.js
+            - generic [ref=f4e97]: React
+            - generic [ref=f4e98]: Prisma
+            - generic [ref=f4e99]: AWS Bedrock
+            - generic [ref=f4e100]: Event Sourcing
+          - generic [ref=f4e101]: 4 agents · 23 correctness properties
+      - link "04 EdTech · Uzbekistan ↗ Auto Testlar Driving-test preparation built for how people actually learn. A fast, mobile-first platform for Uzbekistan's driving licence exam, with tickets, practice, explanations, daily tests and progress tracking across web and Telegram. Next.js Python PostgreSQL Telegram Cloudflare R2 1,220 questions · live product" [ref=f4e102] [cursor=pointer]:
+        - /url: https://autotestlar.uz
+        - generic [ref=f4e103]:
+          - generic [ref=f4e104]: "04"
+          - generic [ref=f4e105]: EdTech · Uzbekistan
+          - generic [ref=f4e106]: ↗
+        - generic [ref=f4e107]:
+          - generic [ref=f4e108]:
+            - heading "Auto Testlar" [level=3] [ref=f4e109]
+            - paragraph [ref=f4e110]: Driving-test preparation built for how people actually learn.
+          - paragraph [ref=f4e111]: A fast, mobile-first platform for Uzbekistan's driving licence exam, with tickets, practice, explanations, daily tests and progress tracking across web and Telegram.
+        - generic [ref=f4e112]:
+          - generic [ref=f4e113]:
+            - generic [ref=f4e114]: Next.js
+            - generic [ref=f4e115]: Python
+            - generic [ref=f4e116]: PostgreSQL
+            - generic [ref=f4e117]: Telegram
+            - generic [ref=f4e118]: Cloudflare R2
+          - generic [ref=f4e119]: 1,220 questions · live product
+      - link "05 Real-time Game · Telegram ↗ Bunker X A social deduction game that lives inside Telegram. A multiplayer survival game with live phases, hidden roles, voting, special actions and a Mini App—powered by an event-driven bot, WebSockets and Redis state. Python FastAPI React Redis PostgreSQL Bot + Mini App · real-time multiplayer" [ref=f4e120] [cursor=pointer]:
+        - /url: https://github.com/xayrullonematov/bunker
+        - generic [ref=f4e121]:
+          - generic [ref=f4e122]: "05"
+          - generic [ref=f4e123]: Real-time Game · Telegram
+          - generic [ref=f4e124]: ↗
+        - generic [ref=f4e125]:
+          - generic [ref=f4e126]:
+            - heading "Bunker X" [level=3] [ref=f4e127]
+            - paragraph [ref=f4e128]: A social deduction game that lives inside Telegram.
+          - paragraph [ref=f4e129]: A multiplayer survival game with live phases, hidden roles, voting, special actions and a Mini App—powered by an event-driven bot, WebSockets and Redis state.
+        - generic [ref=f4e130]:
+          - generic [ref=f4e131]:
+            - generic [ref=f4e132]: Python
+            - generic [ref=f4e133]: FastAPI
+            - generic [ref=f4e134]: React
+            - generic [ref=f4e135]: Redis
+            - generic [ref=f4e136]: PostgreSQL
+          - generic [ref=f4e137]: Bot + Mini App · real-time multiplayer
+  - generic [ref=f4e139]:
+    - generic [ref=f4e140]:
+      - paragraph [ref=f4e141]: 02 / ABOUT
+      - generic [ref=f4e142]:
+        - img "Xayrillo Ne'matov" [ref=f4e143]
+        - generic [ref=f4e144]: VIPSTONE
+    - generic [ref=f4e145]:
+      - heading [level=2] [ref=f4e146]:
+        - text: I care about software that gives people
+        - emphasis [ref=f4e147]: more control.
+      - paragraph [ref=f4e148]: That means AI that can stay on your machine. Tools that preserve your work instead of trapping it. Security that is designed in, not added later. And products built for communities big tech tends to overlook.
+      - paragraph [ref=f4e149]: I’m a student from Urgut District, Samarkand, learning in public and shipping across AI, systems, cybersecurity and product engineering.
+      - generic [ref=f4e150]:
+        - generic [ref=f4e151]: Privacy by design
+        - generic [ref=f4e152]: Proof over hype
+        - generic [ref=f4e153]: Build for real users
+        - generic [ref=f4e154]: Learn relentlessly
+  - generic [ref=f4e155]:
+    - paragraph [ref=f4e156]: 03 / NEXT
+    - generic [ref=f4e157]:
+      - heading "Have a hard problem?" [level=2] [ref=f4e158]: Have a hardproblem?
+      - generic [ref=f4e159]:
+        - paragraph [ref=f4e160]: I’m open to collaborating on AI tooling, cybersecurity, developer infrastructure and products with genuine usefulness.
+        - generic [ref=f4e161]:
+          - link "Email me ↗" [ref=f4e162] [cursor=pointer]:
+            - /url: mailto:mr.khayrulloh@gmail.com
+            - text: Email me
+            - generic [ref=f4e163]: ↗
+          - link "Telegram ↗" [ref=f4e164] [cursor=pointer]:
+            - /url: https://t.me/xayrullonematov
+            - text: Telegram
+            - generic [ref=f4e165]: ↗
+          - link "GitHub ↗" [ref=f4e166] [cursor=pointer]:
+            - /url: https://github.com/xayrullonematov
+            - text: GitHub
+            - generic [ref=f4e167]: ↗
+  - generic [ref=f4e169]:
+    - generic [ref=f4e170]: © 2026 Xayrillo Ne'matov
+    - generic [ref=f4e171]: Built from Samarkand · Shipped to the world
