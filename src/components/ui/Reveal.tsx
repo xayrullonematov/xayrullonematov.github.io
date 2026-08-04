@@ -13,7 +13,7 @@ type RevealProps = {
 };
 
 const baseVariants: Variants = {
-  hidden: { opacity: 0, y: 28 },
+  hidden: { opacity: 0, y: 24 },
   visible: { opacity: 1, y: 0 },
 };
 
@@ -21,7 +21,7 @@ export function Reveal({
   children,
   className,
   delay = 0,
-  y = 28,
+  y = 24,
   once = true,
   as = "div",
 }: RevealProps) {
@@ -38,14 +38,14 @@ export function Reveal({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, margin: "-8% 0px -8% 0px", amount: 0.2 }}
+      viewport={{ once, amount: 0.05 }}
       variants={{
         hidden: { opacity: 0, y },
         visible: {
           opacity: 1,
           y: 0,
           transition: {
-            duration: 0.85,
+            duration: 0.6,
             delay,
             ease: [0.22, 1, 0.36, 1],
           },
@@ -60,7 +60,7 @@ export function Reveal({
 export function Stagger({
   children,
   className,
-  stagger = 0.08,
+  stagger = 0.06,
   delay = 0,
 }: {
   children: ReactNode;
@@ -79,7 +79,7 @@ export function Stagger({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-6% 0px", amount: 0.15 }}
+      viewport={{ once: true, amount: 0.05 }}
       variants={{
         hidden: {},
         visible: {
@@ -98,7 +98,7 @@ export function Stagger({
 export function StaggerItem({
   children,
   className,
-  y = 24,
+  y = 20,
 }: {
   children: ReactNode;
   className?: string;
@@ -113,7 +113,7 @@ export function StaggerItem({
         visible: {
           opacity: 1,
           y: 0,
-          transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+          transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
         },
       }}
     >

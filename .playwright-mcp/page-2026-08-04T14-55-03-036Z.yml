@@ -1,0 +1,411 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e3]:
+    - navigation "Primary" [ref=e4]:
+      - link "Xayrullo Nematov — home" [ref=e5] [cursor=pointer]:
+        - /url: "#top"
+        - generic [ref=e6]: XN
+        - generic [ref=e8]: Xayrullo Nematov
+      - generic [ref=e9]:
+        - link "Work" [ref=e10] [cursor=pointer]:
+          - /url: "#projects"
+        - link "Open Source" [ref=e11] [cursor=pointer]:
+          - /url: "#open-source"
+        - link "About" [ref=e12] [cursor=pointer]:
+          - /url: "#about"
+        - link "Skills" [ref=e13] [cursor=pointer]:
+          - /url: "#skills"
+        - link "Contact" [ref=e14] [cursor=pointer]:
+          - /url: "#contact"
+  - main [ref=e15]:
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - paragraph [ref=e18]: Available for collaborations
+        - heading "Building AI software that ships." [level=1] [ref=e20]:
+          - generic [ref=e21]: Building
+          - generic [ref=e22]: AI
+          - generic [ref=e23]: software
+          - generic [ref=e24]: that
+          - generic [ref=e25]: ships.
+        - paragraph [ref=e27]: AI Engineer · Open Source Developer · Founder of Hamma Labs
+        - generic [ref=e28]:
+          - link "View work" [ref=e29] [cursor=pointer]:
+            - /url: "#projects"
+          - link "GitHub profile" [ref=e32] [cursor=pointer]:
+            - /url: https://github.com/xayrullonematov
+        - generic [ref=e33]:
+          - generic [ref=e34]:
+            - paragraph [ref=e35]: 3+
+            - paragraph [ref=e36]: Flagship products
+          - generic [ref=e37]:
+            - paragraph [ref=e38]: "9"
+            - paragraph [ref=e39]: Public repositories
+          - generic [ref=e40]:
+            - paragraph [ref=e41]: Local
+            - paragraph [ref=e42]: First by design
+          - generic [ref=e43]:
+            - paragraph [ref=e44]: OSS
+            - paragraph [ref=e45]: Default license
+      - generic [ref=e46]: Scroll
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - generic [ref=e52]:
+          - generic [ref=e53]: "01"
+          - generic [ref=e54]: Featured work
+        - heading "Proof of work." [level=2] [ref=e56]
+        - paragraph [ref=e58]: A selection of recent projects exploring AI memory, zero-trust infrastructure, and multi-agent systems.
+      - generic [ref=e59]:
+        - article [ref=e60]:
+          - generic [ref=e67]:
+            - generic [ref=e70]: Codex
+            - generic [ref=e71]: Claude
+            - generic [ref=e72]: Memory
+            - generic [ref=e73]: Grok
+            - generic [ref=e74]: Epoch
+          - generic [ref=e75]:
+            - generic [ref=e77]:
+              - generic [ref=e78]: "01"
+              - generic [ref=e79]: Persistent memory for AI coding agents
+            - heading "HammaDev" [level=3] [ref=e81]
+            - paragraph [ref=e83]: Local repository memory that lets you switch between Codex, Claude Code, and Grok without losing decisions, constraints, discoveries, or task history. Sessions belong to agents. Memory belongs to the project.
+            - list [ref=e85]:
+              - listitem [ref=e86]: Agent-agnostic handoffs
+              - listitem [ref=e89]: Immutable task epochs
+              - listitem [ref=e92]: Git-aware reconciliation
+              - listitem [ref=e95]: Zero telemetry
+            - generic [ref=e99]:
+              - generic [ref=e100]: TypeScript
+              - generic [ref=e101]: Node.js
+              - generic [ref=e102]: CLI
+              - generic [ref=e103]: Git
+              - generic [ref=e104]: Local-first
+            - link [ref=e107] [cursor=pointer]:
+              - /url: https://github.com/xayrullonematov/hammadev
+        - article [ref=e112]:
+          - generic [ref=e120]:
+            - generic [ref=e121]: hamma-server ~ bash
+            - generic [ref=e126]:
+              - generic [ref=e127]: "[INFO] Initializing secure host..."
+              - generic [ref=e128]: "[OK] Key exchange complete"
+              - generic [ref=e129]: "[SYS] Starting Hamma background daemon"
+              - generic [ref=e130]: "> Forwarding local ports [8080:443]"
+              - generic [ref=e131]: "> Tunnel active. Agent listening."
+              - generic [ref=e132]: $
+          - generic [ref=e135]:
+            - generic [ref=e137]:
+              - generic [ref=e138]: "02"
+              - generic [ref=e139]: AI-powered SSH client, fully local
+            - heading "Hamma" [level=3] [ref=e141]
+            - paragraph [ref=e143]: Manage servers without writing a single command. SSH, SFTP, Docker, processes, and services — with an embedded AI copilot that runs entirely on your device. Your fleet, your keys, your AI.
+            - list [ref=e145]:
+              - listitem [ref=e146]: On-device AI copilot
+              - listitem [ref=e149]: Zero-trust architecture
+              - listitem [ref=e152]: Cross-platform fleet control
+              - listitem [ref=e155]: 860+ tests
+            - generic [ref=e159]:
+              - generic [ref=e160]: Dart
+              - generic [ref=e161]: Flutter
+              - generic [ref=e162]: Local LLM
+              - generic [ref=e163]: SSH/SFTP
+              - generic [ref=e164]: Docker
+            - link [ref=e167] [cursor=pointer]:
+              - /url: https://github.com/xayrullonematov/hamma
+        - article [ref=e172]:
+          - generic [ref=e179]:
+            - generic [ref=e183]:
+              - generic [ref=e184]: "Agent: Architect"
+              - generic [ref=e187]: "Agent: Critic"
+              - generic [ref=e190]: "Agent: Coder"
+            - generic [ref=e193]: consensus · round 3
+          - generic [ref=e194]:
+            - generic [ref=e196]:
+              - generic [ref=e197]: "03"
+              - generic [ref=e198]: Four AI engineers argue about your code
+            - heading "RepoScope" [level=3] [ref=e200]
+            - paragraph [ref=e202]: Point it at a GitHub repository and a swarm of specialized agents — senior, security, performance, and product — propose, critique, revise, and negotiate a structured engineering review. Not a chatbot. A design room.
+            - list [ref=e204]:
+              - listitem [ref=e205]: Adversarial multi-agent debate
+              - listitem [ref=e208]: Event-sourced sessions
+              - listitem [ref=e211]: Human-in-the-room directives
+              - listitem [ref=e214]: Cost-governed inference
+            - generic [ref=e218]:
+              - generic [ref=e219]: Next.js
+              - generic [ref=e220]: TypeScript
+              - generic [ref=e221]: Prisma
+              - generic [ref=e222]: Zod
+              - generic [ref=e223]: Qwen / DashScope
+            - generic [ref=e225]:
+              - link [ref=e226] [cursor=pointer]:
+                - /url: https://reposcope.myrepo.xyz
+              - link [ref=e232] [cursor=pointer]:
+                - /url: https://github.com/xayrullonematov/RepoScope
+      - generic [ref=e237]:
+        - generic [ref=e239]:
+          - heading "Architecture & Deep Dives" [level=4] [ref=e240]
+          - paragraph [ref=e241]: A closer look at the technical decisions behind these projects.
+        - generic [ref=e242]:
+          - generic [ref=e244]:
+            - heading [level=5] [ref=e249]
+            - paragraph [ref=e253]: HammaDev turns agent history into an evidence-aware execution contract — durable knowledge, immutable task epochs, git reconciliation, and readiness assessment. No cloud. No telemetry. Trust the repository when handoffs conflict with live state.
+          - generic [ref=e255]:
+            - heading [level=5] [ref=e260]
+            - paragraph [ref=e264]: Built for air-gapped and high-trust environments. AI traffic is hard-locked to loopback. Includes a fine-tuned DevOps model, visual SFTP, fleet dashboard, and zero-trust security across Linux, Windows, macOS, Android, and iOS.
+          - generic [ref=e266]:
+            - heading [level=5] [ref=e271]
+            - paragraph [ref=e275]: Event-sourced multi-agent collaboration with adversarial critique routing, Zod-validated structured outputs, cost governance, and human-in-the-room directives. Built for the Qwen Cloud Global AI Hackathon — Agent Society track.
+    - generic [ref=e277]:
+      - generic [ref=e278]:
+        - generic [ref=e280]:
+          - generic [ref=e281]: "02"
+          - generic [ref=e282]: Open source
+        - heading "Building in public." [level=2] [ref=e284]
+        - paragraph [ref=e286]: Tools, experiments, and contributions to the developer ecosystem. Mostly TypeScript, Python, and Dart.
+      - generic [ref=e288]:
+        - link "hammadev 3 Persistent, local repository memory for AI coding agents across Codex, Claude, and Grok. TypeScript View" [ref=e290] [cursor=pointer]:
+          - /url: https://github.com/xayrullonematov/hammadev
+          - generic [ref=e291]:
+            - generic [ref=e292]:
+              - heading "hammadev" [level=4] [ref=e297]
+              - generic [ref=e298]: "3"
+            - paragraph [ref=e302]: Persistent, local repository memory for AI coding agents across Codex, Claude, and Grok.
+            - generic [ref=e303]:
+              - generic [ref=e304]: TypeScript
+              - generic [ref=e307]: View
+        - link "RepoScope 3 Multi-agent engineering room where four AI specialists negotiate structured code reviews. TypeScript View" [ref=e311] [cursor=pointer]:
+          - /url: https://github.com/xayrullonematov/RepoScope
+          - generic [ref=e312]:
+            - generic [ref=e313]:
+              - heading "RepoScope" [level=4] [ref=e318]
+              - generic [ref=e319]: "3"
+            - paragraph [ref=e323]: Multi-agent engineering room where four AI specialists negotiate structured code reviews.
+            - generic [ref=e324]:
+              - generic [ref=e325]: TypeScript
+              - generic [ref=e328]: View
+        - link "hamma 2 Local-first AI SSH client for fleet management with zero telemetry. Dart View" [ref=e332] [cursor=pointer]:
+          - /url: https://github.com/xayrullonematov/hamma
+          - generic [ref=e333]:
+            - generic [ref=e334]:
+              - heading "hamma" [level=4] [ref=e339]
+              - generic [ref=e340]: "2"
+            - paragraph [ref=e344]: Local-first AI SSH client for fleet management with zero telemetry.
+            - generic [ref=e345]:
+              - generic [ref=e346]: Dart
+              - generic [ref=e349]: View
+        - link "OverTheWire 3 Hands-on security and systems practice through OverTheWire challenges. Shell View" [ref=e353] [cursor=pointer]:
+          - /url: https://github.com/xayrullonematov/OverTheWire
+          - generic [ref=e354]:
+            - generic [ref=e355]:
+              - heading "OverTheWire" [level=4] [ref=e360]
+              - generic [ref=e361]: "3"
+            - paragraph [ref=e365]: Hands-on security and systems practice through OverTheWire challenges.
+            - generic [ref=e366]:
+              - generic [ref=e367]: Shell
+              - generic [ref=e370]: View
+        - link "bunker 1 Python-based systems tooling and infrastructure experiments. Python View" [ref=e374] [cursor=pointer]:
+          - /url: https://github.com/xayrullonematov/bunker
+          - generic [ref=e375]:
+            - generic [ref=e376]:
+              - heading "bunker" [level=4] [ref=e381]
+              - generic [ref=e382]: "1"
+            - paragraph [ref=e386]: Python-based systems tooling and infrastructure experiments.
+            - generic [ref=e387]:
+              - generic [ref=e388]: Python
+              - generic [ref=e391]: View
+        - link "xayrullonematov 2 Profile README — From Stone Age to Cyber Punk. Markdown View" [ref=e395] [cursor=pointer]:
+          - /url: https://github.com/xayrullonematov/xayrullonematov
+          - generic [ref=e396]:
+            - generic [ref=e397]:
+              - heading "xayrullonematov" [level=4] [ref=e402]
+              - generic [ref=e403]: "2"
+            - paragraph [ref=e407]: Profile README — From Stone Age to Cyber Punk.
+            - generic [ref=e408]:
+              - generic [ref=e409]: Markdown
+              - generic [ref=e412]: View
+      - generic [ref=e416]:
+        - generic [ref=e417]:
+          - heading "Follow the build in public" [level=4] [ref=e418]
+          - paragraph [ref=e419]: Explore more projects, gists, and experiments on my GitHub profile.
+        - link [ref=e420] [cursor=pointer]:
+          - /url: https://github.com/xayrullonematov
+    - generic [ref=e425]:
+      - heading "About" [level=2] [ref=e426]
+      - generic [ref=e427]:
+        - generic [ref=e429]:
+          - generic [ref=e431]:
+            - generic [ref=e432]: "03"
+            - generic [ref=e433]: About
+          - heading "Engineer. Founder. Continuous builder." [level=2] [ref=e435]
+        - generic [ref=e436]:
+          - generic [ref=e437]:
+            - paragraph [ref=e439]: "I build AI products that stay useful after the demo ends — local-first tools, multi-agent systems, and developer infrastructure designed for real constraints: privacy, offline environments, and shipping software that engineers actually trust."
+            - paragraph [ref=e441]: Through Hamma Labs I ship open-source systems that treat agents as collaborators with memory, evidence, and boundaries. HammaDev preserves project state across tools. Hamma keeps server operations on-device. RepoScope turns code review into structured multi-agent negotiation.
+            - paragraph [ref=e443]: "I learn in public: hackathons, security labs, and continuous shipping. The through-line is craft — software that feels deliberate, private by default, and ready to run where cloud APIs cannot."
+          - generic [ref=e445]:
+            - generic [ref=e446]:
+              - generic [ref=e447]: Focus
+              - generic [ref=e448]: Local-first AI systems
+            - generic [ref=e449]:
+              - generic [ref=e450]: Studio
+              - generic [ref=e451]: Hamma Labs
+            - generic [ref=e452]:
+              - generic [ref=e453]: Based in
+              - generic [ref=e454]: Samarkand, UZ
+            - generic [ref=e455]:
+              - generic [ref=e456]: Mode
+              - generic [ref=e457]: Open source + products
+          - generic [ref=e459]:
+            - blockquote [ref=e461]: “The most resilient systems don't just survive failures — they log the entire event chain and let you debug exactly where reality diverged from the plan.”
+            - generic [ref=e462]: HammaDev Design Principle
+    - generic [ref=e465]:
+      - heading "Skills" [level=2] [ref=e466]
+      - generic [ref=e467]:
+        - generic [ref=e468]:
+          - generic [ref=e470]:
+            - generic [ref=e471]: "04"
+            - generic [ref=e472]: Capabilities
+          - heading "Tools & Technologies" [level=2] [ref=e474]
+        - generic [ref=e475]:
+          - generic [ref=e477]:
+            - generic [ref=e478]:
+              - generic [ref=e479]: "01"
+              - heading "AI Systems" [level=3] [ref=e480]
+            - list [ref=e481]:
+              - listitem [ref=e482]: Multi-agent orchestration
+              - listitem [ref=e483]: Local LLM inference
+              - listitem [ref=e484]: Agent memory & handoffs
+              - listitem [ref=e485]: Structured outputs / Zod
+              - listitem [ref=e486]: Prompt & context engineering
+              - listitem [ref=e487]: RAG & evidence pipelines
+          - generic [ref=e489]:
+            - generic [ref=e490]:
+              - generic [ref=e491]: "02"
+              - heading "Engineering" [level=3] [ref=e492]
+            - list [ref=e493]:
+              - listitem [ref=e494]: TypeScript / Node.js
+              - listitem [ref=e495]: Next.js / React
+              - listitem [ref=e496]: Dart / Flutter
+              - listitem [ref=e497]: Python
+              - listitem [ref=e498]: Event sourcing
+              - listitem [ref=e499]: CLI tooling
+          - generic [ref=e501]:
+            - generic [ref=e502]:
+              - generic [ref=e503]: "03"
+              - heading "Infrastructure" [level=3] [ref=e504]
+            - list [ref=e505]:
+              - listitem [ref=e506]: Git & GitOps workflows
+              - listitem [ref=e507]: Docker / containers
+              - listitem [ref=e508]: SSH / SFTP systems
+              - listitem [ref=e509]: Prisma / Postgres
+              - listitem [ref=e510]: Cloud deployment (ECS)
+              - listitem [ref=e511]: Security & zero-trust design
+          - generic [ref=e513]:
+            - generic [ref=e514]:
+              - generic [ref=e515]: "04"
+              - heading "Craft" [level=3] [ref=e516]
+            - list [ref=e517]:
+              - listitem [ref=e518]: Product design sense
+              - listitem [ref=e519]: Technical writing
+              - listitem [ref=e520]: Open-source DX
+              - listitem [ref=e521]: Hackathon shipping
+              - listitem [ref=e522]: Test-driven rigor
+              - listitem [ref=e523]: Performance budgets
+    - generic [ref=e524]:
+      - heading "Experience" [level=2] [ref=e525]
+      - generic [ref=e526]:
+        - generic [ref=e528]:
+          - generic [ref=e529]: "05"
+          - generic [ref=e530]: Experience & Hackathons
+        - heading "Where I've built" [level=2] [ref=e532]
+      - generic [ref=e534]:
+        - generic [ref=e536]:
+          - generic [ref=e537]: "2026"
+          - generic [ref=e540]:
+            - generic [ref=e541]:
+              - heading "Founder — Hamma Labs" [level=3] [ref=e543]
+              - generic [ref=e544]:
+                - generic [ref=e545]: Founder
+                - generic [ref=e546]: Open Source
+                - generic [ref=e547]: AI
+            - paragraph [ref=e548]: "Building local-first AI developer tools: HammaDev for agent memory, Hamma for private server operations, and a growing open-source surface for agentic workflows."
+        - generic [ref=e550]:
+          - generic [ref=e551]: "2026"
+          - generic [ref=e554]:
+            - generic [ref=e555]:
+              - heading "Qwen Cloud Global AI Hackathon" [level=3] [ref=e557]
+              - generic [ref=e558]:
+                - generic [ref=e559]: Hackathon
+                - generic [ref=e560]: Multi-Agent
+                - generic [ref=e561]: Qwen
+            - paragraph [ref=e562]: "RepoScope — multi-agent engineering room for Track 3: Agent Society. Four specialized agents negotiate structured reviews with adversarial critique routing and event-sourced sessions."
+        - generic [ref=e564]:
+          - generic [ref=e565]: "2026"
+          - generic [ref=e568]:
+            - generic [ref=e569]:
+              - heading "Kiro Birthday Challenge" [level=3] [ref=e571]
+              - generic [ref=e572]:
+                - generic [ref=e573]: Challenge
+                - generic [ref=e574]: DX
+                - generic [ref=e575]: Agents
+            - paragraph [ref=e576]: Shipped Human-in-the-Room Directives for RepoScope — making the human a first-class fifth engineer in the shared agent context with auditable directive flow.
+        - generic [ref=e578]:
+          - generic [ref=e579]: 2025–26
+          - generic [ref=e582]:
+            - generic [ref=e583]:
+              - heading "Open Source & Systems Practice" [level=3] [ref=e585]
+              - generic [ref=e586]:
+                - generic [ref=e587]: Learning
+                - generic [ref=e588]: Security
+                - generic [ref=e589]: Build
+            - paragraph [ref=e590]: Continuous shipping across TypeScript, Dart, and Python. Security labs via OverTheWire, infrastructure experiments, and public product development from Samarkand.
+    - region [ref=e591]:
+      - generic [ref=e592]:
+        - paragraph [ref=e594]: 06 — Contact
+        - heading "Let's build something that lasts" [level=2] [ref=e596]
+        - paragraph [ref=e598]: Open to collaborations, open-source partnerships, and ambitious AI product work. Prefer email — no forms, no friction.
+        - generic [ref=e600]:
+          - link "hello@nematov.com" [ref=e601] [cursor=pointer]:
+            - /url: mailto:hello@nematov.com
+          - link "GitHub" [ref=e602] [cursor=pointer]:
+            - /url: https://github.com/xayrullonematov
+        - paragraph [ref=e604]: Samarkand, Uzbekistan · From Stone Age to Cyber Punk
+  - contentinfo [ref=e605]:
+    - generic [ref=e606]:
+      - generic [ref=e607]:
+        - generic [ref=e608]:
+          - link "Xayrullo Nematov" [ref=e609] [cursor=pointer]:
+            - /url: "#"
+          - paragraph [ref=e610]: From Stone Age to Cyber Punk. Building local-first AI software from Samarkand, Uzbekistan.
+        - generic [ref=e611]:
+          - paragraph [ref=e612]: Navigate
+          - list [ref=e613]:
+            - listitem [ref=e614]:
+              - link "Work" [ref=e615] [cursor=pointer]:
+                - /url: "#projects"
+            - listitem [ref=e616]:
+              - link "Open Source" [ref=e617] [cursor=pointer]:
+                - /url: "#open-source"
+            - listitem [ref=e618]:
+              - link "About" [ref=e619] [cursor=pointer]:
+                - /url: "#about"
+            - listitem [ref=e620]:
+              - link "Skills" [ref=e621] [cursor=pointer]:
+                - /url: "#skills"
+            - listitem [ref=e622]:
+              - link "Contact" [ref=e623] [cursor=pointer]:
+                - /url: "#contact"
+        - generic [ref=e624]:
+          - paragraph [ref=e625]: Connect
+          - list [ref=e626]:
+            - listitem [ref=e627]:
+              - link "GitHub" [ref=e628] [cursor=pointer]:
+                - /url: https://github.com/xayrullonematov
+            - listitem [ref=e629]:
+              - link "hello@nematov.com" [ref=e630] [cursor=pointer]:
+                - /url: mailto:hello@nematov.com
+            - listitem [ref=e631]:
+              - link "nematov.com" [ref=e632] [cursor=pointer]:
+                - /url: https://nematov.com
+      - generic [ref=e633]:
+        - paragraph [ref=e634]: © 2026 Xayrullo Nematov. Crafted with intent.
+        - paragraph [ref=e635]: Hamma Labs · Local-first AI

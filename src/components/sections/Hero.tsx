@@ -14,135 +14,155 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : 120]);
-  const opacity = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  // Soft subtle parallax on desktop only
+  const y = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : 60]);
+  const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
 
   return (
     <section
       id="top"
       ref={containerRef}
-      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pt-24 pb-16"
+      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24"
     >
       {/* Ambient backgrounds */}
-      <div className="pointer-events-none absolute inset-0 grid-bg" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 grid-bg opacity-70" aria-hidden />
       <div
-        className="gradient-orb top-[-10%] left-[10%] h-[420px] w-[420px] opacity-30"
+        className="gradient-orb top-[-10%] left-[10%] h-[500px] w-[500px] opacity-25"
         style={{ background: "var(--accent)" }}
         aria-hidden
       />
       <div
-        className="gradient-orb right-[-5%] bottom-[10%] h-[320px] w-[320px] opacity-20"
-        style={{ background: "#3b82f6" }}
+        className="gradient-orb right-[5%] bottom-[10%] h-[400px] w-[400px] opacity-20"
+        style={{ background: "#A78BFA" }}
         aria-hidden
       />
 
       <motion.div style={{ y, opacity }} className="container relative z-10">
-        {/* Status badge */}
-        <motion.p
-          className="mono mb-8 flex items-center gap-3 text-[11px] tracking-[0.2em] text-muted uppercase"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent shadow-[0_0_12px_var(--accent)]" />
-          Available for collaborations
-        </motion.p>
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
+          
+          {/* Left column: Copy & CTAs */}
+          <div className="lg:col-span-7">
+            {/* Status badge */}
+            <motion.div
+              className="mono mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-surface/80 px-4 py-2 backdrop-blur-md"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
+              </span>
+              <span className="text-[11px] tracking-[0.16em] text-muted uppercase">
+                {site.bio}
+              </span>
+            </motion.div>
 
-        {/* Headline */}
-        <motion.h1
-          className="display max-w-5xl text-[clamp(2.75rem,9vw,6.75rem)] text-balance"
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.95, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {site.tagline.split(" ").map((word, i, arr) => (
-            <span key={i} className="inline-block">
-              {word === "ships." ? (
-                <span className="relative inline-block">
-                  <span className="relative z-10">{word}</span>
-                  <motion.span
-                    className="absolute bottom-[0.08em] left-0 h-[0.12em] w-full rounded-full bg-accent/80"
-                    initial={{ scaleX: 0 }}
-                    animate={{ scaleX: 1 }}
-                    transition={{
-                      delay: 0.9,
-                      duration: 0.7,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    style={{ originX: 0 }}
-                    aria-hidden
+            {/* Headline */}
+            <motion.h1
+              className="display text-[clamp(2.5rem,7vw,5.5rem)] text-balance"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            >
+              Building AI software that{" "}
+              <span className="relative inline-block text-accent">
+                ships.
+                <motion.span
+                  className="absolute bottom-[0.08em] left-0 h-[0.12em] w-full rounded-full bg-accent/80"
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.8, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ originX: 0 }}
+                  aria-hidden
+                />
+              </span>
+            </motion.h1>
+
+            {/* Subtitle */}
+            <motion.p
+              className="mt-6 max-w-xl text-base text-muted md:text-lg leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            >
+              {site.subtitle}
+            </motion.p>
+
+            {/* Action buttons */}
+            <motion.div
+              className="mt-8 flex flex-wrap items-center gap-4"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.35 }}
+            >
+              <AccentButton href="#projects">
+                Explore Work
+                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
+                  <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+              </AccentButton>
+              <GhostButton href={site.github} target="_blank">
+                GitHub Profile
+              </GhostButton>
+            </motion.div>
+          </div>
+
+          {/* Right column: Futuristic 3D Glass Hero Showcase Card */}
+          <motion.div
+            className="lg:col-span-5"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="group relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 bg-[#08080d] p-4 shadow-2xl transition-all duration-700 hover:border-accent/40">
+              <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/5 bg-[#0a0a10]">
+                {/* 3D AI Sphere Artwork */}
+                <img
+                  src="/images/hero_sphere.jpg"
+                  alt="AI Neural Sphere artwork"
+                  className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+
+                {/* Overlaid Studio Badge */}
+                <div className="absolute top-4 left-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-black/70 px-4 py-2.5 backdrop-blur-md shadow-xl">
+                  <img
+                    src="/images/logo.jpg"
+                    alt="Hamma Labs Logo"
+                    className="h-7 w-7 rounded-lg object-cover"
                   />
-                </span>
-              ) : (
-                word
-              )}
-              {i < arr.length - 1 ? "\u00A0" : null}
-            </span>
-          ))}
-        </motion.h1>
+                  <div>
+                    <p className="mono text-xs font-semibold text-white">Hamma Labs</p>
+                    <p className="mono text-[10px] text-muted">Local-first AI Studio</p>
+                  </div>
+                </div>
 
-        {/* Subtitle */}
-        <motion.p
-          className="mt-8 max-w-xl text-base text-muted md:text-lg"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
-        >
-          {site.subtitle}
-        </motion.p>
+                {/* Overlaid Active Agents Badge */}
+                <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-xl border border-white/10 bg-black/80 px-3.5 py-2 backdrop-blur-md shadow-xl">
+                  <span className="mono text-[11px] text-accent">Active Agent Memory Engine</span>
+                </div>
+              </div>
+            </div>
+          </motion.div>
 
-        {/* CTAs */}
+        </div>
+
+        {/* Stats Row */}
         <motion.div
-          className="mt-10 flex flex-wrap items-center gap-4"
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.42 }}
-        >
-          <AccentButton href="#projects">
-            View work
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
-              <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </AccentButton>
-          <GhostButton href={site.github} target="_blank">
-            GitHub profile
-          </GhostButton>
-        </motion.div>
-
-        {/* Stats row */}
-        <motion.div
-          className="mt-20 grid grid-cols-2 gap-6 border-t border-white/[0.06] pt-10 sm:grid-cols-4 sm:gap-8"
+          className="mt-16 grid grid-cols-2 gap-6 border-t border-white/[0.08] pt-10 sm:grid-cols-4 sm:gap-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
+          transition={{ delay: 0.5, duration: 0.8 }}
         >
           {stats.map((stat) => (
-            <div key={stat.label}>
-              <p className="display text-2xl tracking-tight md:text-3xl">
+            <div key={stat.label} className="border-l border-white/10 pl-4 sm:pl-6">
+              <p className="display text-2xl tracking-tight text-text md:text-3xl">
                 {stat.value}
               </p>
-              <p className="mt-1 text-xs text-muted md:text-sm">{stat.label}</p>
+              <p className="mt-1 mono text-xs text-muted uppercase tracking-wider">{stat.label}</p>
             </div>
           ))}
         </motion.div>
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.1 }}
-        aria-hidden
-      >
-        <span className="mono text-[10px] tracking-[0.2em] text-muted-dim uppercase">
-          Scroll
-        </span>
-        <motion.span
-          className="h-8 w-px bg-gradient-to-b from-muted to-transparent"
-          animate={{ scaleY: [0.4, 1, 0.4], opacity: [0.3, 1, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-        />
       </motion.div>
     </section>
   );
