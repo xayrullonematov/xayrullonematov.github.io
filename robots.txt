@@ -1,0 +1,4 @@
+User-Agent: *
+Allow: /
+
+Sitemap: https://nematov.com/sitemap.xml
