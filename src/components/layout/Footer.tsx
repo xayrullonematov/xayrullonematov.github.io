@@ -2,16 +2,16 @@ import { site, navLinks } from "@/data/content";
 
 export function Footer() {
   return (
-    <footer className="border-t border-white/[0.08] bg-[#030305] pt-16 pb-12">
+    <footer className="border-t border-white/[0.08] bg-[#07090e] pt-16 pb-12">
       <div className="container">
         <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
           {/* Brand Info */}
           <div className="md:col-span-5 space-y-4">
             <a href="#top" className="flex items-center gap-3 w-max group">
               <img
-                src="/images/logo.jpg"
+                src="/images/logo.png"
                 alt="Hamma Labs Logo"
-                className="h-9 w-9 rounded-lg object-cover border border-white/10 shadow-md group-hover:scale-105 transition-transform"
+                className="h-10 w-10 rounded-xl object-contain border border-white/10 p-1 shadow-md group-hover:scale-105 transition-transform bg-[#0d1119]"
               />
               <span className="display text-2xl font-bold tracking-tight text-text group-hover:text-accent transition-colors">
                 {site.name}

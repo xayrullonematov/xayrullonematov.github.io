@@ -14,8 +14,7 @@ export function Hero() {
     offset: ["start start", "end start"],
   });
 
-  // Soft subtle parallax on desktop only
-  const y = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : 60]);
+  const y = useTransform(scrollYProgress, [0, 1], [0, prefersReducedMotion ? 0 : 50]);
   const opacity = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
 
   return (
@@ -24,8 +23,8 @@ export function Hero() {
       ref={containerRef}
       className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24"
     >
-      {/* Ambient backgrounds */}
-      <div className="pointer-events-none absolute inset-0 grid-bg opacity-70" aria-hidden />
+      {/* Ambient brand gradient backgrounds */}
+      <div className="pointer-events-none absolute inset-0 grid-bg opacity-60" aria-hidden />
       <div
         className="gradient-orb top-[-10%] left-[10%] h-[500px] w-[500px] opacity-25"
         style={{ background: "var(--accent)" }}
@@ -33,7 +32,7 @@ export function Hero() {
       />
       <div
         className="gradient-orb right-[5%] bottom-[10%] h-[400px] w-[400px] opacity-20"
-        style={{ background: "#A78BFA" }}
+        style={{ background: "var(--accent-purple)" }}
         aria-hidden
       />
 
@@ -115,8 +114,8 @@ export function Hero() {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="group relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 bg-[#08080d] p-4 shadow-2xl transition-all duration-700 hover:border-accent/40">
-              <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/5 bg-[#0a0a10]">
+            <div className="group relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 bg-[#0c1017] p-4 shadow-2xl transition-all duration-700 hover:border-accent/40">
+              <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/5 bg-[#080a0f]">
                 {/* 3D AI Sphere Artwork */}
                 <img
                   src="/images/hero_sphere.jpg"
@@ -124,22 +123,22 @@ export function Hero() {
                   className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                 />
 
-                {/* Overlaid Studio Badge */}
-                <div className="absolute top-4 left-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-black/70 px-4 py-2.5 backdrop-blur-md shadow-xl">
+                {/* Overlaid Studio Badge with official PNG logo */}
+                <div className="absolute top-4 left-4 flex items-center gap-3 rounded-2xl border border-white/10 bg-black/80 px-4 py-2.5 backdrop-blur-md shadow-xl">
                   <img
-                    src="/images/logo.jpg"
+                    src="/images/logo.png"
                     alt="Hamma Labs Logo"
-                    className="h-7 w-7 rounded-lg object-cover"
+                    className="h-8 w-8 rounded-lg object-contain p-0.5"
                   />
                   <div>
                     <p className="mono text-xs font-semibold text-white">Hamma Labs</p>
-                    <p className="mono text-[10px] text-muted">Local-first AI Studio</p>
+                    <p className="mono text-[10px] text-accent">Local-first AI Studio</p>
                   </div>
                 </div>
 
                 {/* Overlaid Active Agents Badge */}
                 <div className="absolute bottom-4 right-4 flex items-center gap-2 rounded-xl border border-white/10 bg-black/80 px-3.5 py-2 backdrop-blur-md shadow-xl">
-                  <span className="mono text-[11px] text-accent">Active Agent Memory Engine</span>
+                  <span className="mono text-[11px] text-accent-purple">Active Agent Memory Engine</span>
                 </div>
               </div>
             </div>

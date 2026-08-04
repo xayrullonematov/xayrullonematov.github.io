@@ -29,7 +29,7 @@ export function Navigation() {
         className={cn(
           "fixed top-0 right-0 left-0 z-50 transition-all duration-300",
           scrolled
-            ? "border-b border-white/[0.08] bg-bg/85 backdrop-blur-xl py-3"
+            ? "border-b border-white/[0.08] bg-bg/85 backdrop-blur-xl py-3 shadow-lg"
             : "bg-transparent py-5",
         )}
       >
@@ -37,17 +37,17 @@ export function Navigation() {
           className="container flex items-center justify-between"
           aria-label="Primary"
         >
-          {/* Logo with Hamma Labs Badge */}
+          {/* Logo with official PNG logo */}
           <a
             href="#top"
             className="group flex items-center gap-3"
             aria-label={`${site.name} — home`}
           >
-            <div className="relative flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-white/10 bg-surface shadow-md transition-transform duration-300 group-hover:scale-105">
+            <div className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-surface shadow-md transition-transform duration-300 group-hover:scale-105">
               <img
-                src="/images/logo.jpg"
-                alt="Hamma Labs Logo"
-                className="h-full w-full object-cover"
+                src="/images/logo.png"
+                alt="Xayrullo Nematov Logo"
+                className="h-full w-full object-contain p-1"
               />
             </div>
             <div className="flex flex-col">

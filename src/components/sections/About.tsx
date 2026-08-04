@@ -18,14 +18,14 @@ export function About() {
             title="Engineer. Founder. Continuous builder."
           />
 
-          {/* Hamma Labs Brand Card */}
+          {/* Hamma Labs Brand Card with PNG logo */}
           <Reveal delay={0.2}>
             <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-surface p-6 shadow-xl">
               <div className="flex items-center gap-4">
                 <img
-                  src="/images/logo.jpg"
-                  alt="Hamma Labs Logo Emblem"
-                  className="h-14 w-14 rounded-xl object-cover border border-white/10 shadow-lg"
+                  src="/images/logo.png"
+                  alt="Hamma Labs Official Logo"
+                  className="h-14 w-14 rounded-xl object-contain border border-white/10 p-1 shadow-lg bg-[#0a0d13]"
                 />
                 <div>
                   <h3 className="display text-xl font-semibold text-text">Hamma Labs</h3>
