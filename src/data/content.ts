@@ -16,9 +16,8 @@ export const site = {
 
 export const navLinks = [
   { label: "Work", href: "#projects" },
-  { label: "Open Source", href: "#open-source" },
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
+  { label: "Manifesto", href: "#manifesto" },
+  { label: "Capabilities", href: "#capabilities" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -29,9 +28,9 @@ export const projects = [
     name: "HammaDev",
     tagline: "Persistent memory for AI coding agents",
     description:
-      "Local repository memory that lets you switch between Codex, Claude Code, and Grok without losing decisions, constraints, discoveries, or task history. Sessions belong to agents. Memory belongs to the project.",
+      "Local repository memory that lets you switch between Codex, Claude Code, and Grok without losing decisions, constraints, discoveries, or task history.",
     longDescription:
-      "HammaDev turns agent history into an evidence-aware execution contract — durable knowledge, immutable task epochs, git reconciliation, and readiness assessment. No cloud. No telemetry. Trust the repository when handoffs conflict with live state.",
+      "HammaDev turns agent history into an evidence-aware execution contract — durable knowledge, immutable task epochs, git reconciliation, and readiness assessment. No cloud. Zero telemetry.",
     stack: ["TypeScript", "Node.js", "CLI", "Git", "Local-first"],
     github: "https://github.com/xayrullonematov/hammadev",
     demo: null as string | null,
@@ -51,9 +50,9 @@ export const projects = [
     name: "Hamma",
     tagline: "AI-powered SSH client, fully local",
     description:
-      "Manage servers without writing a single command. SSH, SFTP, Docker, processes, and services — with an embedded AI copilot that runs entirely on your device. Your fleet, your keys, your AI.",
+      "Manage server fleets without writing complex commands. SSH, SFTP, Docker, and services with an embedded AI copilot hard-locked to your device loopback.",
     longDescription:
-      "Built for air-gapped and high-trust environments. AI traffic is hard-locked to loopback. Includes a fine-tuned DevOps model, visual SFTP, fleet dashboard, and zero-trust security across Linux, Windows, macOS, Android, and iOS.",
+      "Built for air-gapped and high-trust environments. Includes a fine-tuned DevOps model, visual SFTP, fleet dashboard, and zero-trust security across Linux, Windows, macOS, Android, and iOS.",
     stack: ["Dart", "Flutter", "Local LLM", "SSH/SFTP", "Docker"],
     github: "https://github.com/xayrullonematov/hamma",
     demo: null as string | null,
@@ -73,9 +72,9 @@ export const projects = [
     name: "RepoScope",
     tagline: "Four AI engineers argue about your code",
     description:
-      "Point it at a GitHub repository and a swarm of specialized agents — senior, security, performance, and product — propose, critique, revise, and negotiate a structured engineering review. Not a chatbot. A design room.",
+      "A swarm of 4 specialized AI agents — senior, security, performance, and product — propose, critique, revise, and negotiate a structured engineering review.",
     longDescription:
-      "Event-sourced multi-agent collaboration with adversarial critique routing, Zod-validated structured outputs, cost governance, and human-in-the-room directives. Built for the Qwen Cloud Global AI Hackathon — Agent Society track.",
+      "Event-sourced multi-agent collaboration with adversarial critique routing, Zod-validated structured outputs, cost governance, and human-in-the-room directives. Built for the Qwen Cloud Global AI Hackathon.",
     stack: ["Next.js", "TypeScript", "Prisma", "Zod", "Qwen / DashScope"],
     github: "https://github.com/xayrullonematov/RepoScope",
     demo: "https://reposcope.myrepo.xyz",
@@ -91,50 +90,27 @@ export const projects = [
   },
 ];
 
-// Streamlined public repositories — focused strictly on flagship projects
-export const repositories = [
+// Core Studio Manifesto & Engineering Principles (Replaces Resume Paragraphs)
+export const manifesto = [
   {
-    name: "hammadev",
+    number: "01",
+    title: "Local-First by Default",
     description:
-      "Persistent, local repository memory for AI coding agents across Codex, Claude, and Grok.",
-    language: "TypeScript",
-    languageColor: "#3178c6",
-    stars: 3,
-    url: "https://github.com/xayrullonematov/hammadev",
+      "Software should run where cloud APIs cannot. Your code, server keys, and agent memory belong to your device — hard-locked to loopback with zero telemetry.",
   },
   {
-    name: "hamma",
+    number: "02",
+    title: "Agentic Memory as Contract",
     description:
-      "Local-first AI SSH client for fleet management with zero telemetry.",
-    language: "Dart",
-    languageColor: "#00B4AB",
-    stars: 2,
-    url: "https://github.com/xayrullonematov/hamma",
+      "AI coding sessions belong to transient agents. Knowledge belongs to the repository. We build evidence-aware state that outlasts model handoffs.",
   },
   {
-    name: "RepoScope",
+    number: "03",
+    title: "Adversarial Multi-Agent Swarms",
     description:
-      "Multi-agent engineering room where four AI specialists negotiate structured code reviews.",
-    language: "TypeScript",
-    languageColor: "#3178c6",
-    stars: 3,
-    url: "https://github.com/xayrullonematov/RepoScope",
+      "Single-prompt AI produces hallucinated consensus. We orchestrate specialized agent swarms that critique, audit, and negotiate structured engineering outputs.",
   },
 ];
-
-export const about = {
-  paragraphs: [
-    "I build AI products that stay useful after the demo ends — local-first tools, multi-agent systems, and developer infrastructure designed for real constraints: privacy, offline environments, and shipping software that engineers actually trust.",
-    "Through Hamma Labs I ship open-source systems that treat agents as collaborators with memory, evidence, and boundaries. HammaDev preserves project state across tools. Hamma keeps server operations on-device. RepoScope turns code review into structured multi-agent negotiation.",
-    "I learn in public: hackathons, security labs, and continuous shipping. The through-line is craft — software that feels deliberate, private by default, and ready to run where cloud APIs cannot.",
-  ],
-  facts: [
-    { label: "Focus", value: "Local-first AI systems" },
-    { label: "Studio", value: "Hamma Labs" },
-    { label: "Based in", value: "Samarkand, UZ" },
-    { label: "Mode", value: "Open source + products" },
-  ],
-};
 
 export const skillGroups = [
   {
@@ -144,8 +120,6 @@ export const skillGroups = [
       "Local LLM inference",
       "Agent memory & handoffs",
       "Structured outputs / Zod",
-      "Prompt & context engineering",
-      "RAG & evidence pipelines",
     ],
   },
   {
@@ -154,69 +128,32 @@ export const skillGroups = [
       "TypeScript / Node.js",
       "Next.js / React",
       "Dart / Flutter",
-      "Python",
-      "Event sourcing",
-      "CLI tooling",
+      "Python / Event Sourcing",
     ],
   },
   {
     title: "Infrastructure",
     skills: [
-      "Git & GitOps workflows",
-      "Docker / containers",
-      "SSH / SFTP systems",
-      "Prisma / Postgres",
-      "Cloud deployment (ECS)",
-      "Security & zero-trust design",
+      "Docker / Containers",
+      "SSH / SFTP Systems",
+      "GitOps Workflows",
+      "Zero-Trust Design",
     ],
   },
   {
     title: "Craft",
     skills: [
-      "Product design sense",
-      "Technical writing",
-      "Open-source DX",
-      "Hackathon shipping",
-      "Test-driven rigor",
-      "Performance budgets",
+      "Product Design Sense",
+      "Open-Source DX",
+      "Hackathon Shipping",
+      "Performance Budgets",
     ],
   },
 ];
 
-export const experience = [
-  {
-    year: "2026",
-    title: "Founder — Hamma Labs",
-    description:
-      "Building local-first AI developer tools: HammaDev for agent memory, Hamma for private server operations, and a growing open-source surface for agentic workflows.",
-    tags: ["Founder", "Open Source", "AI"],
-  },
-  {
-    year: "2026",
-    title: "Qwen Cloud Global AI Hackathon",
-    description:
-      "RepoScope — multi-agent engineering room for Track 3: Agent Society. Four specialized agents negotiate structured reviews with adversarial critique routing and event-sourced sessions.",
-    tags: ["Hackathon", "Multi-Agent", "Qwen"],
-  },
-  {
-    year: "2026",
-    title: "Kiro Birthday Challenge",
-    description:
-      "Shipped Human-in-the-Room Directives for RepoScope — making the human a first-class fifth engineer in the shared agent context with auditable directive flow.",
-    tags: ["Challenge", "DX", "Agents"],
-  },
-  {
-    year: "2025–26",
-    title: "Open Source & Systems Practice",
-    description:
-      "Continuous shipping across TypeScript, Dart, and Python. Security labs via OverTheWire, infrastructure experiments, and public product development from Samarkand.",
-    tags: ["Learning", "Security", "Build"],
-  },
-];
-
 export const stats = [
-  { value: "3+", label: "Flagship products" },
-  { value: "9", label: "Public repositories" },
-  { value: "Local", label: "First by design" },
-  { value: "OSS", label: "Default license" },
+  { value: "3+", label: "Flagship Products" },
+  { value: "Local", label: "First by Design" },
+  { value: "0", label: "Telemetry Sent" },
+  { value: "OSS", label: "Default License" },
 ];

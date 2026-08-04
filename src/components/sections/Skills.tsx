@@ -1,38 +1,53 @@
+"use client";
+
 import { skillGroups } from "@/data/content";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Stagger, StaggerItem } from "@/components/ui/Reveal";
 
 export function Skills() {
   return (
-    <section id="skills" className="section relative border-y border-white/5 bg-surface/30">
-      <h2 className="sr-only">Skills</h2>
-      <div className="container-wide">
-        <SectionHeading 
-          index="04" 
-          label="Capabilities" 
-          title="Tools & Technologies" 
+    <section id="capabilities" className="section container-wide relative border-t border-white/[0.08]">
+      <h2 className="sr-only">Engineering Capabilities & Craft</h2>
+
+      <div className="mb-12">
+        <SectionHeading
+          index="03"
+          label="Capabilities"
+          title="Engineering stack & design craft."
         />
-        
-        <Stagger className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-16">
-          {skillGroups.map((group, index) => (
-            <StaggerItem key={index}>
-              <div className="card-surface rounded-2xl border border-white/5 h-full overflow-hidden flex flex-col">
-                <div className="p-6 border-b border-white/5 flex items-center gap-4 bg-white/[0.02]">
-                  <span className="mono text-xs text-muted-dim">0{index + 1}</span>
-                  <h3 className="font-display text-lg text-text">{group.title}</h3>
+      </div>
+
+      <Stagger stagger={0.1} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {skillGroups.map((group, i) => (
+          <StaggerItem key={group.title}>
+            <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-surface p-6 h-full transition-all duration-300 hover:border-accent/40 hover:bg-surface-elevated flex flex-col justify-between">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="mono text-xs text-accent">0{i + 1}</span>
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent/60 group-hover:scale-150 transition-transform" />
                 </div>
-                <ul className="flex-1 divide-y divide-white/5">
-                  {group.skills.map((skill, i) => (
-                    <li key={i} className="px-6 py-4 text-sm text-muted hover:text-text transition-colors">
-                      {skill}
+                <h3 className="display text-xl font-bold text-text mb-4 group-hover:text-accent transition-colors">
+                  {group.title}
+                </h3>
+
+                <ul className="space-y-2.5">
+                  {group.skills.map((skill) => (
+                    <li key={skill} className="flex items-center gap-2 text-sm text-muted group-hover:text-slate-200 transition-colors">
+                      <span className="mono text-[10px] text-accent/80">›</span>
+                      <span>{skill}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-            </StaggerItem>
-          ))}
-        </Stagger>
-      </div>
+
+              <div className="mt-6 pt-4 border-t border-white/5 flex items-center justify-between text-[10px] mono text-muted-dim">
+                <span>Domain 0{i + 1}</span>
+                <span className="text-accent/60">Production Ready</span>
+              </div>
+            </div>
+          </StaggerItem>
+        ))}
+      </Stagger>
     </section>
   );
 }
