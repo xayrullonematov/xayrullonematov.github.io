@@ -1,13 +1,15 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
 import { site, stats } from "@/data/content";
 import { AccentButton, GhostButton } from "@/components/ui/MagneticButton";
+import { cn } from "@/lib/utils";
 
 export function Hero() {
   const containerRef = useRef<HTMLElement>(null);
   const prefersReducedMotion = useReducedMotion();
+  const [heroTab, setHeroTab] = useState<"architecture" | "memory" | "fleet">("architecture");
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -80,7 +82,7 @@ export function Hero() {
 
             {/* Subtitle */}
             <motion.p
-              className="mt-6 max-w-xl text-base text-muted md:text-lg leading-relaxed"
+              className="mt-6 max-w-xl text-base text-muted md:text-lg leading-relaxed font-sans"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}
@@ -107,73 +109,130 @@ export function Hero() {
             </motion.div>
           </div>
 
-          {/* Right column: Bespoke Hamma Labs Software Topology UI Card */}
+          {/* Right column: Award-Quality Interactive 4K macOS Desktop Showcase Centerpiece */}
           <motion.div
             className="lg:col-span-5"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.9, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="group relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 glass-panel p-5 shadow-2xl transition-all duration-500 hover:border-accent/40">
-              <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-[#080b11] p-5 flex flex-col justify-between select-none">
+            <div className="group relative aspect-square w-full overflow-hidden rounded-3xl border border-white/10 glass-panel shadow-2xl transition-all duration-500 hover:border-accent/40">
+              <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-[#080b11] flex flex-col justify-between select-none">
                 
-                {/* Top Bar with PNG Logo & Studio Info */}
-                <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                {/* Window Control & Interactive Tab Bar */}
+                <div className="h-10 bg-[#10141e] border-b border-slate-800 flex items-center justify-between px-3.5 z-10">
                   <div className="flex items-center gap-3">
-                    <img
-                      src="/images/logo.png"
-                      alt="Hamma Labs Logo"
-                      className="h-9 w-9 rounded-xl object-contain p-0.5 border border-white/10 bg-[#0e131d]"
-                    />
-                    <div>
-                      <h3 className="mono text-xs font-semibold text-text">Hamma Labs</h3>
-                      <p className="mono text-[10px] text-accent">Local-First AI Studio</p>
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-3 h-3 rounded-full bg-[#FF5F56] border border-black/20" />
+                      <span className="w-3 h-3 rounded-full bg-[#FFBD2E] border border-black/20" />
+                      <span className="w-3 h-3 rounded-full bg-[#27C93F] border border-black/20" />
+                    </div>
+
+                    <div className="flex items-center gap-1 bg-[#06080d] p-0.5 rounded-lg border border-slate-800">
+                      <button
+                        onClick={() => setHeroTab("architecture")}
+                        className={cn(
+                          "px-2 py-0.5 rounded text-[10px] font-sans font-medium transition-colors",
+                          heroTab === "architecture" ? "bg-accent/20 text-accent font-semibold" : "text-slate-400 hover:text-slate-200"
+                        )}
+                      >
+                        Topology
+                      </button>
+                      <button
+                        onClick={() => setHeroTab("memory")}
+                        className={cn(
+                          "px-2 py-0.5 rounded text-[10px] font-sans font-medium transition-colors",
+                          heroTab === "memory" ? "bg-accent/20 text-accent font-semibold" : "text-slate-400 hover:text-slate-200"
+                        )}
+                      >
+                        HammaDev
+                      </button>
+                      <button
+                        onClick={() => setHeroTab("fleet")}
+                        className={cn(
+                          "px-2 py-0.5 rounded text-[10px] font-sans font-medium transition-colors",
+                          heroTab === "fleet" ? "bg-accent/20 text-accent font-semibold" : "text-slate-400 hover:text-slate-200"
+                        )}
+                      >
+                        Hamma
+                      </button>
                     </div>
                   </div>
-                  <span className="px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-[10px] font-mono font-medium border border-emerald-500/20">
+
+                  <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 text-[9px] font-mono border border-emerald-500/20 hidden sm:block">
                     AIR-GAPPED
                   </span>
                 </div>
 
-                {/* Center Software Architecture Nodes Visual */}
-                <div className="my-4 py-4 space-y-2 font-mono text-xs">
-                  <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mb-3">Flagship Systems</div>
+                {/* Main Interactive Screen Content */}
+                <div className="p-4 flex-1 flex flex-col justify-between bg-[#06080e] overflow-hidden">
                   
-                  {/* System Node 1 */}
-                  <div className="p-2.5 rounded-lg bg-[#0e1420] border border-accent/30 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-accent" />
-                      <span className="text-slate-200 font-semibold">HammaDev</span>
+                  {heroTab === "architecture" && (
+                    <div className="space-y-3 font-mono text-xs my-auto">
+                      <div className="flex items-center justify-between border-b border-slate-800 pb-2">
+                        <div className="flex items-center gap-2.5">
+                          <img
+                            src="/images/logo.png"
+                            alt="Hamma Labs Logo"
+                            className="h-8 w-8 rounded-lg object-contain p-0.5 border border-white/10 bg-[#0e131d]"
+                          />
+                          <div>
+                            <h3 className="mono text-xs font-semibold text-text">Hamma Labs Studio</h3>
+                            <p className="mono text-[10px] text-accent">Local-First Systems</p>
+                          </div>
+                        </div>
+                        <span className="text-[10px] text-emerald-400 font-semibold">0 Cloud Sync</span>
+                      </div>
+
+                      <div className="space-y-2 pt-1">
+                        <div className="p-2 rounded bg-[#0d121c] border border-accent/30 flex items-center justify-between">
+                          <span className="text-slate-200 font-semibold text-[11px]">HammaDev Memory</span>
+                          <span className="text-accent text-[9px]">Epoch Contract</span>
+                        </div>
+                        <div className="p-2 rounded bg-[#0d121c] border border-purple-500/30 flex items-center justify-between">
+                          <span className="text-slate-200 font-semibold text-[11px]">Hamma Local AI SSH</span>
+                          <span className="text-purple-400 text-[9px]">Loopback Locked</span>
+                        </div>
+                        <div className="p-2 rounded bg-[#0d121c] border border-slate-800 flex items-center justify-between">
+                          <span className="text-slate-200 font-semibold text-[11px]">RepoScope Swarm</span>
+                          <span className="text-slate-400 text-[9px]">4-Agent Review</span>
+                        </div>
+                      </div>
                     </div>
-                    <span className="text-[10px] text-slate-400">Agent Memory Engine</span>
+                  )}
+
+                  {heroTab === "memory" && (
+                    <div className="space-y-2 font-mono text-[10px] text-slate-300 my-auto bg-[#090d14] p-3 rounded-lg border border-slate-800">
+                      <div className="text-accent font-semibold border-b border-slate-800 pb-1">{`// HammaDev Persistent Agent State`}</div>
+                      <div><span className="text-purple-400">{`"activeAgent"`}</span>: <span className="text-emerald-300">{`"Claude 3.7 Sonnet"`}</span>,</div>
+                      <div><span className="text-purple-400">{`"handoffHistory"`}</span>: [<span className="text-slate-400">{`"Codex", "Grok3"`}</span>],</div>
+                      <div><span className="text-purple-400">{`"telemetry"`}</span>: <span className="text-rose-400">false</span></div>
+                    </div>
+                  )}
+
+                  {heroTab === "fleet" && (
+                    <div className="space-y-2 font-mono text-[10px] text-slate-300 my-auto bg-[#090d14] p-3 rounded-lg border border-slate-800">
+                      <div className="text-purple-300 font-semibold border-b border-slate-800 pb-1">{`// Hamma AI SSH Fleet Nodes`}</div>
+                      <div className="flex justify-between text-slate-400">
+                        <span>alpha.hamma.local</span> <span className="text-emerald-400">ONLINE</span>
+                      </div>
+                      <div className="flex justify-between text-slate-400">
+                        <span>delta.hamma.ai</span> <span className="text-purple-300">AIR-GAPPED</span>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Glass Card Footer */}
+                  <div className="pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] font-mono text-slate-400">
+                    <span>Samarkand, UZ</span>
+                    <span className="text-accent font-semibold">3 Flagship Products</span>
                   </div>
 
-                  {/* System Node 2 */}
-                  <div className="p-2.5 rounded-lg bg-[#0e1420] border border-purple-500/30 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-purple-400" />
-                      <span className="text-slate-200 font-semibold">Hamma</span>
-                    </div>
-                    <span className="text-[10px] text-slate-400">Local AI SSH Client</span>
-                  </div>
-
-                  {/* System Node 3 */}
-                  <div className="p-2.5 rounded-lg bg-[#0e1420] border border-slate-800 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="w-2 h-2 rounded-full bg-blue-400" />
-                      <span className="text-slate-200 font-semibold">RepoScope</span>
-                    </div>
-                    <span className="text-[10px] text-slate-400">Multi-Agent Review</span>
-                  </div>
                 </div>
-
-                {/* Bottom System Status Summary */}
-                <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-[10px] font-mono text-slate-400">
-                  <span>Zero Telemetry</span>
-                  <span className="text-accent font-semibold">3 Flagship Products</span>
-                </div>
-
               </div>
+
+              {/* Glass Glare */}
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-transparent via-white/[0.04] to-transparent" />
             </div>
           </motion.div>
 
