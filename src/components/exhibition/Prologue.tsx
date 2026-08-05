@@ -29,16 +29,18 @@ export function Prologue() {
   const narrativeOpacity = useTransform(scrollYProgress, [end * 0.2, end * 0.5], [0, 1]);
   const narrativeY = useTransform(scrollYProgress, [end * 0.2, end * 0.5], [30, 0]);
   const scrollHintOpacity = useTransform(scrollYProgress, [0, end * 0.2], [1, 0]);
-  
   const opacity = useTransform(scrollYProgress, [0, end * 0.8, end], [1, 1, 0]);
-  const pointerEvents = state.activeChapterIndex === 0 ? "auto" : "none";
+  const isActive = state.progress <= end;
+  const pointerEvents = isActive ? "auto" : "none";
+  const visibility = useTransform(scrollYProgress, (p) => p <= end ? "visible" : "hidden");
 
   return (
     <motion.section
       id="prologue"
       className="absolute inset-0 flex flex-col justify-start pt-[30vh] md:pt-[35vh] overflow-hidden"
       aria-labelledby="prologue-title"
-      style={prefersReducedMotion ? { opacity: state.activeChapterIndex === 0 ? 1 : 0, pointerEvents } : { opacity, pointerEvents }}
+      style={prefersReducedMotion ? { opacity: isActive ? 1 : 0, pointerEvents, visibility: isActive ? "visible" : "hidden" } : { opacity, pointerEvents, visibility }}
+      aria-hidden={!isActive}
     >
       <div className="relative z-10 w-full max-w-4xl mx-auto px-5 md:px-8">
         {/* The name — large, confident, minimal */}

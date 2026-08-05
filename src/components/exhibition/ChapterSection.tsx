@@ -33,7 +33,9 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
   );
   
   // Only allow interactions when fully visible
-  const pointerEvents = (state.progress >= start && state.progress <= fadeOutPoint) ? "auto" : "none";
+  const isActive = (state.progress >= start - fade && state.progress <= fadeOutPoint + fade);
+  const pointerEvents = isActive ? "auto" : "none";
+  const visibility = useTransform(scrollYProgress, (p) => (p >= start - fade && p <= fadeOutPoint + fade) ? "visible" : "hidden");
 
   // Determine typography classes based on chapter index
   const getTypographyClasses = (index: number) => {
@@ -52,7 +54,8 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
     <motion.section 
       id={`chapter-${chapter.index}`}
       className="absolute inset-0 flex items-center justify-center py-20 md:py-32 px-6 md:px-12 lg:px-24 pointer-events-none"
-      style={reducedMotion ? { opacity: state.activeChapterIndex === chapter.index ? 1 : 0 } : { opacity }}
+      style={reducedMotion ? { opacity: state.activeChapterIndex === chapter.index ? 1 : 0, visibility: state.activeChapterIndex === chapter.index ? "visible" : "hidden" } : { opacity, visibility }}
+      aria-hidden={!isActive}
     >
       {/* Background Gradient */}
       <div 

@@ -34,7 +34,9 @@ export function MilestoneCard({ milestone }: { milestone: Milestone }) {
   );
 
   const isActiveChapter = state.activeChapterIndex === chapterIndex;
-  const isPastAppearPoint = state.progress >= appear;
+  const isPastAppearPoint = state.progress >= appear - fade;
+  const isBeforeEnd = state.progress <= end + fade;
+  const isFullyVisible = isActiveChapter && isPastAppearPoint && isBeforeEnd;
   
   const isExpanded = isMobile ? isManuallyExpanded : (isActiveChapter && isPastAppearPoint);
 
@@ -42,13 +44,15 @@ export function MilestoneCard({ milestone }: { milestone: Milestone }) {
     if (isMobile) setIsManuallyExpanded(!isManuallyExpanded);
   };
 
-  const pointerEvents = isActiveChapter && isPastAppearPoint ? "auto" : "none";
+  const pointerEvents = isFullyVisible ? "auto" : "none";
+  const visibility = useTransform(scrollYProgress, (p) => (p >= appear - fade && p <= end + fade) ? "visible" : "hidden");
 
   return (
     <motion.div
       className="relative w-full max-w-2xl mx-auto my-auto cursor-pointer md:cursor-default"
       onClick={toggleExpand}
-      style={reducedMotion ? { opacity: isActiveChapter && isPastAppearPoint ? 1 : 0, pointerEvents } : { opacity, y, pointerEvents }}
+      style={reducedMotion ? { opacity: isFullyVisible ? 1 : 0, pointerEvents, visibility: isFullyVisible ? "visible" : "hidden" } : { opacity, y, pointerEvents, visibility }}
+      aria-hidden={!isFullyVisible}
     >
       {/* Decorative connection line to Canvas */}
       <div 

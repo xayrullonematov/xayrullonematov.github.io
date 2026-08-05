@@ -46,18 +46,22 @@ export function FutureHorizon() {
 
   // Future is chapter 7
   const start = 7 / 8; // 0.875
+  const fade = 0.05;
 
-  const opacity = useTransform(scrollYProgress, [start, start + 0.05], [0, 1]);
-  const y = useTransform(scrollYProgress, [start, start + 0.05], [50, 0]);
+  const opacity = useTransform(scrollYProgress, [start, start + fade], [0, 1]);
+  const y = useTransform(scrollYProgress, [start, start + fade], [50, 0]);
   
-  const pointerEvents = state.activeChapterIndex === 7 ? "auto" : "none";  const isActive = state.activeChapterIndex === 7;
+  const isActive = state.activeChapterIndex === 7;
+  const pointerEvents = isActive ? "auto" : "none";
+  const visibility = useTransform(scrollYProgress, (p) => p >= start - fade ? "visible" : "hidden");
 
   return (
     <motion.section
       id="future"
       className="absolute inset-0 flex flex-col justify-center py-24 md:py-32 overflow-hidden pointer-events-none"
       aria-labelledby="future-title"
-      style={reducedMotion ? { opacity: isActive ? 1 : 0, pointerEvents } : { opacity, pointerEvents }}
+      style={reducedMotion ? { opacity: isActive ? 1 : 0, pointerEvents, visibility: isActive ? "visible" : "hidden" } : { opacity, pointerEvents, visibility }}
+      aria-hidden={!isActive}
     >
       {/* Ambient glow — the open edge */}
       <div

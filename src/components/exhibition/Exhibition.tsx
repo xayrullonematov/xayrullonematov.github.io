@@ -36,7 +36,7 @@ export function Exhibition() {
   return (
     <ExhibitionProvider>
       {/* The scroll track to create the timeline */}
-      <div style={{ height: `${chapters.length * 100}vh` }} className="w-full" aria-hidden="true" />
+      <div style={{ height: `${chapters.length * 100}dvh` }} className="w-full" aria-hidden="true" />
 
       {/* The persistent evolving visual world */}
       <div className="fixed inset-0 z-0">
