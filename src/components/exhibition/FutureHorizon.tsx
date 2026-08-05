@@ -11,6 +11,7 @@ import { useRef } from "react";
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { futureActions, siteInfo } from "@/data/journey";
 import { useExhibition } from "@/lib/ExhibitionContext";
+import { ScrambleText } from "@/components/ui/ScrambleText";
 
 const icons = {
   github: (
@@ -105,30 +106,35 @@ export function FutureHorizon() {
           initial={{ opacity: 0, y: 30 }}
           animate={isActive ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, delay: 0.2 }}
-          className="text-[clamp(2rem,6vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.04em] mb-8"
+          className="text-[clamp(2rem,6vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.04em] mb-8 text-balance"
           style={{ fontFamily: "var(--font-display), var(--font-sans), system-ui, sans-serif", color: "#f6f4ef" }}
         >
-          The system is
+          <ScrambleText text="The system is" isActive={isActive} delay={400} />
           <br />
-          <span style={{ color: "rgba(246, 244, 239, 0.3)" }}>intentionally</span>
+          <span style={{ color: "rgba(246, 244, 239, 0.3)" }}>
+            <ScrambleText text="intentionally" isActive={isActive} delay={800} />
+          </span>
           <br />
-          unfinished.
+          <ScrambleText text="unfinished." isActive={isActive} delay={1200} />
         </motion.h2>
 
         {/* Narrative */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.35 }}
-          className="max-w-2xl text-base md:text-lg leading-relaxed mb-16"
-          style={{ color: "rgba(148, 163, 184, 0.9)" }}
-        >
-          From Stone Age to Cyber Punk is not a tagline — it is a trajectory.
-          The countryside curiosity, the cracked phone screen, the slow laptop,
-          the first shipped product, the open-source conviction, the AI-augmented
-          engineering — they are all one continuous thread. The future is the next
-          question that cannot yet be named.
-        </motion.p>
+        <div className="max-w-2xl mx-auto mb-16 space-y-4 text-left md:text-center">
+          {"From Stone Age to Cyber Punk is not a tagline — it is a trajectory. The countryside curiosity, the cracked phone screen, the slow laptop, the first shipped product, the open-source conviction, the AI-augmented engineering — they are all one continuous thread. The future is the next question that cannot yet be named."
+            .split(/(?<=\.)\s+/)
+            .map((sentence, idx) => (
+              <motion.p
+                key={idx}
+                initial={{ opacity: 0, y: 15 }}
+                animate={isActive ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.35 + idx * 0.15 }}
+                className="text-base md:text-lg leading-relaxed"
+                style={{ color: "rgba(148, 163, 184, 0.9)" }}
+              >
+                {sentence}
+              </motion.p>
+            ))}
+        </div>
 
         {/* Divider */}
         <motion.div

@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { type Chapter } from "@/data/journey";
 import { useExhibition } from "@/lib/ExhibitionContext";
+import { ScrambleText } from "@/components/ui/ScrambleText";
 
 export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Chapter, hasMilestone?: boolean }) {
   const { isMobile, reducedMotion, state } = useExhibition();
@@ -102,9 +103,9 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
             </motion.div>
 
             <motion.h2 
-              className="font-display text-2xl sm:text-3xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight"
+              className="font-display text-2xl sm:text-3xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight text-balance"
             >
-              {chapter.title}
+              <ScrambleText text={chapter.title} isActive={state.activeChapterIndex === chapter.index} delay={300} />
             </motion.h2>
 
             <motion.p 
@@ -138,12 +139,20 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
             </div>
 
             {/* Right Column - Narrative */}
-            <div className="md:col-span-7">
-              <motion.p
-                className={`text-[13px] md:text-xl text-white/70 leading-relaxed md:leading-relaxed ${typoClass}`}
-              >
-                {chapter.narrative}
-              </motion.p>
+            <div className="md:col-span-7 flex flex-col justify-center">
+              <div className="space-y-4 md:space-y-6">
+                {chapter.narrative.split(/(?<=\.)\s+/).map((sentence, idx) => (
+                  <motion.p
+                    key={idx}
+                    initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
+                    animate={state.activeChapterIndex === chapter.index ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 10, filter: "blur(4px)" }}
+                    transition={{ duration: 0.7, delay: 0.2 + idx * 0.15, ease: [0.22, 1, 0.36, 1] }}
+                    className={`text-[14px] md:text-xl text-white/70 leading-relaxed md:leading-relaxed ${typoClass}`}
+                  >
+                    {sentence}
+                  </motion.p>
+                ))}
+              </div>
             </div>
             
           </div>

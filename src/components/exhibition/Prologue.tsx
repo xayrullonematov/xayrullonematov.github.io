@@ -60,7 +60,7 @@ export function Prologue() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.4, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[clamp(2.5rem,8vw,6rem)] font-semibold leading-[0.9] tracking-[-0.04em] mb-6"
+            className="text-[clamp(2.5rem,8vw,6rem)] font-semibold leading-[0.9] tracking-[-0.04em] mb-6 text-balance"
             style={{
               fontFamily: "var(--font-display), var(--font-sans), system-ui, sans-serif",
               color: "#f6f4ef",

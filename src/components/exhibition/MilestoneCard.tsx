@@ -1,13 +1,37 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 import { type Milestone, chapters } from "@/data/journey";
 import { useExhibition } from "@/lib/ExhibitionContext";
 
 export function MilestoneCard({ milestone }: { milestone: Milestone }) {
   const { isMobile, reducedMotion, state } = useExhibition();
   const [isManuallyExpanded, setIsManuallyExpanded] = useState(false);
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  // Mouse tracking for 3D tilt effect (desktop only)
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  
+  // Spring physics for smooth return
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), { damping: 30, stiffness: 200 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), { damping: 30, stiffness: 200 });
+  
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isMobile || reducedMotion || !cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    const x = (e.clientX - rect.left) / rect.width - 0.5;
+    const y = (e.clientY - rect.top) / rect.height - 0.5;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+  
+  const handleMouseLeave = () => {
+    if (isMobile || reducedMotion) return;
+    mouseX.set(0);
+    mouseY.set(0);
+  };
 
   // Use the window scroll to drive the timeline
   const { scrollYProgress } = useScroll();
@@ -49,9 +73,20 @@ export function MilestoneCard({ milestone }: { milestone: Milestone }) {
 
   return (
     <motion.div
-      className="relative w-full max-w-2xl mx-auto my-auto cursor-pointer md:cursor-default px-5 md:px-0 pb-24 md:pb-0"
+      ref={cardRef}
+      className="relative w-full max-w-2xl mx-auto my-auto cursor-pointer md:cursor-default px-5 md:px-0 pb-24 md:pb-0 perspective-1000"
       onClick={toggleExpand}
-      style={reducedMotion ? { opacity: isFullyVisible ? 1 : 0, pointerEvents, visibility: isFullyVisible ? "visible" : "hidden" } : { opacity, y, pointerEvents, visibility }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{ 
+        opacity: reducedMotion ? (isFullyVisible ? 1 : 0) : opacity, 
+        y: reducedMotion ? 0 : y,
+        rotateX: reducedMotion ? 0 : rotateX,
+        rotateY: reducedMotion ? 0 : rotateY,
+        pointerEvents, 
+        visibility: reducedMotion ? (isFullyVisible ? "visible" : "hidden") : visibility,
+        transformStyle: "preserve-3d"
+      }}
       aria-hidden={!isFullyVisible}
     >
       {/* Decorative connection line to Canvas */}
