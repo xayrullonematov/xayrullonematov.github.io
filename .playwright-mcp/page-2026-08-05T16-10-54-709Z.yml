@@ -1,0 +1,37 @@
+- generic [active] [ref=f12e1]:
+  - main [ref=f12e2]:
+    - navigation "Chapter progress" [ref=f12e18]:
+      - generic [ref=f12e87]: From Stone to Systems
+      - list [ref=f12e24]:
+        - listitem [ref=f12e25]:
+          - 'button "Go to chapter 1: From Stone to Systems" [ref=f12e26] [cursor=pointer]'
+        - listitem [ref=f12e28]:
+          - 'button "Go to chapter 2: Curiosity" [ref=f12e29] [cursor=pointer]'
+        - listitem [ref=f12e31]:
+          - 'button "Go to chapter 3: Survival" [ref=f12e32] [cursor=pointer]'
+        - listitem [ref=f12e34]:
+          - 'button "Go to chapter 4: Discovery" [ref=f12e35] [cursor=pointer]'
+        - listitem [ref=f12e37]:
+          - 'button "Go to chapter 5: Building" [ref=f12e38] [cursor=pointer]'
+        - listitem [ref=f12e40]:
+          - 'button "Go to chapter 6: Open Source" [ref=f12e41] [cursor=pointer]'
+        - listitem [ref=f12e43]:
+          - 'button "Go to chapter 7: Artificial Intelligence" [ref=f12e44] [cursor=pointer]'
+        - listitem [ref=f12e46]:
+          - 'button "Go to chapter 8: Future" [ref=f12e47] [cursor=pointer]'
+    - link "Skip to exhibition" [ref=f12e49] [cursor=pointer]:
+      - /url: "#prologue"
+    - region [ref=f12e50]:
+      - generic [ref=f12e51]:
+        - generic [ref=f12e52]:
+          - paragraph [ref=f12e53]: An interactive exhibition
+          - heading "From Stone to Systems" [level=1] [ref=f12e54]: From Stoneto Systems
+          - paragraph [ref=f12e56]: Xayrillo Ne'matov
+          - paragraph [ref=f12e57]: Urgut District, Samarkand, Uzbekistan
+        - paragraph [ref=f12e59]: “Every builder begins with a question they cannot yet name.”
+        - generic [ref=f12e60]:
+          - paragraph [ref=f12e61]: "This is not a portfolio. This is a map of how one person learned to build — from the ground, from nothing, from pure curiosity — and why every tool, every line of code, every system traces back to a single question:"
+          - paragraph [ref=f12e62]: “What if I could make this work?”
+      - generic [ref=f12e63]: Scroll to begin
+  - button "Open Next.js Dev Tools" [ref=f12e95] [cursor=pointer]
+  - alert [ref=f12e75]: From Stone to Systems — Xayrillo Ne'matov

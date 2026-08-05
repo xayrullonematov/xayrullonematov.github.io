@@ -114,7 +114,7 @@ export function Exhibition() {
               <ChapterSection chapter={chapter} hasMilestone={hasMilestone} />
 
               {/* Milestones that belong to this chapter */}
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 pointer-events-none px-4 md:px-0">
                 {chapterMilestones.map((milestone) => (
                   <MilestoneCard key={milestone.id} milestone={milestone} />
                 ))}

@@ -74,77 +74,79 @@ export function FutureHorizon() {
       />
 
       <div className="relative z-10 w-full max-w-4xl mx-auto px-5 md:px-8 max-h-[100dvh] overflow-y-auto no-scrollbar pb-24 md:pb-0">
-        {/* Chapter marker */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isActive ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8 }}
-          className="mb-4 md:mb-8"
-        >
-          <span
-            className="inline-block font-mono text-[10px] md:text-[11px] tracking-[0.2em] uppercase"
-            style={{ color: "rgba(246, 244, 239, 0.4)" }}
+        <div className="flex flex-col justify-center text-center space-y-6 md:space-y-12">
+          {/* Chapter marker */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={isActive ? { opacity: 1 } : {}}
+            transition={{ duration: 0.8 }}
+            className="mb-2 md:mb-8"
           >
-            07 — Future
-          </span>
-        </motion.div>
+            <span
+              className="inline-block font-mono text-xs md:text-[11px] tracking-widest uppercase"
+              style={{ color: "rgba(246, 244, 239, 0.4)" }}
+            >
+              07 — Future
+            </span>
+          </motion.div>
 
-        {/* Opening */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={isActive ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, delay: 0.1 }}
-          className="text-lg md:text-xl italic mb-12"
-          style={{ color: "rgba(246, 244, 239, 0.6)", fontFamily: "var(--font-display)" }}
-        >
-          &ldquo;The most honest thing a builder can say is: I am not done yet.&rdquo;
-        </motion.p>
+          {/* Opening */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={isActive ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 0.1 }}
+            className="text-xl md:text-2xl italic max-w-xl mx-auto"
+            style={{ color: "rgba(246, 244, 239, 0.6)", fontFamily: "var(--font-display)" }}
+          >
+            &ldquo;The most honest thing a builder can say is: I am not done yet.&rdquo;
+          </motion.p>
 
-        {/* Title */}
-        <motion.h2
-          id="future-title"
-          initial={{ opacity: 0, y: 30 }}
-          animate={isActive ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.2 }}
-          className="text-[clamp(2rem,6vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.04em] mb-8 text-balance"
-          style={{ fontFamily: "var(--font-display), var(--font-sans), system-ui, sans-serif", color: "#f6f4ef" }}
-        >
-          <ScrambleText text="The system is" isActive={isActive} delay={400} />
-          <br />
-          <span style={{ color: "rgba(246, 244, 239, 0.3)" }}>
-            <ScrambleText text="intentionally" isActive={isActive} delay={800} />
-          </span>
-          <br />
-          <ScrambleText text="unfinished." isActive={isActive} delay={1200} />
-        </motion.h2>
+          {/* Title */}
+          <motion.h2
+            id="future-title"
+            initial={{ opacity: 0, y: 30 }}
+            animate={isActive ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, delay: 0.2 }}
+            className="text-[clamp(2.5rem,8vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-balance"
+            style={{ fontFamily: "var(--font-display), var(--font-sans), system-ui, sans-serif", color: "#f6f4ef" }}
+          >
+            <ScrambleText text="The system is" isActive={isActive} delay={400} />
+            <br />
+            <span style={{ color: "rgba(246, 244, 239, 0.3)" }}>
+              <ScrambleText text="intentionally" isActive={isActive} delay={800} />
+            </span>
+            <br />
+            <ScrambleText text="unfinished." isActive={isActive} delay={1200} />
+          </motion.h2>
 
-        {/* Narrative */}
-        <div className="max-w-2xl mx-auto mb-16 space-y-4 text-left md:text-center">
-          {"From Stone Age to Cyber Punk is not a tagline — it is a trajectory. The countryside curiosity, the cracked phone screen, the slow laptop, the first shipped product, the open-source conviction, the AI-augmented engineering — they are all one continuous thread. The future is the next question that cannot yet be named."
-            .split(/(?<=\.)\s+/)
-            .map((sentence, idx) => (
-              <motion.p
-                key={idx}
-                initial={{ opacity: 0, y: 15 }}
-                animate={isActive ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: 0.35 + idx * 0.15 }}
-                className="text-base md:text-lg leading-relaxed"
-                style={{ color: "rgba(148, 163, 184, 0.9)" }}
-              >
-                {sentence}
-              </motion.p>
-            ))}
+          {/* Narrative */}
+          <div className="max-w-2xl mx-auto space-y-6 md:space-y-4 px-4 md:px-0">
+            {"From Stone Age to Cyber Punk is not a tagline — it is a trajectory. The countryside curiosity, the cracked phone screen, the slow laptop, the first shipped product, the open-source conviction, the AI-augmented engineering — they are all one continuous thread. The future is the next question that cannot yet be named."
+              .split(/(?<=\.)\s+/)
+              .map((sentence, idx) => (
+                <motion.p
+                  key={idx}
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={isActive ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.35 + idx * 0.15 }}
+                  className="text-base md:text-lg leading-relaxed"
+                  style={{ color: "rgba(148, 163, 184, 0.9)" }}
+                >
+                  {sentence}
+                </motion.p>
+              ))}
+          </div>
+
+          {/* Divider */}
+          <motion.div
+            initial={{ scaleX: 0 }}
+            animate={isActive ? { scaleX: 1 } : {}}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="h-[2px] md:h-px w-16 md:w-full max-w-[200px] mx-auto origin-center mt-12 md:mt-16"
+            style={{ background: "rgba(246, 244, 239, 0.2)" }}
+            aria-hidden
+          />
         </div>
-
-        {/* Divider */}
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={isActive ? { scaleX: 1 } : {}}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="h-px w-full mb-16 origin-left"
-          style={{ background: "rgba(246, 244, 239, 0.1)" }}
-          aria-hidden
-        />
 
         {/* Next Actions */}
         <motion.div

@@ -83,17 +83,17 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
         className="relative z-10 max-w-4xl w-full mx-auto"
         style={reducedMotion ? { pointerEvents } : { y, pointerEvents }}
       >
-        <div className="flex flex-col justify-center space-y-4 md:space-y-16 h-full max-h-[85dvh] md:max-h-none overflow-hidden">
+        <div className="flex flex-col justify-center space-y-8 md:space-y-16 h-full w-full max-w-lg md:max-w-none mx-auto py-12 md:py-0">
           
           {/* Header */}
-          <div className="space-y-1.5 md:space-y-4">
+          <div className="space-y-3 md:space-y-4 text-center md:text-left">
             <motion.div 
-              className="flex items-center gap-3 md:gap-4"
+              className="flex items-center justify-center md:justify-start gap-3 md:gap-4"
             >
-              <span className="text-[10px] md:text-sm font-mono tracking-widest text-white/50">
+              <span className="text-xs md:text-sm font-mono tracking-widest text-white/50">
                 CH {String(chapter.index).padStart(2, '0')}
               </span>
-              <div className="h-px w-6 md:w-12 bg-white/20" />
+              <div className="h-px w-8 md:w-12 bg-white/20" />
               <span 
                 className="text-[10px] md:text-sm font-mono tracking-widest uppercase"
                 style={{ color: chapter.palette.primary }}
@@ -103,25 +103,25 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
             </motion.div>
 
             <motion.h2 
-              className="font-display text-2xl sm:text-3xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight text-balance"
+              className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white leading-[1.1] text-balance"
             >
               <ScrambleText text={chapter.title} isActive={state.activeChapterIndex === chapter.index} delay={300} />
             </motion.h2>
 
             <motion.p 
-              className="text-sm md:text-2xl text-white/60 font-sans"
+              className="text-base md:text-2xl text-white/60 font-sans tracking-wide"
             >
               {chapter.subtitle}
             </motion.p>
           </div>
 
           {/* Content */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-16 pt-2 md:pt-0">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
             
             {/* Left Column - Opening & Anchor */}
-            <div className="md:col-span-5 flex flex-col gap-4 md:space-y-12">
+            <div className="md:col-span-5 flex flex-col gap-6 md:space-y-12 text-center md:text-left">
               <motion.blockquote 
-                className={`text-lg md:text-3xl leading-snug text-white/90 border-l-2 pl-3 md:pl-6 ${typoClass}`}
+                className={`text-xl md:text-3xl leading-relaxed text-white/90 md:border-l-2 border-l-0 border-t-2 md:border-t-0 pt-6 md:pt-0 pl-0 md:pl-6 ${typoClass}`}
                 style={{ borderColor: chapter.palette.primary }}
               >
                 "{chapter.opening}"
@@ -139,7 +139,7 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
             </div>
 
             {/* Right Column - Narrative */}
-            <div className="md:col-span-7 flex flex-col justify-center">
+            <div className="md:col-span-7 flex flex-col justify-center text-left">
               <div className="space-y-4 md:space-y-6">
                 {chapter.narrative.split(/(?<=\.)\s+/).map((sentence, idx) => (
                   <motion.p
@@ -147,7 +147,7 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
                     initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
                     animate={state.activeChapterIndex === chapter.index ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 10, filter: "blur(4px)" }}
                     transition={{ duration: 0.7, delay: 0.2 + idx * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                    className={`text-[14px] md:text-xl text-white/70 leading-relaxed md:leading-relaxed ${typoClass}`}
+                    className={`text-base md:text-xl text-white/70 leading-relaxed md:leading-relaxed ${typoClass}`}
                   >
                     {sentence}
                   </motion.p>

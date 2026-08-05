@@ -142,3 +142,52 @@ Import traces:
 [ 1091692ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
 [ 1091916ms] [LOG] [Fast Refresh] done in 209ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
 [ 1091976ms] [LOG] [Fast Refresh] done in 209ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4551263ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4552028ms] [LOG] [Fast Refresh] done in 865ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4557529ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4558024ms] [LOG] [Fast Refresh] done in 598ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4622123ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4623096ms] [LOG] [Fast Refresh] done in 1065ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4623407ms] [LOG] [Fast Refresh] done in 1065ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4648888ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4649247ms] [ERROR] ./src/components/exhibition/ChapterSection.tsx:155:15
+Error: Expected '</', got 'jsx text'
+  153 |             
+  154 |           </div>
+> 155 |         </div>
+      |               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 156 |       </motion.div>
+      | ^^^^^^
+  157 |     </motion.section>
+  158 |   );
+  159 | }
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/components/exhibition/ChapterSection.tsx [Client Component Browser]
+    ./src/components/exhibition/Exhibition.tsx [Client Component Browser]
+    ./src/components/exhibition/Exhibition.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/exhibition/ChapterSection.tsx [Client Component SSR]
+    ./src/components/exhibition/Exhibition.tsx [Client Component SSR]
+    ./src/components/exhibition/Exhibition.tsx [Server Component]
+    ./src/app/page.tsx [Server Component] @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:1052
+[ 4662334ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4662531ms] [LOG] [Fast Refresh] done in 184ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4662591ms] [LOG] [Fast Refresh] done in 184ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4691304ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4691700ms] [LOG] [Fast Refresh] done in 335ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4691770ms] [LOG] [Fast Refresh] done in 335ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4711341ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4711725ms] [LOG] [Fast Refresh] done in 394ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4711763ms] [LOG] [Fast Refresh] done in 394ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4775772ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4776281ms] [LOG] [Fast Refresh] done in 605ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4776399ms] [LOG] [Fast Refresh] done in 605ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4785504ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4785622ms] [LOG] [Fast Refresh] done in 110ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[ 4785664ms] [LOG] [Fast Refresh] done in 110ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776

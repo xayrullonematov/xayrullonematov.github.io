@@ -106,11 +106,11 @@ export function MilestoneCard({ milestone }: { milestone: Milestone }) {
       />
 
       <div 
-        className="relative overflow-hidden rounded-lg border backdrop-blur-xl transition-colors duration-500"
+        className="relative overflow-hidden rounded-lg border backdrop-blur-2xl transition-colors duration-500"
         style={{ 
-          borderColor: isExpanded ? `${milestone.accent}40` : 'rgba(255,255,255,0.1)',
-          backgroundColor: isExpanded ? 'rgba(0,0,0,0.4)' : 'rgba(0,0,0,0.2)',
-          boxShadow: isExpanded ? `0 0 40px -10px ${milestone.accent}20` : 'none'
+          borderColor: isExpanded ? `${milestone.accent}60` : 'rgba(255,255,255,0.15)',
+          backgroundColor: isExpanded ? 'rgba(5,5,8,0.85)' : 'rgba(5,5,8,0.65)',
+          boxShadow: isExpanded ? `0 0 40px -10px ${milestone.accent}30` : 'none'
         }}
       >
         {/* Header - Always visible */}
