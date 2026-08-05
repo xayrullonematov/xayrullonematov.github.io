@@ -84,7 +84,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${syne.variable} ${jetbrains.variable} h-full antialiased`}
+      className={`${inter.variable} ${syne.variable} ${jetbrains.variable} h-full antialiased snap-y snap-mandatory`}
     >
       <body className="noise min-h-full bg-bg text-text">
         <SmoothScroll>

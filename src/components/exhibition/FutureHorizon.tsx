@@ -72,16 +72,16 @@ export function FutureHorizon() {
         }}
       />
 
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-5 md:px-8">
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-5 md:px-8 max-h-[100dvh] overflow-y-auto no-scrollbar pb-24 md:pb-0">
         {/* Chapter marker */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={isActive ? { opacity: 1 } : {}}
           transition={{ duration: 0.8 }}
-          className="mb-8"
+          className="mb-4 md:mb-8"
         >
           <span
-            className="inline-block font-mono text-[11px] tracking-[0.2em] uppercase"
+            className="inline-block font-mono text-[10px] md:text-[11px] tracking-[0.2em] uppercase"
             style={{ color: "rgba(246, 244, 239, 0.4)" }}
           >
             07 — Future

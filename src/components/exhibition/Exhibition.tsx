@@ -41,7 +41,49 @@ export function Exhibition() {
       <EntranceScreen />
 
       {/* The scroll track to create the timeline */}
-      <div style={{ height: `${chapters.length * 100}dvh` }} className="w-full" aria-hidden="true" />
+      <div style={{ height: `${chapters.length * 100}dvh` }} className="w-full relative" aria-hidden="true">
+        {/* Invisible snap points for Instagram Reels style scrolling */}
+        {chapters.map((chapter) => {
+          // Prologue and Future have simpler snap logic
+          if (chapter.id === "prologue") {
+            return <div key={chapter.id} className="absolute w-full snap-start" style={{ top: "0%", height: "1px" }} />;
+          }
+          if (chapter.id === "future") {
+            return <div key={chapter.id} className="absolute w-full snap-start" style={{ top: "100%", height: "1px" }} />;
+          }
+
+          const start = chapter.index / chapters.length;
+          const end = (chapter.index + 1) / chapters.length;
+          
+          const chapterMilestones = milestonesByChapter[chapter.id] || [];
+          const hasMilestone = chapterMilestones.length > 0;
+          
+          const fadeOutPoint = hasMilestone ? start + (end - start) * 0.45 : end;
+          const maxFade = (fadeOutPoint - start) / 2.1; 
+          const fade = Math.min(0.03, maxFade);
+
+          // Snap at the moment the chapter text reaches full opacity
+          const textSnapPoint = start + fade + 0.01; 
+          
+          return (
+            <div key={chapter.id}>
+              {/* Text snap point */}
+              <div 
+                className="absolute w-full snap-start" 
+                style={{ top: `${textSnapPoint * 100}%`, height: '1px' }} 
+              />
+              
+              {/* Milestone snap point */}
+              {hasMilestone && (
+                <div 
+                  className="absolute w-full snap-start" 
+                  style={{ top: `${(start + (end - start) * 0.6) * 100}%`, height: '1px' }} 
+                />
+              )}
+            </div>
+          );
+        })}
+      </div>
 
       {/* The persistent evolving visual world */}
       <div className="fixed inset-0 z-0">

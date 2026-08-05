@@ -57,3 +57,55 @@
 [   22862ms] [LOG] [Fast Refresh] done in 100ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
 [   23526ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
 [   23607ms] [LOG] [HMR] connected @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  366789ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  367641ms] [LOG] [Fast Refresh] done in 854ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  376456ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  376974ms] [LOG] [Fast Refresh] done in 262ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  399592ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  399832ms] [ERROR] ./src/components/exhibition/FutureHorizon.tsx:243:1
+Error: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  241 |     </motion.section>
+  242 |   );
+> 243 | }
+      | ^
+  244 |
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/components/exhibition/FutureHorizon.tsx [Client Component Browser]
+    ./src/components/exhibition/Exhibition.tsx [Client Component Browser]
+    ./src/components/exhibition/Exhibition.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/exhibition/FutureHorizon.tsx [Client Component SSR]
+    ./src/components/exhibition/Exhibition.tsx [Client Component SSR]
+    ./src/components/exhibition/Exhibition.tsx [Server Component]
+    ./src/app/page.tsx [Server Component] @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:1052
+[  400150ms] [ERROR] ./src/components/exhibition/FutureHorizon.tsx:243:1
+Error: Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+  241 |     </motion.section>
+  242 |   );
+> 243 | }
+      | ^
+  244 |
+
+Parsing ecmascript source code failed
+
+Import traces:
+  Client Component Browser:
+    ./src/components/exhibition/FutureHorizon.tsx [Client Component Browser]
+    ./src/components/exhibition/Exhibition.tsx [Client Component Browser]
+    ./src/components/exhibition/Exhibition.tsx [Server Component]
+    ./src/app/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./src/components/exhibition/FutureHorizon.tsx [Client Component SSR]
+    ./src/components/exhibition/Exhibition.tsx [Client Component SSR]
+    ./src/components/exhibition/Exhibition.tsx [Server Component]
+    ./src/app/page.tsx [Server Component] @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:1052
+[  417179ms] [LOG] [Fast Refresh] rebuilding @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  417418ms] [LOG] [Fast Refresh] done in 289ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
+[  417552ms] [LOG] [Fast Refresh] done in 289ms @ http://localhost:3001/_next/static/chunks/node_modules_next_dist_1e8vcs8._.js:776
