@@ -75,14 +75,14 @@ export function MilestoneCard({ milestone }: { milestone: Milestone }) {
         }}
       >
         {/* Header - Always visible */}
-        <div className="p-6 md:p-8 flex items-center justify-between">
-          <h3 className="font-display text-xl md:text-2xl font-semibold tracking-tight text-white/90">
+        <div className="p-5 md:p-8 flex items-center justify-between">
+          <h3 className="font-display text-lg md:text-2xl font-semibold tracking-tight text-white/90">
             {milestone.name}
           </h3>
           
           <div className="flex items-center gap-3">
             <span 
-              className="text-xs font-mono tracking-widest uppercase"
+              className="text-[10px] md:text-xs font-mono tracking-widest uppercase"
               style={{ color: milestone.accent }}
             >
               Artifact
@@ -108,35 +108,35 @@ export function MilestoneCard({ milestone }: { milestone: Milestone }) {
           transition={{ duration: reducedMotion ? 0 : 0.5, ease: [0.25, 0.1, 0.25, 1] }}
           className="overflow-hidden"
         >
-          <div className="p-6 md:p-8 pt-0 space-y-8">
+          <div className="p-5 md:p-8 pt-0 space-y-6 md:space-y-8">
             
-            <div className="space-y-2">
-              <h4 className="text-xs font-mono text-white/40 uppercase tracking-widest">Why</h4>
-              <p className="text-white/80 font-sans leading-relaxed">
+            <div className="space-y-1.5 md:space-y-2">
+              <h4 className="text-[10px] md:text-xs font-mono text-white/40 uppercase tracking-widest">Why</h4>
+              <p className="text-white/80 font-sans leading-relaxed text-sm md:text-base">
                 {milestone.why}
               </p>
             </div>
 
-            <div className="space-y-2">
-              <h4 className="text-xs font-mono text-white/40 uppercase tracking-widest">Capability</h4>
-              <p className="text-white/90 font-sans leading-relaxed font-medium">
+            <div className="space-y-1.5 md:space-y-2">
+              <h4 className="text-[10px] md:text-xs font-mono text-white/40 uppercase tracking-widest">Capability</h4>
+              <p className="text-white/90 font-sans leading-relaxed font-medium text-sm md:text-base">
                 {milestone.capability}
               </p>
             </div>
 
-            <div className="space-y-2">
-              <h4 className="text-xs font-mono text-white/40 uppercase tracking-widest">Proof</h4>
-              <p className="text-white/70 font-sans leading-relaxed italic">
+            <div className="space-y-1.5 md:space-y-2">
+              <h4 className="text-[10px] md:text-xs font-mono text-white/40 uppercase tracking-widest">Proof</h4>
+              <p className="text-white/70 font-sans leading-relaxed italic text-sm md:text-base">
                 {milestone.proof}
               </p>
             </div>
 
-            <div className="pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div className="pt-5 md:pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6">
               <div className="flex flex-wrap gap-2">
                 {milestone.stack.map(tech => (
                   <span 
                     key={tech} 
-                    className="text-xs font-mono px-2 py-1 rounded border border-white/10 bg-white/5 text-white/60"
+                    className="text-[10px] md:text-xs font-mono px-2 py-1 rounded border border-white/10 bg-white/5 text-white/60"
                   >
                     {tech}
                   </span>
@@ -147,12 +147,12 @@ export function MilestoneCard({ milestone }: { milestone: Milestone }) {
                 href={milestone.link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-sm font-medium transition-colors hover:text-white"
+                className="inline-flex items-center gap-2 text-xs md:text-sm font-medium transition-colors hover:text-white"
                 style={{ color: milestone.accent }}
                 onClick={(e) => e.stopPropagation()}
               >
                 {milestone.link.label}
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-3 h-3 md:w-4 md:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
               </a>

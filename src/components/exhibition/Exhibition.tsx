@@ -59,19 +59,22 @@ export function Exhibition() {
         {/* Prologue — the entrance */}
         <Prologue />
 
-        {/* Chapters 1-6 with milestones woven in */}
-        {middleChapters.map((chapter) => (
-          <div key={chapter.id} className="absolute inset-0">
-            <ChapterSection chapter={chapter} />
+        {middleChapters.map((chapter) => {
+          const chapterMilestones = milestonesByChapter[chapter.id] || [];
+          const hasMilestone = chapterMilestones.length > 0;
+          return (
+            <div key={chapter.id} className="absolute inset-0 pointer-events-none">
+              <ChapterSection chapter={chapter} hasMilestone={hasMilestone} />
 
-            {/* Milestones that belong to this chapter */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              {milestonesByChapter[chapter.id]?.map((milestone) => (
-                <MilestoneCard key={milestone.id} milestone={milestone} />
-              ))}
+              {/* Milestones that belong to this chapter */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                {chapterMilestones.map((milestone) => (
+                  <MilestoneCard key={milestone.id} milestone={milestone} />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
 
         {/* Future — the intentionally unfinished ending */}
         <FutureHorizon />
