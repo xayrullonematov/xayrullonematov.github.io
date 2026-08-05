@@ -1,17 +1,13 @@
-import { Hero } from "@/components/sections/Hero";
-import { Projects } from "@/components/sections/Projects";
-import { About } from "@/components/sections/About";
-import { Skills } from "@/components/sections/Skills";
-import { Contact } from "@/components/sections/Contact";
+/**
+ * FROM STONE TO SYSTEMS — Exhibition Page
+ * 
+ * The main orchestration page. Assembles the prologue,
+ * seven chapters, milestones, and future horizon into
+ * one continuous journey.
+ */
+
+import { Exhibition } from "@/components/exhibition/Exhibition";
 
 export default function Home() {
-  return (
-    <>
-      <Hero />
-      <Projects />
-      <About />
-      <Skills />
-      <Contact />
-    </>
-  );
+  return <Exhibition />;
 }

@@ -1,0 +1,275 @@
+- main [ref=e2]:
+  - navigation "Chapter progress" [ref=e3]:
+    - list [ref=e4]:
+      - listitem [ref=e5]:
+        - 'button "Go to chapter 1: From Stone to Systems" [ref=e6] [cursor=pointer]'
+      - listitem [ref=e7]:
+        - 'button "Go to chapter 2: Curiosity" [ref=e8] [cursor=pointer]'
+      - listitem [ref=e9]:
+        - 'button "Go to chapter 3: Survival" [ref=e10] [cursor=pointer]'
+      - listitem [ref=e11]:
+        - 'button "Go to chapter 4: Discovery" [ref=e12] [cursor=pointer]'
+      - listitem [ref=e13]:
+        - 'button "Go to chapter 5: Building" [ref=e14] [cursor=pointer]'
+      - listitem [ref=e15]:
+        - 'button "Go to chapter 6: Open Source" [ref=e16] [cursor=pointer]'
+      - listitem [ref=e17]:
+        - 'button "Go to chapter 7: Artificial Intelligence" [ref=e18] [cursor=pointer]'
+      - listitem [ref=e19]:
+        - 'button "Go to chapter 8: Future" [ref=e20] [cursor=pointer]'
+  - link "Skip to exhibition" [ref=e21] [cursor=pointer]:
+    - /url: "#prologue"
+  - generic [ref=e22]:
+    - region [ref=e23]:
+      - generic [ref=e24]:
+        - generic [ref=e25]:
+          - paragraph [ref=e26]: An interactive exhibition
+          - heading "From Stone to Systems" [level=1] [ref=e27]: From Stoneto Systems
+          - paragraph [ref=e28]: Xayrillo Ne'matov
+          - paragraph [ref=e29]: Urgut District, Samarkand, Uzbekistan
+        - paragraph [ref=e31]: “Every builder begins with a question they cannot yet name.”
+        - generic [ref=e32]:
+          - paragraph [ref=e33]: "This is not a portfolio. This is a map of how one person learned to build — from the ground, from nothing, from pure curiosity — and why every tool, every line of code, every system traces back to a single question:"
+          - paragraph [ref=e34]: “What if I could make this work?”
+      - generic [ref=e35]: Scroll to begin
+    - generic [ref=e39]:
+      - generic: "01"
+      - generic [ref=e41]:
+        - generic [ref=e42]:
+          - generic [ref=e43]:
+            - generic [ref=e44]: CH 01
+            - generic [ref=e46]: marks
+          - heading "Curiosity" [level=2] [ref=e47]
+          - paragraph [ref=e48]: Urgut, Samarkand — the beginning
+        - generic [ref=e49]:
+          - generic [ref=e50]:
+            - blockquote [ref=e51]: "\"In the countryside, everything was a puzzle without instructions.\""
+            - generic [ref=e52]:
+              - heading "Anchor Object" [level=4] [ref=e53]
+              - generic [ref=e54]: Discarded materials
+              - generic [ref=e55]: The first instinct to understand by taking apart
+          - paragraph [ref=e57]: "Growing up in Urgut District, Samarkand, the world was physical and immediate. Discarded electronics became mysteries to disassemble. Broken radios became laboratories. Every object that stopped working raised the same question: why? And every answer led somewhere unexpected."
+    - generic [ref=e59]:
+      - generic: "02"
+      - generic [ref=e61]:
+        - generic [ref=e62]:
+          - generic [ref=e63]:
+            - generic [ref=e64]: CH 02
+            - generic [ref=e66]: fragments
+          - heading "Survival" [level=2] [ref=e67]
+          - paragraph [ref=e68]: When curiosity meets constraint
+        - generic [ref=e69]:
+          - generic [ref=e70]:
+            - blockquote [ref=e71]: "\"The Samsung Galaxy S3 was not a phone. It was the entire world compressed into a cracked screen.\""
+            - generic [ref=e72]:
+              - heading "Anchor Object" [level=4] [ref=e73]
+              - generic [ref=e74]: Samsung Galaxy S3
+              - generic [ref=e75]: Constraint as the first teacher of resourcefulness
+          - paragraph [ref=e77]: Without a computer, a battered Samsung Galaxy S3 became the only window to the digital world. Typing code on a phone keyboard, learning from fragmented tutorials on slow connections, building understanding character by character. Constraints didn't stop the learning — they shaped a different kind of discipline.
+    - generic [ref=e79]:
+      - generic: "03"
+      - generic [ref=e81]:
+        - generic [ref=e82]:
+          - generic [ref=e83]:
+            - generic [ref=e84]: CH 03
+            - generic [ref=e86]: lines
+          - heading "Discovery" [level=2] [ref=e87]
+          - paragraph [ref=e88]: A real machine, a real language
+        - generic [ref=e89]:
+          - generic [ref=e90]:
+            - blockquote [ref=e91]: "\"The inherited ASUS laptop was slow, heavy, and the most beautiful thing in the world.\""
+            - generic [ref=e92]:
+              - heading "Anchor Object" [level=4] [ref=e93]
+              - generic [ref=e94]: Inherited ASUS laptop
+              - generic [ref=e95]: The threshold between imagining and building
+          - paragraph [ref=e97]: An inherited ASUS laptop — slow by any standard — became the first real development machine. Real files. Real terminals. Real debugging. Programming stopped being an abstract idea typed on a phone and became something that compiled, ran, crashed, and taught through every failure.
+    - generic [ref=e98]:
+      - generic [ref=e99]:
+        - generic: "04"
+        - generic [ref=e101]:
+          - generic [ref=e102]:
+            - generic [ref=e103]:
+              - generic [ref=e104]: CH 04
+              - generic [ref=e106]: modules
+            - heading "Building" [level=2] [ref=e107]
+            - paragraph [ref=e108]: From learning to shipping
+          - generic [ref=e109]:
+            - blockquote [ref=e111]: "\"The first time something you built was used by someone else, building became purpose.\""
+            - paragraph [ref=e113]: Knowledge became production. Lines of code became products that real people used. Movie Bot taught what it means to ship something into the world. Autotestlar proved that a single builder could create a platform serving over 10,000 users. Building was no longer practice — it was proof.
+      - generic [ref=e117]:
+        - generic [ref=e118]:
+          - heading "Movie Bot" [level=3] [ref=e119]
+          - generic [ref=e120]: Artifact
+        - generic [ref=e122]:
+          - generic [ref=e123]:
+            - heading "Why" [level=4] [ref=e124]
+            - paragraph [ref=e125]: Before building for others, you must learn what it means to ship something into the world — to make something that works outside your own machine.
+          - generic [ref=e126]:
+            - heading "Capability" [level=4] [ref=e127]
+            - paragraph [ref=e128]: Learning production — understanding deployment, user interaction, and the gap between code that runs and code that serves.
+          - generic [ref=e129]:
+            - heading "Proof" [level=4] [ref=e130]
+            - paragraph [ref=e131]: First shipped project. The foundation of everything that followed.
+          - generic [ref=e132]:
+            - generic [ref=e133]:
+              - generic [ref=e134]: Python
+              - generic [ref=e135]: Telegram Bot API
+            - link "View on GitHub" [ref=e136] [cursor=pointer]:
+              - /url: https://github.com/xayrullonematov
+      - generic [ref=e142]:
+        - generic [ref=e143]:
+          - heading "Autotestlar" [level=3] [ref=e144]
+          - generic [ref=e145]: Artifact
+        - generic [ref=e147]:
+          - generic [ref=e148]:
+            - heading "Why" [level=4] [ref=e149]
+            - paragraph [ref=e150]: In Uzbekistan, preparing for a driving licence test meant outdated materials and no structured practice. The problem was obvious. The solution could serve thousands.
+          - generic [ref=e151]:
+            - heading "Capability" [level=4] [ref=e152]
+            - paragraph [ref=e153]: Solving real-world problems — building a product that 10,000+ people rely on, with 1,200+ tests and a sustainable business model.
+          - generic [ref=e154]:
+            - heading "Proof" [level=4] [ref=e155]
+            - paragraph [ref=e156]: 10,000+ users. 1,200+ tests. 98% success rate. Live at autotestlar.uz with freemium monetization.
+          - generic [ref=e157]:
+            - generic [ref=e158]:
+              - generic [ref=e159]: Telegram Mini App
+              - generic [ref=e160]: Web Platform
+              - generic [ref=e161]: Freemium
+            - link "Visit autotestlar.uz" [ref=e162] [cursor=pointer]:
+              - /url: https://autotestlar.uz/
+    - generic [ref=e165]:
+      - generic [ref=e166]:
+        - generic: "05"
+        - generic [ref=e168]:
+          - generic [ref=e169]:
+            - generic [ref=e170]:
+              - generic [ref=e171]: CH 05
+              - generic [ref=e173]: networks
+            - heading "Open Source" [level=2] [ref=e174]
+            - paragraph [ref=e175]: Building for everyone
+          - generic [ref=e176]:
+            - blockquote [ref=e178]: "\"The code that matters most is the code you give away.\""
+            - paragraph [ref=e180]: "Hamma emerged as the embodiment of a belief: that powerful tools should not require cloud dependencies, corporate permissions, or surveillance. An AI-powered SSH client, fully local, fully open — built for air-gapped environments where trust is not optional. 746 tests passing. 1,400+ model downloads in 48 hours. Not metrics — proof that open-source conviction meets engineering discipline."
+      - generic [ref=e184]:
+        - generic [ref=e185]:
+          - heading "Hamma" [level=3] [ref=e186]
+          - generic [ref=e187]: Artifact
+        - generic [ref=e189]:
+          - generic [ref=e190]:
+            - heading "Why" [level=4] [ref=e191]
+            - paragraph [ref=e192]: Powerful server management tools either require cloud APIs (sending your credentials to someone else's servers) or are too complex for most developers. Neither is acceptable.
+          - generic [ref=e193]:
+            - heading "Capability" [level=4] [ref=e194]
+            - paragraph [ref=e195]: Empowering developers — an AI copilot for DevOps that runs entirely on your device with zero telemetry, across every platform.
+          - generic [ref=e196]:
+            - heading "Proof" [level=4] [ref=e197]
+            - paragraph [ref=e198]: "746/747 tests passing. 1,400+ model downloads in 48 hours. Custom Gemma 4 LoRA model. Cross-platform: Linux, Windows, macOS, Android, iOS."
+          - generic [ref=e199]:
+            - generic [ref=e200]:
+              - generic [ref=e201]: Flutter
+              - generic [ref=e202]: Dart FFI
+              - generic [ref=e203]: C++
+              - generic [ref=e204]: Argon2id
+              - generic [ref=e205]: Local LLM
+            - link "View on GitHub" [ref=e206] [cursor=pointer]:
+              - /url: https://github.com/xayrullonematov/hamma
+    - generic [ref=e209]:
+      - generic [ref=e210]:
+        - generic: "06"
+        - generic [ref=e212]:
+          - generic [ref=e213]:
+            - generic [ref=e214]:
+              - generic [ref=e215]: CH 06
+              - generic [ref=e217]: intelligence
+            - heading "Artificial Intelligence" [level=2] [ref=e218]
+            - paragraph [ref=e219]: Amplifying human capability
+          - generic [ref=e220]:
+            - blockquote [ref=e222]: "\"AI is not the destination. AI is what makes the next generation of tools possible.\""
+            - paragraph [ref=e224]: "RepoScope puts four AI engineers in adversarial debate over your codebase — not to replace review, but to make review impossible to ignore. HammaDev gives AI coding agents persistent memory that survives handoffs between models. The pattern is consistent: AI that augments human judgment, runs locally, and answers to the builder, not the platform."
+      - generic [ref=e228]:
+        - generic [ref=e229]:
+          - heading "RepoScope" [level=3] [ref=e230]
+          - generic [ref=e231]: Artifact
+        - generic [ref=e233]:
+          - generic [ref=e234]:
+            - heading "Why" [level=4] [ref=e235]
+            - paragraph [ref=e236]: Single-prompt AI produces hallucinated consensus. Real engineering review requires adversarial perspectives that challenge assumptions.
+          - generic [ref=e237]:
+            - heading "Capability" [level=4] [ref=e238]
+            - paragraph [ref=e239]: Understanding software — four AI engineers that propose, critique, revise, and negotiate structured engineering reviews of your codebase.
+          - generic [ref=e240]:
+            - heading "Proof" [level=4] [ref=e241]
+            - paragraph [ref=e242]: Event-sourced multi-agent collaboration. Adversarial critique routing. Built for the Qwen Cloud Global AI Hackathon. Live at reposcope.myrepo.xyz.
+          - generic [ref=e243]:
+            - generic [ref=e244]:
+              - generic [ref=e245]: Next.js
+              - generic [ref=e246]: TypeScript
+              - generic [ref=e247]: Prisma
+              - generic [ref=e248]: Zod
+              - generic [ref=e249]: Qwen/DashScope
+            - link "Try RepoScope" [ref=e250] [cursor=pointer]:
+              - /url: https://reposcope.myrepo.xyz
+      - generic [ref=e256]:
+        - generic [ref=e257]:
+          - heading "HammaDev" [level=3] [ref=e258]
+          - generic [ref=e259]: Artifact
+        - generic [ref=e261]:
+          - generic [ref=e262]:
+            - heading "Why" [level=4] [ref=e263]
+            - paragraph [ref=e264]: AI coding agents are powerful but amnesiac. Every new session starts from zero. Repository knowledge, decisions, constraints, and discoveries should persist across agent handoffs.
+          - generic [ref=e265]:
+            - heading "Capability" [level=4] [ref=e266]
+            - paragraph [ref=e267]: AI-assisted engineering — persistent memory that turns agent history into evidence-aware execution contracts. Zero cloud. Zero telemetry.
+          - generic [ref=e268]:
+            - heading "Proof" [level=4] [ref=e269]
+            - paragraph [ref=e270]: Published on npm. Agent-agnostic handoffs between Codex, Claude Code, and Grok. Immutable task epochs. Git-aware reconciliation.
+          - generic [ref=e271]:
+            - generic [ref=e272]:
+              - generic [ref=e273]: TypeScript
+              - generic [ref=e274]: Node.js
+              - generic [ref=e275]: CLI
+              - generic [ref=e276]: Git
+              - generic [ref=e277]: Local-first
+            - link "View on npm" [ref=e278] [cursor=pointer]:
+              - /url: https://www.npmjs.com/package/hammadev
+    - region [ref=e281]:
+      - generic [ref=e282]:
+        - generic [ref=e283]: 07 — Future
+        - paragraph [ref=e285]: "“The most honest thing a builder can say is: I am not done yet.”"
+        - heading "The system is intentionally unfinished." [level=2] [ref=e286]: The system isintentionallyunfinished.
+        - paragraph [ref=e287]: From Stone Age to Cyber Punk is not a tagline — it is a trajectory. The countryside curiosity, the cracked phone screen, the slow laptop, the first shipped product, the open-source conviction, the AI-augmented engineering — they are all one continuous thread. The future is the next question that cannot yet be named.
+        - generic [ref=e288]:
+          - heading "Continue the thread →" [level=3] [ref=e289]
+          - generic [ref=e290]:
+            - link "Explore the work → Browse open-source projects on GitHub" [ref=e291] [cursor=pointer]:
+              - /url: https://github.com/xayrullonematov
+              - generic [ref=e296]:
+                - paragraph [ref=e297]:
+                  - text: Explore the work
+                  - generic [ref=e298]: →
+                - paragraph [ref=e299]: Browse open-source projects on GitHub
+            - link "Use the tools → Install HammaDev or Hamma" [ref=e300] [cursor=pointer]:
+              - /url: https://www.npmjs.com/package/hammadev
+              - generic [ref=e304]:
+                - paragraph [ref=e305]:
+                  - text: Use the tools
+                  - generic [ref=e306]: →
+                - paragraph [ref=e307]: Install HammaDev or Hamma
+            - link "Start building → Fork, contribute, or extend" [ref=e308] [cursor=pointer]:
+              - /url: https://github.com/xayrullonematov/hamma
+              - generic [ref=e313]:
+                - paragraph [ref=e314]:
+                  - text: Start building
+                  - generic [ref=e315]: →
+                - paragraph [ref=e316]: Fork, contribute, or extend
+            - link "Get in touch → Collaborate on Telegram" [ref=e317] [cursor=pointer]:
+              - /url: https://t.me/xayrullonematov
+              - generic [ref=e321]:
+                - paragraph [ref=e322]:
+                  - text: Get in touch
+                  - generic [ref=e323]: →
+                - paragraph [ref=e324]: Collaborate on Telegram
+        - generic [ref=e325]:
+          - paragraph [ref=e326]: Xayrillo Ne'matov
+          - paragraph [ref=e327]: Urgut District, Samarkand, Uzbekistan
+          - paragraph [ref=e328]: From Stone Age to Cyber Punk

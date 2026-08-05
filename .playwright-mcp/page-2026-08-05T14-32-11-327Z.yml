@@ -1,0 +1,308 @@
+- generic [active] [ref=f3e1]:
+  - main [ref=f3e2]:
+    - navigation "Chapter progress" [ref=f3e5]:
+      - list [ref=f3e6]:
+        - listitem [ref=f3e7]:
+          - 'button "Go to chapter 1: From Stone to Systems" [ref=f3e8] [cursor=pointer]'
+        - listitem [ref=f3e9]:
+          - 'button "Go to chapter 2: Curiosity" [ref=f3e10] [cursor=pointer]'
+        - listitem [ref=f3e11]:
+          - 'button "Go to chapter 3: Survival" [ref=f3e12] [cursor=pointer]'
+        - listitem [ref=f3e13]:
+          - 'button "Go to chapter 4: Discovery" [ref=f3e14] [cursor=pointer]'
+        - listitem [ref=f3e15]:
+          - 'button "Go to chapter 5: Building" [ref=f3e16] [cursor=pointer]'
+        - listitem [ref=f3e17]:
+          - 'button "Go to chapter 6: Open Source" [ref=f3e18] [cursor=pointer]'
+        - listitem [ref=f3e19]:
+          - 'button "Go to chapter 7: Artificial Intelligence" [ref=f3e20] [cursor=pointer]'
+        - listitem [ref=f3e21]:
+          - 'button "Go to chapter 8: Future" [ref=f3e22] [cursor=pointer]'
+    - link "Skip to exhibition" [ref=f3e23] [cursor=pointer]:
+      - /url: "#prologue"
+    - generic:
+      - region [ref=f3e24]:
+        - generic [ref=f3e25]:
+          - generic [ref=f3e26]:
+            - paragraph [ref=f3e27]: An interactive exhibition
+            - heading "From Stone to Systems" [level=1] [ref=f3e28]: From Stoneto Systems
+            - paragraph [ref=f3e29]: Xayrillo Ne'matov
+            - paragraph [ref=f3e30]: Urgut District, Samarkand, Uzbekistan
+          - paragraph [ref=f3e32]: “Every builder begins with a question they cannot yet name.”
+          - generic [ref=f3e33]:
+            - paragraph [ref=f3e34]: "This is not a portfolio. This is a map of how one person learned to build — from the ground, from nothing, from pure curiosity — and why every tool, every line of code, every system traces back to a single question:"
+            - paragraph [ref=f3e35]: “What if I could make this work?”
+        - generic [ref=f3e36]: Scroll to begin
+      - generic:
+        - generic:
+          - generic: "01"
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: CH 01
+                  - generic: marks
+                - heading "Curiosity" [level=2]
+                - paragraph: Urgut, Samarkand — the beginning
+              - generic:
+                - generic:
+                  - blockquote: "\"In the countryside, everything was a puzzle without instructions.\""
+                  - generic:
+                    - heading "Anchor Object" [level=4]
+                    - generic: Discarded materials
+                    - generic: The first instinct to understand by taking apart
+                - generic:
+                  - paragraph: "Growing up in Urgut District, Samarkand, the world was physical and immediate. Discarded electronics became mysteries to disassemble. Broken radios became laboratories. Every object that stopped working raised the same question: why? And every answer led somewhere unexpected."
+      - generic:
+        - generic:
+          - generic: "02"
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: CH 02
+                  - generic: fragments
+                - heading "Survival" [level=2]
+                - paragraph: When curiosity meets constraint
+              - generic:
+                - generic:
+                  - blockquote: "\"The Samsung Galaxy S3 was not a phone. It was the entire world compressed into a cracked screen.\""
+                  - generic:
+                    - heading "Anchor Object" [level=4]
+                    - generic: Samsung Galaxy S3
+                    - generic: Constraint as the first teacher of resourcefulness
+                - generic:
+                  - paragraph: Without a computer, a battered Samsung Galaxy S3 became the only window to the digital world. Typing code on a phone keyboard, learning from fragmented tutorials on slow connections, building understanding character by character. Constraints didn't stop the learning — they shaped a different kind of discipline.
+      - generic:
+        - generic:
+          - generic: "03"
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: CH 03
+                  - generic: lines
+                - heading "Discovery" [level=2]
+                - paragraph: A real machine, a real language
+              - generic:
+                - generic:
+                  - blockquote: "\"The inherited ASUS laptop was slow, heavy, and the most beautiful thing in the world.\""
+                  - generic:
+                    - heading "Anchor Object" [level=4]
+                    - generic: Inherited ASUS laptop
+                    - generic: The threshold between imagining and building
+                - generic:
+                  - paragraph: An inherited ASUS laptop — slow by any standard — became the first real development machine. Real files. Real terminals. Real debugging. Programming stopped being an abstract idea typed on a phone and became something that compiled, ran, crashed, and taught through every failure.
+      - generic:
+        - generic:
+          - generic: "04"
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: CH 04
+                  - generic: modules
+                - heading "Building" [level=2]
+                - paragraph: From learning to shipping
+              - generic:
+                - generic:
+                  - blockquote: "\"The first time something you built was used by someone else, building became purpose.\""
+                - generic:
+                  - paragraph: Knowledge became production. Lines of code became products that real people used. Movie Bot taught what it means to ship something into the world. Autotestlar proved that a single builder could create a platform serving over 10,000 users. Building was no longer practice — it was proof.
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - heading "Movie Bot" [level=3]
+                - generic: Artifact
+              - generic:
+                - generic:
+                  - generic:
+                    - heading "Why" [level=4]
+                    - paragraph: Before building for others, you must learn what it means to ship something into the world — to make something that works outside your own machine.
+                  - generic:
+                    - heading "Capability" [level=4]
+                    - paragraph: Learning production — understanding deployment, user interaction, and the gap between code that runs and code that serves.
+                  - generic:
+                    - heading "Proof" [level=4]
+                    - paragraph: First shipped project. The foundation of everything that followed.
+                  - generic:
+                    - generic:
+                      - generic: Python
+                      - generic: Telegram Bot API
+                    - link "View on GitHub":
+                      - /url: https://github.com/xayrullonematov
+          - generic:
+            - generic:
+              - generic:
+                - heading "Autotestlar" [level=3]
+                - generic: Artifact
+              - generic:
+                - generic:
+                  - generic:
+                    - heading "Why" [level=4]
+                    - paragraph: In Uzbekistan, preparing for a driving licence test meant outdated materials and no structured practice. The problem was obvious. The solution could serve thousands.
+                  - generic:
+                    - heading "Capability" [level=4]
+                    - paragraph: Solving real-world problems — building a product that 10,000+ people rely on, with 1,200+ tests and a sustainable business model.
+                  - generic:
+                    - heading "Proof" [level=4]
+                    - paragraph: 10,000+ users. 1,200+ tests. 98% success rate. Live at autotestlar.uz with freemium monetization.
+                  - generic:
+                    - generic:
+                      - generic: Telegram Mini App
+                      - generic: Web Platform
+                      - generic: Freemium
+                    - link "Visit autotestlar.uz":
+                      - /url: https://autotestlar.uz/
+      - generic:
+        - generic:
+          - generic: "05"
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: CH 05
+                  - generic: networks
+                - heading "Open Source" [level=2]
+                - paragraph: Building for everyone
+              - generic:
+                - generic:
+                  - blockquote: "\"The code that matters most is the code you give away.\""
+                - generic:
+                  - paragraph: "Hamma emerged as the embodiment of a belief: that powerful tools should not require cloud dependencies, corporate permissions, or surveillance. An AI-powered SSH client, fully local, fully open — built for air-gapped environments where trust is not optional. 746 tests passing. 1,400+ model downloads in 48 hours. Not metrics — proof that open-source conviction meets engineering discipline."
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - heading "Hamma" [level=3]
+                - generic: Artifact
+              - generic:
+                - generic:
+                  - generic:
+                    - heading "Why" [level=4]
+                    - paragraph: Powerful server management tools either require cloud APIs (sending your credentials to someone else's servers) or are too complex for most developers. Neither is acceptable.
+                  - generic:
+                    - heading "Capability" [level=4]
+                    - paragraph: Empowering developers — an AI copilot for DevOps that runs entirely on your device with zero telemetry, across every platform.
+                  - generic:
+                    - heading "Proof" [level=4]
+                    - paragraph: "746/747 tests passing. 1,400+ model downloads in 48 hours. Custom Gemma 4 LoRA model. Cross-platform: Linux, Windows, macOS, Android, iOS."
+                  - generic:
+                    - generic:
+                      - generic: Flutter
+                      - generic: Dart FFI
+                      - generic: C++
+                      - generic: Argon2id
+                      - generic: Local LLM
+                    - link "View on GitHub":
+                      - /url: https://github.com/xayrullonematov/hamma
+      - generic:
+        - generic:
+          - generic: "06"
+          - generic:
+            - generic:
+              - generic:
+                - generic:
+                  - generic: CH 06
+                  - generic: intelligence
+                - heading "Artificial Intelligence" [level=2]
+                - paragraph: Amplifying human capability
+              - generic:
+                - generic:
+                  - blockquote: "\"AI is not the destination. AI is what makes the next generation of tools possible.\""
+                - generic:
+                  - paragraph: "RepoScope puts four AI engineers in adversarial debate over your codebase — not to replace review, but to make review impossible to ignore. HammaDev gives AI coding agents persistent memory that survives handoffs between models. The pattern is consistent: AI that augments human judgment, runs locally, and answers to the builder, not the platform."
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - heading "RepoScope" [level=3]
+                - generic: Artifact
+              - generic:
+                - generic:
+                  - generic:
+                    - heading "Why" [level=4]
+                    - paragraph: Single-prompt AI produces hallucinated consensus. Real engineering review requires adversarial perspectives that challenge assumptions.
+                  - generic:
+                    - heading "Capability" [level=4]
+                    - paragraph: Understanding software — four AI engineers that propose, critique, revise, and negotiate structured engineering reviews of your codebase.
+                  - generic:
+                    - heading "Proof" [level=4]
+                    - paragraph: Event-sourced multi-agent collaboration. Adversarial critique routing. Built for the Qwen Cloud Global AI Hackathon. Live at reposcope.myrepo.xyz.
+                  - generic:
+                    - generic:
+                      - generic: Next.js
+                      - generic: TypeScript
+                      - generic: Prisma
+                      - generic: Zod
+                      - generic: Qwen/DashScope
+                    - link "Try RepoScope":
+                      - /url: https://reposcope.myrepo.xyz
+          - generic:
+            - generic:
+              - generic:
+                - heading "HammaDev" [level=3]
+                - generic: Artifact
+              - generic:
+                - generic:
+                  - generic:
+                    - heading "Why" [level=4]
+                    - paragraph: AI coding agents are powerful but amnesiac. Every new session starts from zero. Repository knowledge, decisions, constraints, and discoveries should persist across agent handoffs.
+                  - generic:
+                    - heading "Capability" [level=4]
+                    - paragraph: AI-assisted engineering — persistent memory that turns agent history into evidence-aware execution contracts. Zero cloud. Zero telemetry.
+                  - generic:
+                    - heading "Proof" [level=4]
+                    - paragraph: Published on npm. Agent-agnostic handoffs between Codex, Claude Code, and Grok. Immutable task epochs. Git-aware reconciliation.
+                  - generic:
+                    - generic:
+                      - generic: TypeScript
+                      - generic: Node.js
+                      - generic: CLI
+                      - generic: Git
+                      - generic: Local-first
+                    - link "View on npm":
+                      - /url: https://www.npmjs.com/package/hammadev
+      - region "The system is intentionally unfinished.":
+        - generic:
+          - generic: 07 — Future
+          - paragraph: "“The most honest thing a builder can say is: I am not done yet.”"
+          - heading "The system is intentionally unfinished." [level=2]: The system isintentionallyunfinished.
+          - paragraph: From Stone Age to Cyber Punk is not a tagline — it is a trajectory. The countryside curiosity, the cracked phone screen, the slow laptop, the first shipped product, the open-source conviction, the AI-augmented engineering — they are all one continuous thread. The future is the next question that cannot yet be named.
+          - generic:
+            - heading "Continue the thread →" [level=3]
+            - generic:
+              - link "Explore the work → Browse open-source projects on GitHub":
+                - /url: https://github.com/xayrullonematov
+                - generic:
+                  - paragraph:
+                    - text: Explore the work
+                    - generic: →
+                  - paragraph: Browse open-source projects on GitHub
+              - link "Use the tools → Install HammaDev or Hamma":
+                - /url: https://www.npmjs.com/package/hammadev
+                - generic:
+                  - paragraph:
+                    - text: Use the tools
+                    - generic: →
+                  - paragraph: Install HammaDev or Hamma
+              - link "Start building → Fork, contribute, or extend":
+                - /url: https://github.com/xayrullonematov/hamma
+                - generic:
+                  - paragraph:
+                    - text: Start building
+                    - generic: →
+                  - paragraph: Fork, contribute, or extend
+              - link "Get in touch → Collaborate on Telegram":
+                - /url: https://t.me/xayrullonematov
+                - generic:
+                  - paragraph:
+                    - text: Get in touch
+                    - generic: →
+                  - paragraph: Collaborate on Telegram
+          - generic:
+            - paragraph: Xayrillo Ne'matov
+            - paragraph: Urgut District, Samarkand, Uzbekistan
+            - paragraph: From Stone Age to Cyber Punk
+  - button "Open Next.js Dev Tools" [ref=f3e44] [cursor=pointer]

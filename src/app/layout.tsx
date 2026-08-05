@@ -1,10 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Syne, JetBrains_Mono } from "next/font/google";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
-import { CustomCursor } from "@/components/layout/CustomCursor";
-import { Navigation } from "@/components/layout/Navigation";
-import { Footer } from "@/components/layout/Footer";
-import { site } from "@/data/content";
 import "./globals.css";
 
 const inter = Inter({
@@ -28,49 +24,53 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
-  title: {
-    default: site.title,
-    template: `%s · ${site.name}`,
-  },
-  description: site.description,
+  metadataBase: new URL("https://xayrullonematov.github.io"),
+  title: "From Stone to Systems — Xayrillo Ne'matov",
+  description:
+    "An interactive exhibition of one builder's journey from countryside curiosity to AI-augmented engineering. Open-source tools, real products, local-first principles.",
   keywords: [
-    "Xayrullo Nematov",
+    "Xayrillo Ne'matov",
+    "Nematov Xayrillo",
+    "xayrullonematov",
     "AI engineer",
     "open source",
-    "Hamma Labs",
-    "HammaDev",
     "Hamma",
+    "HammaDev",
     "RepoScope",
+    "Autotestlar",
     "local-first AI",
-    "multi-agent systems",
+    "From Stone to Systems",
+    "Samarkand",
+    "Uzbekistan",
   ],
-  authors: [{ name: site.name, url: site.url }],
-  creator: site.name,
+  authors: [{ name: "Xayrillo Ne'matov", url: "https://xayrullonematov.github.io" }],
+  creator: "Xayrillo Ne'matov",
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: site.url,
-    title: site.title,
-    description: site.description,
-    siteName: site.name,
+    url: "https://xayrullonematov.github.io",
+    title: "From Stone to Systems — Xayrillo Ne'matov",
+    description:
+      "An interactive exhibition: from countryside curiosity to AI-augmented engineering.",
+    siteName: "Xayrillo Ne'matov",
   },
   twitter: {
     card: "summary_large_image",
-    title: site.title,
-    description: site.description,
+    title: "From Stone to Systems — Xayrillo Ne'matov",
+    description:
+      "An interactive exhibition: from countryside curiosity to AI-augmented engineering.",
   },
   robots: {
     index: true,
     follow: true,
   },
   alternates: {
-    canonical: site.url,
+    canonical: "https://xayrullonematov.github.io",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050505",
+  themeColor: "#050508",
   colorScheme: "dark",
   width: "device-width",
   initialScale: 1,
@@ -86,20 +86,11 @@ export default function RootLayout({
       lang="en"
       className={`${inter.variable} ${syne.variable} ${jetbrains.variable} h-full antialiased`}
     >
-      <body className="noise min-h-full flex flex-col bg-bg text-text">
+      <body className="noise min-h-full bg-bg text-text">
         <SmoothScroll>
-          <CustomCursor />
-          <a
-            href="#main"
-            className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[10000] focus:rounded-lg focus:bg-accent focus:px-4 focus:py-2 focus:text-white"
-          >
-            Skip to content
-          </a>
-          <Navigation />
-          <main id="main" className="flex-1">
+          <main id="main">
             {children}
           </main>
-          <Footer />
         </SmoothScroll>
       </body>
     </html>
