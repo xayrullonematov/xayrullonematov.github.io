@@ -14,11 +14,15 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
   const TOTAL_CHAPTERS = 8;
   const start = chapter.index / TOTAL_CHAPTERS;
   const end = (chapter.index + 1) / TOTAL_CHAPTERS;
-  const fade = 0.03;
 
   // If a milestone exists, we fade the chapter text out early
   // so the milestone can take over the screen. This creates a slide sequence.
   const fadeOutPoint = hasMilestone ? start + (end - start) * 0.45 : end;
+
+  // Dynamically calculate fade so offsets remain monotonically non-decreasing
+  // We need start + fade < fadeOutPoint - fade
+  const maxFade = (fadeOutPoint - start) / 2.1; 
+  const fade = Math.min(0.03, maxFade);
 
   const opacity = useTransform(
     scrollYProgress,
