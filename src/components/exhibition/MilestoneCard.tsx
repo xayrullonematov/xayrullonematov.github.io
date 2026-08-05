@@ -49,7 +49,7 @@ export function MilestoneCard({ milestone }: { milestone: Milestone }) {
 
   return (
     <motion.div
-      className="relative w-full max-w-2xl mx-auto my-auto cursor-pointer md:cursor-default"
+      className="relative w-full max-w-2xl mx-auto my-auto cursor-pointer md:cursor-default px-5 md:px-0 pb-24 md:pb-0"
       onClick={toggleExpand}
       style={reducedMotion ? { opacity: isFullyVisible ? 1 : 0, pointerEvents, visibility: isFullyVisible ? "visible" : "hidden" } : { opacity, y, pointerEvents, visibility }}
       aria-hidden={!isFullyVisible}

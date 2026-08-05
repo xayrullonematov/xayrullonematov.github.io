@@ -17,6 +17,8 @@ import { FutureHorizon } from "@/components/exhibition/FutureHorizon";
 import { WorldCanvas } from "@/components/exhibition/WorldCanvas";
 import { chapters, milestones } from "@/data/journey";
 
+import { EntranceScreen } from "@/components/exhibition/EntranceScreen";
+
 export function Exhibition() {
   // Group milestones by chapter for inline rendering
   const milestonesByChapter = milestones.reduce(
@@ -35,6 +37,9 @@ export function Exhibition() {
 
   return (
     <ExhibitionProvider>
+      {/* The entrance gate for audio and immersion */}
+      <EntranceScreen />
+
       {/* The scroll track to create the timeline */}
       <div style={{ height: `${chapters.length * 100}dvh` }} className="w-full" aria-hidden="true" />
 

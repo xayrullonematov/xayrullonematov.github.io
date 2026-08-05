@@ -53,7 +53,7 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
   return (
     <motion.section 
       id={`chapter-${chapter.index}`}
-      className="absolute inset-0 flex items-center justify-center py-20 md:py-32 px-6 md:px-12 lg:px-24 pointer-events-none"
+      className="absolute inset-0 flex flex-col justify-center pt-8 pb-32 md:py-32 px-5 md:px-12 lg:px-24 pointer-events-none"
       style={reducedMotion ? { opacity: state.activeChapterIndex === chapter.index ? 1 : 0, visibility: state.activeChapterIndex === chapter.index ? "visible" : "hidden" } : { opacity, visibility }}
       aria-hidden={!isActive}
     >
@@ -65,10 +65,10 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
         }}
       />
 
-      {/* Large Chapter Watermark */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden select-none">
+      {/* Large Chapter Watermark - slightly higher on mobile */}
+      <div className="absolute inset-0 flex flex-col justify-center pointer-events-none overflow-hidden select-none pb-24 md:pb-0">
         <span 
-          className="text-[40vw] font-display font-bold text-white/[0.02] leading-none"
+          className="text-[40vw] font-display font-bold text-white/[0.02] leading-none text-center"
         >
           {String(chapter.index).padStart(2, '0')}
         </span>
@@ -78,19 +78,19 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
         className="relative z-10 max-w-4xl w-full mx-auto"
         style={reducedMotion ? { pointerEvents } : { y, pointerEvents }}
       >
-        <div className="space-y-8 md:space-y-16">
+        <div className="flex flex-col justify-center space-y-4 md:space-y-16 h-full max-h-[85dvh] md:max-h-none overflow-hidden">
           
           {/* Header */}
-          <div className="space-y-2 md:space-y-4">
+          <div className="space-y-1.5 md:space-y-4">
             <motion.div 
-              className="flex items-center gap-4"
+              className="flex items-center gap-3 md:gap-4"
             >
-              <span className="text-xs md:text-sm font-mono tracking-widest text-white/50">
+              <span className="text-[10px] md:text-sm font-mono tracking-widest text-white/50">
                 CH {String(chapter.index).padStart(2, '0')}
               </span>
-              <div className="h-px w-8 md:w-12 bg-white/20" />
+              <div className="h-px w-6 md:w-12 bg-white/20" />
               <span 
-                className="text-xs md:text-sm font-mono tracking-widest uppercase"
+                className="text-[10px] md:text-sm font-mono tracking-widest uppercase"
                 style={{ color: chapter.palette.primary }}
               >
                 {chapter.primitive}
@@ -98,25 +98,25 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
             </motion.div>
 
             <motion.h2 
-              className="font-display text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white"
+              className="font-display text-2xl sm:text-3xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white leading-tight"
             >
               {chapter.title}
             </motion.h2>
 
             <motion.p 
-              className="text-lg md:text-2xl text-white/60 font-sans"
+              className="text-sm md:text-2xl text-white/60 font-sans"
             >
               {chapter.subtitle}
             </motion.p>
           </div>
 
           {/* Content */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-16">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-16 pt-2 md:pt-0">
             
             {/* Left Column - Opening & Anchor */}
-            <div className="md:col-span-5 space-y-6 md:space-y-12">
+            <div className="md:col-span-5 flex flex-col gap-4 md:space-y-12">
               <motion.blockquote 
-                className={`text-xl md:text-3xl leading-snug text-white/90 border-l-2 pl-4 md:pl-6 ${typoClass}`}
+                className={`text-lg md:text-3xl leading-snug text-white/90 border-l-2 pl-3 md:pl-6 ${typoClass}`}
                 style={{ borderColor: chapter.palette.primary }}
               >
                 "{chapter.opening}"
@@ -124,7 +124,7 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
 
               {chapter.anchor && (
                 <motion.div
-                  className="p-4 md:p-6 rounded-lg bg-white/[0.02] border border-white/5 backdrop-blur-sm"
+                  className="hidden md:block p-4 md:p-6 rounded-lg bg-white/[0.02] border border-white/5 backdrop-blur-sm"
                 >
                   <h4 className="text-[10px] md:text-xs font-mono text-white/40 uppercase tracking-widest mb-1 md:mb-2">Anchor Object</h4>
                   <div className="text-white/80 font-medium text-sm md:text-base mb-1">{chapter.anchor.object}</div>
@@ -136,7 +136,7 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
             {/* Right Column - Narrative */}
             <div className="md:col-span-7">
               <motion.p
-                className={`text-base md:text-xl text-white/70 leading-relaxed ${typoClass}`}
+                className={`text-[13px] md:text-xl text-white/70 leading-relaxed md:leading-relaxed ${typoClass}`}
               >
                 {chapter.narrative}
               </motion.p>
