@@ -43,6 +43,11 @@ export interface Chapter {
   };
   /** What visual primitive dominates this era */
   primitive: "marks" | "fragments" | "lines" | "modules" | "networks" | "intelligence" | "openEdges";
+  /**
+   * Bricolage Grotesque variable font weight for this chapter.
+   * Increases 200→900 as the journey progresses — Stone to Systems.
+   */
+  fontWeight: number;
 }
 
 export const chapters: Chapter[] = [
@@ -56,12 +61,13 @@ export const chapters: Chapter[] = [
       "This is not a portfolio. This is a map of how one person learned to build — from the ground, from nothing, from pure curiosity — and why every tool, every line of code, every system traces back to a single question: \"What if I could make this work?\"",
     visualEra: "Emptiness before the first mark",
     palette: {
-      primary: "#f6f4ef",
-      secondary: "#94a3b8",
-      bg: "#050508",
-      glow: "rgba(246, 244, 239, 0.03)",
+      primary: "#c8b89a",
+      secondary: "#a89878",
+      bg: "#0a0905",
+      glow: "rgba(200,184,154,0.15)",
     },
     primitive: "marks",
+    fontWeight: 200,
   },
   {
     id: "curiosity",
@@ -77,12 +83,13 @@ export const chapters: Chapter[] = [
       meaning: "The first instinct to understand by taking apart",
     },
     palette: {
-      primary: "#d4a574",
-      secondary: "#8b7355",
-      bg: "#0a0806",
-      glow: "rgba(212, 165, 116, 0.08)",
+      primary: "#c8a96e",
+      secondary: "#a8895e",
+      bg: "#0d0a06",
+      glow: "rgba(200,169,110,0.15)",
     },
     primitive: "marks",
+    fontWeight: 200,
   },
   {
     id: "survival",
@@ -98,12 +105,13 @@ export const chapters: Chapter[] = [
       meaning: "Constraint as the first teacher of resourcefulness",
     },
     palette: {
-      primary: "#7da5c2",
-      secondary: "#5a7d96",
-      bg: "#080a0e",
-      glow: "rgba(125, 165, 194, 0.08)",
+      primary: "#5a8fa8",
+      secondary: "#3a6f88",
+      bg: "#060a0d",
+      glow: "rgba(90,143,168,0.15)",
     },
     primitive: "fragments",
+    fontWeight: 300,
   },
   {
     id: "discovery",
@@ -119,12 +127,13 @@ export const chapters: Chapter[] = [
       meaning: "The threshold between imagining and building",
     },
     palette: {
-      primary: "#a5d6a7",
-      secondary: "#66bb6a",
-      bg: "#080e08",
-      glow: "rgba(165, 214, 167, 0.1)",
+      primary: "#6aad72",
+      secondary: "#4a8d52",
+      bg: "#060d08",
+      glow: "rgba(106,173,114,0.15)",
     },
     primitive: "lines",
+    fontWeight: 400,
   },
   {
     id: "building",
@@ -136,12 +145,13 @@ export const chapters: Chapter[] = [
       "Knowledge became production. Lines of code became products that real people used. Movie Bot taught what it means to ship something into the world. Autotestlar proved that a single builder could create a platform serving over 10,000 users. Building was no longer practice — it was proof.",
     visualEra: "Lines forming into modules — functional structures",
     palette: {
-      primary: "#f06f52",
-      secondary: "#e85d3a",
-      bg: "#0e0806",
-      glow: "rgba(240, 111, 82, 0.12)",
+      primary: "#e0622a",
+      secondary: "#c0421a",
+      bg: "#0d0806",
+      glow: "rgba(224,98,42,0.15)",
     },
     primitive: "modules",
+    fontWeight: 600,
   },
   {
     id: "opensource",
@@ -153,12 +163,13 @@ export const chapters: Chapter[] = [
       "Hamma emerged as the embodiment of a belief: that powerful tools should not require cloud dependencies, corporate permissions, or surveillance. An AI-powered SSH client, fully local, fully open — built for air-gapped environments where trust is not optional. 746 tests passing. 1,400+ model downloads in 48 hours. Not metrics — proof that open-source conviction meets engineering discipline.",
     visualEra: "Modules connecting into networks — shared systems",
     palette: {
-      primary: "#7257e8",
-      secondary: "#9b8afb",
-      bg: "#0a0812",
-      glow: "rgba(114, 87, 232, 0.12)",
+      primary: "#6c4fe0",
+      secondary: "#4c2fc0",
+      bg: "#08060d",
+      glow: "rgba(108,79,224,0.15)",
     },
     primitive: "networks",
+    fontWeight: 700,
   },
   {
     id: "ai",
@@ -170,12 +181,13 @@ export const chapters: Chapter[] = [
       "RepoScope puts four AI engineers in adversarial debate over your codebase — not to replace review, but to make review impossible to ignore. HammaDev gives AI coding agents persistent memory that survives handoffs between models. The pattern is consistent: AI that augments human judgment, runs locally, and answers to the builder, not the platform.",
     visualEra: "Networks gaining intelligence — adaptive, responsive",
     palette: {
-      primary: "#60a5fa",
-      secondary: "#38bdf8",
-      bg: "#080a14",
-      glow: "rgba(96, 165, 250, 0.12)",
+      primary: "#3d9eff",
+      secondary: "#1d7edf",
+      bg: "#050810",
+      glow: "rgba(61,158,255,0.15)",
     },
     primitive: "intelligence",
+    fontWeight: 800,
   },
   {
     id: "future",
@@ -187,12 +199,13 @@ export const chapters: Chapter[] = [
       "From Stone Age to Cyber Punk is not a tagline — it is a trajectory. The countryside curiosity, the cracked phone screen, the slow laptop, the first shipped product, the open-source conviction, the AI-augmented engineering — they are all one continuous thread. The future is not a destination. The future is the next question that cannot yet be named.",
     visualEra: "Open edges — the system extends beyond the visible",
     palette: {
-      primary: "#f6f4ef",
-      secondary: "#94a3b8",
-      bg: "#0b0e14",
-      glow: "rgba(246, 244, 239, 0.06)",
+      primary: "#e8e4dc",
+      secondary: "#c8c4bc",
+      bg: "#08090f",
+      glow: "rgba(232,228,220,0.15)",
     },
     primitive: "openEdges",
+    fontWeight: 900,
   },
 ];
 
@@ -233,7 +246,7 @@ export const milestones: Milestone[] = [
       label: "View on GitHub",
       url: "https://github.com/xayrullonematov",
     },
-    accent: "#f06f52",
+    accent: "#e0622a",
   },
   {
     id: "autotestlar",
@@ -247,7 +260,7 @@ export const milestones: Milestone[] = [
       label: "Visit autotestlar.uz",
       url: "https://autotestlar.uz/",
     },
-    accent: "#f06f52",
+    accent: "#e0622a",
   },
   {
     id: "hamma",
@@ -261,7 +274,7 @@ export const milestones: Milestone[] = [
       label: "View on GitHub",
       url: "https://github.com/xayrullonematov/hamma",
     },
-    accent: "#7257e8",
+    accent: "#6c4fe0",
   },
   {
     id: "reposcope",
@@ -275,7 +288,7 @@ export const milestones: Milestone[] = [
       label: "Try RepoScope",
       url: "https://reposcope.myrepo.xyz",
     },
-    accent: "#60a5fa",
+    accent: "#3d9eff",
   },
   {
     id: "hammadev",
@@ -289,7 +302,7 @@ export const milestones: Milestone[] = [
       label: "View on npm",
       url: "https://www.npmjs.com/package/hammadev",
     },
-    accent: "#60a5fa",
+    accent: "#3d9eff",
   },
 ];
 

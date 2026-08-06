@@ -1,42 +1,30 @@
 @import "tailwindcss";
 
+/* ─── Design Tokens ─────────────────────────────────────────────────── */
+/* Per-chapter colors are applied dynamically via canvas + component     */
+/* styles. These are the baseline fallbacks only.                        */
 :root {
-  --bg: #050508;
-  --surface: #0a0d14;
-  --surface-elevated: #111622;
-  --surface-hover: #1a2030;
-  --text: #f6f4ef;
+  --bg: #0a0905;
+  --text: #f0ece4;
   --muted: #94a3b8;
-  --muted-dim: #64748b;
-  --accent: #f06f52;
-  --accent-soft: rgba(240, 111, 82, 0.15);
-  --accent-glow: rgba(240, 111, 82, 0.35);
-  --accent-purple: #7257e8;
-  --accent-purple-soft: rgba(114, 87, 232, 0.15);
-  --border: rgba(246, 244, 239, 0.06);
-  --border-strong: rgba(246, 244, 239, 0.12);
-  --line: rgba(246, 244, 239, 0.08);
+  --border: rgba(240, 236, 228, 0.06);
+  --line: rgba(240, 236, 228, 0.08);
+
+  /* Title weight — overridden per chapter by JS via inline style */
+  --title-weight: 200;
 }
 
 @theme inline {
   --color-bg: var(--bg);
-  --color-surface: var(--surface);
-  --color-surface-elevated: var(--surface-elevated);
-  --color-surface-hover: var(--surface-hover);
   --color-text: var(--text);
   --color-muted: var(--muted);
-  --color-muted-dim: var(--muted-dim);
-  --color-accent: var(--accent);
-  --color-accent-soft: var(--accent-soft);
-  --color-accent-glow: var(--accent-glow);
-  --color-accent-purple: var(--accent-purple);
   --color-border: var(--border);
-  --color-border-strong: var(--border-strong);
   --font-sans: var(--font-sans);
   --font-display: var(--font-display);
   --font-mono: var(--font-mono);
 }
 
+/* ─── Reset ─────────────────────────────────────────────────────────── */
 * {
   box-sizing: border-box;
 }
@@ -76,12 +64,12 @@ body {
 }
 
 ::selection {
-  background: var(--accent);
-  color: #fff;
+  background: #c8a96e;
+  color: #0d0a06;
 }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid #c8a96e;
   outline-offset: 3px;
 }
 
@@ -104,46 +92,35 @@ svg {
   max-width: 100%;
 }
 
-/* ─── Noise Texture Overlay ─────────────────────────────────────────── */
-/* Subtle film grain that unifies the entire experience */
-.noise::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 9998;
-  pointer-events: none;
-  opacity: 0.025;
-  transform: translateZ(0);
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 180px;
-}
+/* ─── Typography Classes ────────────────────────────────────────────── */
 
-/* ─── Typography ────────────────────────────────────────────────────── */
-
+/* Display — Bricolage Grotesque variable, weight driven by scroll */
 .display {
-  font-family: var(--font-display), var(--font-sans), system-ui, sans-serif;
-  font-weight: 600;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-variation-settings: 'wght' var(--title-weight, 400);
   letter-spacing: -0.04em;
-  line-height: 0.95;
+  line-height: 0.92;
 }
 
 .mono {
   font-family: var(--font-mono), ui-monospace, monospace;
 }
 
-/* ─── Glass Panel ───────────────────────────────────────────────────── */
-
-.glass-panel {
-  background: rgba(10, 13, 20, 0.6);
-  -webkit-backdrop-filter: blur(16px);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--border);
+/* ─── Noise Texture Overlay ─────────────────────────────────────────── */
+.noise::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.03;
+  transform: translateZ(0);
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 180px;
 }
 
 /* ─── Reduced Motion ────────────────────────────────────────────────── */
-/* Exhibition still shows content but removes all animation */
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -156,11 +133,9 @@ svg {
 }
 
 /* ─── Scrollbar ─────────────────────────────────────────────────────── */
-/* Nearly invisible — the ProgressIndicator serves as navigation */
-
 ::-webkit-scrollbar {
-  width: 4px;
-  height: 4px;
+  width: 2px;
+  height: 2px;
 }
 
 ::-webkit-scrollbar-track {
@@ -168,59 +143,11 @@ svg {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(246, 244, 239, 0.08);
-  border-radius: 2px;
+  background: rgba(240, 236, 228, 0.08);
+  border-radius: 1px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(246, 244, 239, 0.15);
-}
-
-/* ─── Exhibition-Specific Utilities ─────────────────────────────────── */
-
-/* Smooth gradient mask for content that fades at edges */
-.fade-edges {
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 10%,
-    black 90%,
-    transparent 100%
-  );
-}
-
-/* Chapter section spacing */
-.chapter-section {
-  position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-}
-
-/* Keyboard navigation focus styles for exhibition elements */
-.exhibition-focus:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 4px;
-  border-radius: 8px;
-}
-
-/* ─── Scroll Snap — desktop only ───────────────────────────────────── */
-/* On mobile, native momentum scroll is used; snap-mandatory + Lenis    */
-/* intercept touch events and lock the page.                             */
-@media (min-width: 769px) {
-  html {
-    scroll-snap-type: y mandatory;
-  }
-}
-
-/* ─── Screen reader only — preserved for accessibility ─────────────── */
+/* ─── Accessibility ─────────────────────────────────────────────────── */
 .sr-only {
   position: absolute;
   width: 1px;

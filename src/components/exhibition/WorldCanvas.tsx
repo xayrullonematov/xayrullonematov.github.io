@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useMemo } from "react";
 import { useExhibition } from "@/lib/ExhibitionContext";
-import { chapters } from "@/data/journey";
 import { getInterpolatedPalette } from "@/lib/progress";
 
 // ─── Helpers ─────────────────────────────────────────────────────────
@@ -11,88 +10,46 @@ function clamp(val: number, min = 0, max = 1) {
   return Math.max(min, Math.min(max, val));
 }
 
-function mapRange(
-  val: number,
-  inMin: number,
-  inMax: number,
-  outMin: number,
-  outMax: number
-) {
-  return outMin + ((val - inMin) / (inMax - inMin)) * (outMax - outMin);
-}
-
-function clampedMap(
-  val: number,
-  inMin: number,
-  inMax: number,
-  outMin: number,
-  outMax: number
-) {
+function clampedMap(val: number, inMin: number, inMax: number, outMin: number, outMax: number) {
   return clamp(
-    mapRange(val, inMin, inMax, outMin, outMax),
+    outMin + ((val - inMin) / (inMax - inMin)) * (outMax - outMin),
     Math.min(outMin, outMax),
     Math.max(outMin, outMax)
   );
 }
 
-function lerpColor(a: string, b: string, t: number): string {
-  const hex = (c: string) => {
-    if (c.startsWith("#")) c = c.slice(1);
-    if (c.length === 3) c = c.split("").map((x) => x + x).join("");
-    return parseInt(c, 16);
-  };
-  const numA = hex(a);
-  const numB = hex(b);
-  const rA = (numA >> 16) & 255;
-  const gA = (numA >> 8) & 255;
-  const bA = numA & 255;
-  const rB = (numB >> 16) & 255;
-  const gB = (numB >> 8) & 255;
-  const bB = numB & 255;
-
-  const r = Math.round(rA + (rB - rA) * t);
-  const g = Math.round(gA + (gB - gA) * t);
-  const bv = Math.round(bA + (bB - bA) * t);
-
-  return `#${((1 << 24) + (r << 16) + (g << 8) + bv).toString(16).slice(1)}`;
+function hexToRgb(hex: string): [number, number, number] {
+  const h = hex.replace("#", "");
+  const n = parseInt(h.length === 3 ? h.split("").map(x => x + x).join("") : h, 16);
+  return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
 }
 
-const PHASE_COLORS = [
-  { t: 0.0, c: "#d4a574" }, // Marks
-  { t: 0.15, c: "#7da5c2" }, // Fragments
-  { t: 0.3, c: "#a5d6a7" }, // Lines
-  { t: 0.45, c: "#f06f52" }, // Modules
-  { t: 0.6, c: "#7257e8" }, // Networks
-  { t: 0.75, c: "#60a5fa" }, // Intelligence
-  { t: 0.9, c: "#f6f4ef" }, // Open Edges
-  { t: 1.0, c: "#f6f4ef" },
-];
-
-function getPhaseColor(vc: number) {
-  for (let i = 0; i < PHASE_COLORS.length - 1; i++) {
-    if (vc >= PHASE_COLORS[i].t && vc <= PHASE_COLORS[i + 1].t) {
-      const t = (vc - PHASE_COLORS[i].t) / (PHASE_COLORS[i + 1].t - PHASE_COLORS[i].t);
-      return lerpColor(PHASE_COLORS[i].c, PHASE_COLORS[i + 1].c, t);
-    }
-  }
-  return PHASE_COLORS[PHASE_COLORS.length - 1].c;
+function lerpColor(a: string, b: string, t: number): string {
+  const [ar, ag, ab] = hexToRgb(a);
+  const [br, bg, bb] = hexToRgb(b);
+  const r = Math.round(ar + (br - ar) * t);
+  const g = Math.round(ag + (bg - ag) * t);
+  const bv = Math.round(ab + (bb - ab) * t);
+  return `#${((1 << 24) + (r << 16) + (g << 8) + bv).toString(16).slice(1)}`;
 }
 
 // ─── Types ───────────────────────────────────────────────────────────
 
-interface GraphNode {
-  id: number;
-  clusterIndex: number;
-  bx: number; // base scattered x
-  by: number; // base scattered y
-  cx: number; // clustered x
-  cy: number; // clustered y
-  ex: number; // open edge x
-  ey: number; // open edge y
+interface Particle {
+  x: number; // 0–1 normalized
+  y: number;
   seed: number;
+  size: number;
+  angle: number;     // for fragment lines
+  lineLen: number;   // fragment line length (normalized)
+  clusterX: number;  // clustered position
+  clusterY: number;
+  exitX: number;     // open-edges exit position
+  exitY: number;
+  clusterId: number;
 }
 
-interface GraphEdge {
+interface Edge {
   a: number;
   b: number;
   type: "intra" | "inter";
@@ -104,84 +61,72 @@ export function WorldCanvas() {
   const { state, reducedMotion, isMobile } = useExhibition();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rafRef = useRef<number>(0);
-  
-  // Keep a mutable ref of the state so the requestAnimationFrame loop
-  // always reads the freshest values without tearing down the effect.
   const stateRef = useRef(state);
   stateRef.current = state;
 
-  // Generate graph elements once based on device
-  const { nodes, edges, numClusters } = useMemo(() => {
-    // 40% particles for mobile
-    const numNodes = isMobile ? 60 : 150;
-    const nClusters = isMobile ? 5 : 12;
+  const COUNT = isMobile ? 80 : 180;
+  const CLUSTERS = isMobile ? 6 : 14;
 
-    const clusters = Array.from({ length: nClusters }, () => {
-      // Keep clusters away from the horizontal center (avoid 0.25 to 0.75)
+  const { particles, edges } = useMemo(() => {
+    const clusterCenters = Array.from({ length: CLUSTERS }, () => {
       let cx = Math.random();
-      if (cx > 0.25 && cx < 0.75) {
-        cx = cx > 0.5 ? cx + 0.25 : cx - 0.25;
-      }
+      // Keep clusters away from horizontal center so they don't overlap text
+      if (cx > 0.3 && cx < 0.7) cx = cx > 0.5 ? cx + 0.2 : cx - 0.2;
+      return { x: clamp(cx, 0.05, 0.95), y: 0.08 + Math.random() * 0.84 };
+    });
+
+    const ps: Particle[] = Array.from({ length: COUNT }, (_, i) => {
+      const clusterId = i % CLUSTERS;
+      const cc = clusterCenters[clusterId];
+      const angle = Math.random() * Math.PI * 2;
+      const r = Math.random() * 0.14;
+      const cx = clamp(cc.x + Math.cos(angle) * r, 0.02, 0.98);
+      const cy = clamp(cc.y + Math.sin(angle) * r, 0.02, 0.98);
+
+      // Scattered base position — also avoid horizontal center
+      let bx = Math.random();
+      if (bx > 0.3 && bx < 0.7) bx = bx > 0.5 ? bx + 0.2 : bx - 0.2;
+      bx = clamp(bx, 0.02, 0.98);
+
+      // Exit position for open-edges phase — explode outward
+      const ex = cx < 0.5 ? cx - 0.35 - Math.random() * 0.35 : cx + 0.35 + Math.random() * 0.35;
+      const ey = cy < 0.5 ? cy - 0.35 - Math.random() * 0.35 : cy + 0.35 + Math.random() * 0.35;
+
       return {
-        x: clamp(cx, 0.05, 0.95),
-        y: 0.1 + Math.random() * 0.8,
+        x: bx,
+        y: Math.random(),
+        seed: Math.random(),
+        size: 1.5 + Math.random() * 2.5,
+        angle: Math.random() * Math.PI * 2,
+        lineLen: 0.015 + Math.random() * 0.04,
+        clusterX: cx,
+        clusterY: cy,
+        exitX: ex,
+        exitY: ey,
+        clusterId,
       };
     });
 
-    const ns: GraphNode[] = [];
-    for (let i = 0; i < numNodes; i++) {
-      const clusterIndex = i % nClusters;
-      const cc = clusters[clusterIndex];
-      const angle = Math.random() * Math.PI * 2;
-      const radius = Math.random() * 0.15;
-      const cx = cc.x + Math.cos(angle) * radius;
-      const cy = cc.y + Math.sin(angle) * radius;
-
-      // Push outward for the open edges phase
-      const ex = cx < 0.5 ? cx - 0.3 - Math.random() * 0.4 : cx + 0.3 + Math.random() * 0.4;
-      const ey = cy < 0.5 ? cy - 0.3 - Math.random() * 0.4 : cy + 0.3 + Math.random() * 0.4;
-
-      // Keep scattered marks away from the horizontal center too
-      let bx = Math.random();
-      if (bx > 0.25 && bx < 0.75) {
-        bx = bx > 0.5 ? bx + 0.25 : bx - 0.25;
-      }
-      bx = clamp(bx, 0.05, 0.95);
-
-      ns.push({
-        id: i,
-        clusterIndex,
-        bx,
-        by: Math.random(),
-        cx,
-        cy,
-        ex,
-        ey,
-        seed: Math.random(),
-      });
-    }
-
-    const es: GraphEdge[] = [];
-    ns.forEach((n1, i) => {
-      // Intra-cluster edges (Lines phase)
-      const same = ns.filter((n, j) => n.clusterIndex === n1.clusterIndex && i !== j);
+    const es: Edge[] = [];
+    ps.forEach((p, i) => {
+      const same = ps.filter((q, j) => q.clusterId === p.clusterId && j !== i);
       if (same.length > 0) {
-        es.push({ a: i, b: same[Math.floor(Math.random() * same.length)].id, type: "intra" });
-        if (Math.random() > 0.5 && same.length > 1) {
-          es.push({ a: i, b: same[Math.floor(Math.random() * same.length)].id, type: "intra" });
+        es.push({ a: i, b: same[Math.floor(Math.random() * same.length)].seed * same.length | 0, type: "intra" });
+        if (Math.random() > 0.55 && same.length > 1) {
+          es.push({ a: i, b: same[Math.floor(Math.random() * same.length)].seed * same.length | 0, type: "intra" });
         }
       }
-      // Inter-cluster edges (Networks phase)
-      if (Math.random() > 0.8) {
-        const diff = ns.filter((n) => n.clusterIndex !== n1.clusterIndex);
+      if (Math.random() > 0.82) {
+        const diff = ps.filter(q => q.clusterId !== p.clusterId);
         if (diff.length > 0) {
-          es.push({ a: i, b: diff[Math.floor(Math.random() * diff.length)].id, type: "inter" });
+          const target = diff[Math.floor(Math.random() * diff.length)];
+          es.push({ a: i, b: ps.indexOf(target), type: "inter" });
         }
       }
     });
 
-    return { nodes: ns, edges: es, numClusters: nClusters };
-  }, [isMobile]);
+    return { particles: ps, edges: es };
+  }, [COUNT, CLUSTERS]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -189,201 +134,202 @@ export function WorldCanvas() {
     const ctx = canvas.getContext("2d", { alpha: false });
     if (!ctx) return;
 
-    let width = window.innerWidth;
-    let height = window.innerHeight;
+    let W = window.innerWidth;
+    let H = window.innerHeight;
 
     const resize = () => {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      canvas.width = width * window.devicePixelRatio;
-      canvas.height = height * window.devicePixelRatio;
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W * window.devicePixelRatio;
+      canvas.height = H * window.devicePixelRatio;
       ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
     };
-
     window.addEventListener("resize", resize);
     resize();
 
     const render = (time: number) => {
-      const currentState = stateRef.current;
-      const vc = currentState.visualComplexity;
+      const s = stateRef.current;
+      const vc = s.visualComplexity;
       const t = reducedMotion ? 0 : time / 1000;
-      
-      const palette = getInterpolatedPalette(currentState);
-      const phaseColor = getPhaseColor(vc);
 
-      // ─── Background & Ambient Glow ──────────────────────────────────
-      ctx.fillStyle = palette.bg;
-      ctx.fillRect(0, 0, width, height);
+      // ── Background ─────────────────────────────────────────────────
+      const pal = getInterpolatedPalette(s);
+      ctx.fillStyle = pal.bg;
+      ctx.fillRect(0, 0, W, H);
 
-      if (palette.glow) {
-        const gradient = ctx.createRadialGradient(
-          width / 2, height / 2, 0,
-          width / 2, height / 2, Math.max(width, height) * 0.8
-        );
-        gradient.addColorStop(0, palette.glow);
-        gradient.addColorStop(1, "transparent");
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, width, height);
+      // Ambient radial glow using chapter glow value
+      if (pal.glow && pal.glow !== "transparent") {
+        const grad = ctx.createRadialGradient(W * 0.5, H * 0.55, 0, W * 0.5, H * 0.55, Math.max(W, H) * 0.75);
+        grad.addColorStop(0, pal.glow);
+        grad.addColorStop(1, "transparent");
+        ctx.fillStyle = grad;
+        ctx.fillRect(0, 0, W, H);
       }
 
-      // ─── Node Positions ─────────────────────────────────────────────
-      const positions = nodes.map((n) => {
-        // Clustering interpolation (0.15 -> 0.3)
-        const clusterWeight = clampedMap(vc, 0.15, 0.3, 0, 1);
-        // Open edges outward expansion (0.9 -> 1.0) for half the nodes
-        const openEdgeWeight = n.seed > 0.5 ? clampedMap(vc, 0.9, 1.0, 0, 1) : 0;
+      const accent = pal.primary;
 
-        let lx = n.bx * (1 - clusterWeight) + n.cx * clusterWeight + (n.ex - n.cx) * openEdgeWeight;
-        let ly = n.by * (1 - clusterWeight) + n.cy * clusterWeight + (n.ey - n.cy) * openEdgeWeight;
+      // Compute current particle positions
+      const clusterWeight = clampedMap(vc, 0.15, 0.38, 0, 1);
+      const openWeight = clampedMap(vc, 0.88, 1.0, 0, 1);
 
-        // Organic drift
+      const pos = particles.map((p) => {
+        const ow = p.seed > 0.45 ? openWeight : 0;
+        let lx = p.x * (1 - clusterWeight) + p.clusterX * clusterWeight + (p.exitX - p.clusterX) * ow;
+        let ly = p.y * (1 - clusterWeight) + p.clusterY * clusterWeight + (p.exitY - p.clusterY) * ow;
         if (!reducedMotion) {
-          lx += Math.sin(t * 0.5 + n.seed * 100) * 0.01;
-          ly += Math.cos(t * 0.4 + n.seed * 100) * 0.01;
+          lx += Math.sin(t * 0.4 + p.seed * 80) * 0.008;
+          ly += Math.cos(t * 0.35 + p.seed * 80) * 0.008;
         }
-
-        return { x: lx * width, y: ly * height };
+        return { x: lx * W, y: ly * H };
       });
 
-      // ─── 1. Marks (0.0 -> 0.15 fade in) ─────────────────────────────
-      const markAlpha = clampedMap(vc, 0.0, 0.15, 0, 1);
-      if (markAlpha > 0) {
-        ctx.fillStyle = phaseColor;
-        ctx.globalAlpha = markAlpha;
-        const isRect = vc > 0.45;
-
-        positions.forEach((p, i) => {
-          const n = nodes[i];
-          const size = isRect ? 4 : 2 + n.seed * 2;
-          if (isRect) {
-            ctx.fillRect(p.x - size / 2, p.y - size / 2, size, size);
-          } else {
-            ctx.beginPath();
-            ctx.arc(p.x, p.y, size, 0, Math.PI * 2);
-            ctx.fill();
-          }
+      // ── Phase 0–1: Stone — coarse scattered dots ────────────────────
+      const stoneAlpha = clampedMap(vc, 0.0, 0.18, 0, 0.5);
+      if (stoneAlpha > 0) {
+        ctx.globalAlpha = stoneAlpha;
+        ctx.fillStyle = accent;
+        pos.forEach((p, i) => {
+          const drift = reducedMotion ? 0 : Math.sin(t * 0.3 + particles[i].seed * 60) * 4;
+          ctx.beginPath();
+          ctx.arc(p.x + drift, p.y + drift * 0.5, particles[i].size, 0, Math.PI * 2);
+          ctx.fill();
         });
       }
 
-      // ─── 2/3. Fragments & Lines (0.15 -> 0.45) ──────────────────────
-      const intraAlpha = clampedMap(vc, 0.15, 0.45, 0, 0.6);
-      if (intraAlpha > 0) {
-        ctx.strokeStyle = phaseColor;
-        ctx.globalAlpha = intraAlpha;
+      // ── Phase 2: Fragments — short broken diagonal lines ───────────
+      const fragAlpha = clampedMap(vc, 0.15, 0.35, 0, 0.35);
+      if (fragAlpha > 0) {
+        ctx.globalAlpha = fragAlpha;
+        ctx.strokeStyle = accent;
         ctx.lineWidth = 1;
+        particles.forEach((p, i) => {
+          const px = pos[i].x;
+          const py = pos[i].y;
+          const len = p.lineLen * W;
+          const a = p.angle + (reducedMotion ? 0 : t * 0.1);
+          ctx.beginPath();
+          ctx.moveTo(px, py);
+          ctx.lineTo(px + Math.cos(a) * len, py + Math.sin(a) * len);
+          ctx.stroke();
+        });
+      }
+
+      // ── Phase 3: Structure — geometric grid lines ───────────────────
+      const gridAlpha = clampedMap(vc, 0.3, 0.52, 0, 0.1);
+      if (gridAlpha > 0) {
+        ctx.globalAlpha = gridAlpha;
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 0.5;
+        const hSteps = 8;
+        const vSteps = 8;
         ctx.beginPath();
-        edges
-          .filter((e) => e.type === "intra")
-          .forEach((e) => {
-            ctx.moveTo(positions[e.a].x, positions[e.a].y);
-            ctx.lineTo(positions[e.b].x, positions[e.b].y);
-          });
+        for (let i = 1; i < hSteps; i++) {
+          const y = (H / hSteps) * i;
+          ctx.moveTo(0, y);
+          ctx.lineTo(W, y);
+        }
+        for (let i = 1; i < vSteps; i++) {
+          const x = (W / vSteps) * i;
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, H);
+        }
         ctx.stroke();
       }
 
-      // ─── 4. Modules (0.45 -> 0.6) ───────────────────────────────────
-      const moduleAlpha = clampedMap(vc, 0.45, 0.6, 0, 0.3);
+      // ── Phase 4: Modules — cluster bounding boxes ──────────────────
+      const moduleAlpha = clampedMap(vc, 0.45, 0.62, 0, 0.28);
       if (moduleAlpha > 0) {
-        ctx.strokeStyle = phaseColor;
         ctx.globalAlpha = moduleAlpha;
+        ctx.strokeStyle = accent;
         ctx.lineWidth = 1;
-        
-        for (let c = 0; c < numClusters; c++) {
-          let minX = width, minY = height, maxX = 0, maxY = 0;
-          let hasNodes = false;
-          
-          nodes.forEach((n) => {
-            if (n.clusterIndex === c) {
-              hasNodes = true;
-              const p = positions[n.id];
-              if (p.x < minX) minX = p.x;
-              if (p.y < minY) minY = p.y;
-              if (p.x > maxX) maxX = p.x;
-              if (p.y > maxY) maxY = p.y;
+        for (let c = 0; c < CLUSTERS; c++) {
+          let minX = W, minY = H, maxX = 0, maxY = 0, has = false;
+          particles.forEach((p, i) => {
+            if (p.clusterId === c) {
+              has = true;
+              if (pos[i].x < minX) minX = pos[i].x;
+              if (pos[i].y < minY) minY = pos[i].y;
+              if (pos[i].x > maxX) maxX = pos[i].x;
+              if (pos[i].y > maxY) maxY = pos[i].y;
             }
           });
-          
-          if (hasNodes) {
-            const pad = 12;
-            ctx.strokeRect(
-              minX - pad,
-              minY - pad,
-              (maxX - minX) + pad * 2,
-              (maxY - minY) + pad * 2
-            );
+          if (has) {
+            const pad = 10;
+            ctx.strokeRect(minX - pad, minY - pad, (maxX - minX) + pad * 2, (maxY - minY) + pad * 2);
           }
         }
       }
 
-      // ─── 5. Networks (0.6 -> 0.75) ──────────────────────────────────
-      const interAlpha = clampedMap(vc, 0.6, 0.75, 0, 0.5);
-      if (interAlpha > 0) {
-        ctx.strokeStyle = phaseColor;
-        ctx.globalAlpha = interAlpha;
-        ctx.lineWidth = 1.5;
+      // ── Phase 5: Networks — inter-cluster edges ─────────────────────
+      const netAlpha = clampedMap(vc, 0.6, 0.76, 0, 0.45);
+      if (netAlpha > 0) {
+        ctx.globalAlpha = netAlpha;
+        ctx.strokeStyle = accent;
+        ctx.lineWidth = 1;
         ctx.beginPath();
-        edges
-          .filter((e) => e.type === "inter")
-          .forEach((e) => {
-            ctx.moveTo(positions[e.a].x, positions[e.a].y);
-            ctx.lineTo(positions[e.b].x, positions[e.b].y);
-          });
+        edges.filter(e => e.type === "inter").forEach(e => {
+          if (pos[e.a] && pos[e.b]) {
+            ctx.moveTo(pos[e.a].x, pos[e.a].y);
+            ctx.lineTo(pos[e.b].x, pos[e.b].y);
+          }
+        });
+        ctx.stroke();
+
+        // Also draw intra edges at this phase
+        ctx.globalAlpha = netAlpha * 0.6;
+        ctx.lineWidth = 0.75;
+        ctx.beginPath();
+        edges.filter(e => e.type === "intra").forEach(e => {
+          if (pos[e.a] && pos[e.b]) {
+            ctx.moveTo(pos[e.a].x, pos[e.a].y);
+            ctx.lineTo(pos[e.b].x, pos[e.b].y);
+          }
+        });
         ctx.stroke();
       }
 
-      // ─── 6. Intelligence (0.75 -> 0.9) ──────────────────────────────
+      // ── Phase 6: Intelligence — pulsing data flow dots ─────────────
       const intelAlpha = clampedMap(vc, 0.75, 0.9, 0, 1);
       if (intelAlpha > 0 && !reducedMotion) {
         ctx.fillStyle = "#ffffff";
-        ctx.globalAlpha = intelAlpha;
-        edges
-          .filter((e) => e.type === "inter")
-          .forEach((e, i) => {
-            const p1 = positions[e.a];
-            const p2 = positions[e.b];
-            const dx = p2.x - p1.x;
-            const dy = p2.y - p1.y;
-            const t_pulse = (t * 0.4 + i * 0.1) % 1;
-            
-            ctx.beginPath();
-            ctx.arc(p1.x + dx * t_pulse, p1.y + dy * t_pulse, 2.5, 0, Math.PI * 2);
-            ctx.fill();
-          });
+        ctx.globalAlpha = intelAlpha * 0.8;
+        edges.filter(e => e.type === "inter").forEach((e, i) => {
+          if (!pos[e.a] || !pos[e.b]) return;
+          const p1 = pos[e.a], p2 = pos[e.b];
+          const tp = (t * 0.35 + i * 0.13) % 1;
+          ctx.beginPath();
+          ctx.arc(p1.x + (p2.x - p1.x) * tp, p1.y + (p2.y - p1.y) * tp, 2, 0, Math.PI * 2);
+          ctx.fill();
+        });
       }
 
-      // ─── 7. Open Edges (0.9 -> 1.0) ─────────────────────────────────
-      const openEdgeAlpha = clampedMap(vc, 0.9, 1.0, 0, 0.5);
-      if (openEdgeAlpha > 0) {
-        ctx.strokeStyle = phaseColor;
-        ctx.globalAlpha = openEdgeAlpha;
+      // ── Phase 7: Open Edges — nodes fly outward ─────────────────────
+      const openAlpha = clampedMap(vc, 0.88, 1.0, 0, 0.5);
+      if (openAlpha > 0) {
+        ctx.strokeStyle = accent;
+        ctx.globalAlpha = openAlpha;
         ctx.lineWidth = 1;
         ctx.beginPath();
-        nodes.forEach((n) => {
-          // Draw connecting trails to nodes that didn't move
-          if (n.seed <= 0.5) {
-            const p = positions[n.id];
-            const tx = n.ex * width;
-            const ty = n.ey * height;
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p.x + (tx - p.x) * openEdgeAlpha, p.y + (ty - p.y) * openEdgeAlpha);
+        particles.forEach((p, i) => {
+          if (p.seed <= 0.45) {
+            ctx.moveTo(pos[i].x, pos[i].y);
+            ctx.lineTo(pos[i].x + (p.exitX * W - pos[i].x) * openAlpha,
+                       pos[i].y + (p.exitY * H - pos[i].y) * openAlpha);
           }
         });
         ctx.stroke();
       }
 
-      // Reset alpha
       ctx.globalAlpha = 1;
-
       rafRef.current = requestAnimationFrame(render);
     };
 
     rafRef.current = requestAnimationFrame(render);
-
     return () => {
       window.removeEventListener("resize", resize);
       cancelAnimationFrame(rafRef.current);
     };
-  }, [reducedMotion, nodes, edges, numClusters]);
+  }, [reducedMotion, particles, edges, CLUSTERS]);
 
   return (
     <canvas

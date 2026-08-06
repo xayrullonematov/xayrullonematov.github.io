@@ -5,212 +5,203 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from "fram
 import { type Milestone, chapters } from "@/data/journey";
 import { useExhibition } from "@/lib/ExhibitionContext";
 
-export function MilestoneCard({ milestone, milestoneIndex = 0, totalMilestones = 1 }: { milestone: Milestone; milestoneIndex?: number; totalMilestones?: number }) {
+export function MilestoneCard({
+  milestone,
+  milestoneIndex = 0,
+  totalMilestones = 1,
+}: {
+  milestone: Milestone;
+  milestoneIndex?: number;
+  totalMilestones?: number;
+}) {
   const { isMobile, reducedMotion, state } = useExhibition();
   const [isManuallyExpanded, setIsManuallyExpanded] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
 
-  // Mouse tracking for 3D tilt effect (desktop only)
+  // 3D tilt — desktop only
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  
-  // Spring physics for smooth return
-  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [10, -10]), { damping: 30, stiffness: 200 });
-  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-10, 10]), { damping: 30, stiffness: 200 });
-  
+  const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), { damping: 30, stiffness: 200 });
+  const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), { damping: 30, stiffness: 200 });
+
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isMobile || reducedMotion || !cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    mouseX.set(x);
-    mouseY.set(y);
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
   };
-  
   const handleMouseLeave = () => {
     if (isMobile || reducedMotion) return;
     mouseX.set(0);
     mouseY.set(0);
   };
 
-  // Use the window scroll to drive the timeline
   const { scrollYProgress } = useScroll();
-
   const TOTAL_CHAPTERS = 8;
-  const chapterId = milestone.chapterId;
-  const chapterIndex = chapters.findIndex(ch => ch.id === chapterId);
+  const chapterIndex = chapters.findIndex(ch => ch.id === milestone.chapterId);
   const start = chapterIndex / TOTAL_CHAPTERS;
   const end = (chapterIndex + 1) / TOTAL_CHAPTERS;
   const length = end - start;
-  
-  // Divide the milestone window (0.50 → 0.95) equally among all milestones in
-  // this chapter so they appear one at a time instead of all at once.
-  // Each slot is: [slotStart, slotEnd] within the chapter's scroll range.
-  const milestoneWindowStart = 0.50;
-  const milestoneWindowEnd = 0.95;
-  const slotSize = (milestoneWindowEnd - milestoneWindowStart) / totalMilestones;
-  const slotStart = milestoneWindowStart + milestoneIndex * slotSize;
+
+  const slotSize = (0.95 - 0.50) / totalMilestones;
+  const slotStart = 0.50 + milestoneIndex * slotSize;
   const slotEnd = slotStart + slotSize;
-  const fadeDuration = Math.min(0.04, slotSize * 0.2);
+  const fadeDur = Math.min(0.04, slotSize * 0.2);
 
   const appearStart = start + length * slotStart;
-  const appearEnd = start + length * (slotStart + fadeDuration);
-
-  // Disappears at end of its slot
-  const disappearStart = start + length * (slotEnd - fadeDuration);
+  const appearEnd = start + length * (slotStart + fadeDur);
+  const disappearStart = start + length * (slotEnd - fadeDur);
   const disappearEnd = start + length * slotEnd;
 
-  const opacity = useTransform(
-    scrollYProgress,
-    [appearStart, appearEnd, disappearStart, disappearEnd],
-    [0, 1, 1, 0]
-  );
-  const y = useTransform(
-    scrollYProgress,
-    [appearStart, appearEnd, disappearStart, disappearEnd],
-    [40, 0, 0, -40]
-  );
-
-  const isActiveChapter = state.activeChapterIndex === chapterIndex;
-  const isPastAppearPoint = state.progress >= appearStart;
-  const isBeforeEnd = state.progress <= disappearEnd;
-  const isFullyVisible = isActiveChapter && isPastAppearPoint && isBeforeEnd;
-  
-  const isExpanded = isMobile ? isManuallyExpanded : isFullyVisible;
-
-  const toggleExpand = () => {
-    if (isMobile) setIsManuallyExpanded(!isManuallyExpanded);
-  };
-
-  const pointerEvents = isFullyVisible ? "auto" : "none";
+  const opacity = useTransform(scrollYProgress, [appearStart, appearEnd, disappearStart, disappearEnd], [0, 1, 1, 0]);
+  const cardY = useTransform(scrollYProgress, [appearStart, appearEnd, disappearStart, disappearEnd], [40, 0, 0, -40]);
   const visibility = useTransform(scrollYProgress, (p) => (p >= appearStart && p <= disappearEnd) ? "visible" : "hidden");
+
+  const isFullyVisible =
+    state.activeChapterIndex === chapterIndex &&
+    state.progress >= appearStart &&
+    state.progress <= disappearEnd;
+
+  const isExpanded = isMobile ? isManuallyExpanded : isFullyVisible;
+  const accent = milestone.accent;
 
   return (
     <motion.div
       ref={cardRef}
-      className="relative w-full max-w-2xl mx-auto my-auto cursor-pointer md:cursor-default px-4 md:px-0 perspective-1000"
-      onClick={toggleExpand}
+      className="relative w-full max-w-xl mx-auto px-4 md:px-0"
+      onClick={() => isMobile && setIsManuallyExpanded(v => !v)}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      style={{ 
-        opacity: reducedMotion ? (isFullyVisible ? 1 : 0) : opacity, 
-        y: reducedMotion ? 0 : y,
+      style={{
+        opacity: reducedMotion ? (isFullyVisible ? 1 : 0) : opacity,
+        y: reducedMotion ? 0 : cardY,
         rotateX: reducedMotion ? 0 : rotateX,
         rotateY: reducedMotion ? 0 : rotateY,
-        pointerEvents, 
+        pointerEvents: isFullyVisible ? "auto" : "none",
         visibility: reducedMotion ? (isFullyVisible ? "visible" : "hidden") : visibility,
-        transformStyle: "preserve-3d"
+        transformStyle: "preserve-3d",
+        cursor: isMobile ? "pointer" : "default",
       }}
       aria-hidden={!isFullyVisible}
     >
-      {/* Decorative connection line — desktop only (hidden on mobile to avoid overflow) */}
-      <div 
-        className="hidden md:block absolute top-1/2 -left-24 w-24 h-px bg-gradient-to-r from-transparent to-current opacity-30"
-        style={{ color: milestone.accent }}
+      {/* Connection line + dot — desktop only */}
+      <div
+        className="hidden md:block absolute top-1/2 -left-20 w-20 h-px"
+        style={{ background: `linear-gradient(to right, transparent, ${accent}50)` }}
       />
-      
-      {/* Marker dot — desktop only */}
-      <motion.div 
-        className="hidden md:block absolute top-1/2 -left-24 -translate-y-1/2 w-2 h-2 rounded-full"
-        style={{ backgroundColor: milestone.accent, boxShadow: `0 0 10px ${milestone.accent}` }}
-        animate={{ 
-          scale: isExpanded ? 1.5 : 1,
-          opacity: isExpanded ? 1 : 0.5
-        }}
+      <motion.div
+        className="hidden md:block absolute top-1/2 -left-20 -translate-y-1/2 w-2 h-2 rounded-full"
+        style={{ backgroundColor: accent, boxShadow: `0 0 8px ${accent}` }}
+        animate={{ scale: isExpanded ? 1.4 : 1, opacity: isExpanded ? 1 : 0.45 }}
       />
 
-      <div 
-        className="relative overflow-hidden rounded-lg border backdrop-blur-2xl transition-colors duration-500"
-        style={{ 
-          borderColor: isExpanded ? `${milestone.accent}60` : 'rgba(255,255,255,0.15)',
-          backgroundColor: isExpanded ? 'rgba(5,5,8,0.85)' : 'rgba(5,5,8,0.65)',
-          boxShadow: isExpanded ? `0 0 40px -10px ${milestone.accent}30` : 'none'
+      {/* Card — no backdrop-blur, dark gradient background */}
+      <div
+        className="relative overflow-hidden rounded-lg border transition-colors duration-300"
+        style={{
+          background: "linear-gradient(135deg, rgba(8,8,12,0.88) 0%, rgba(5,5,8,0.72) 100%)",
+          borderColor: isExpanded ? `${accent}55` : `${accent}28`,
+          boxShadow: isExpanded ? `0 24px 80px -20px ${accent}22` : "none",
         }}
       >
-        {/* Header - Always visible */}
-        <div className="p-5 md:p-8 flex items-center justify-between">
-          <h3 className="font-display text-lg md:text-2xl font-semibold tracking-tight text-white/90">
+        {/* Header */}
+        <div className="px-5 py-4 md:px-7 md:py-5 flex items-center justify-between gap-4">
+          <h3
+            style={{
+              fontFamily: "var(--font-display)",
+              fontVariationSettings: "'wght' 600",
+              fontSize: "clamp(1.05rem, 2vw, 1.35rem)",
+              color: "rgba(240,236,228,0.95)",
+              letterSpacing: "-0.02em",
+              lineHeight: 1.2,
+            }}
+          >
             {milestone.name}
           </h3>
-          
-          <div className="flex items-center gap-3">
-            <span 
-              className="text-[10px] md:text-xs font-mono tracking-widest uppercase"
-              style={{ color: milestone.accent }}
+          <div className="flex items-center gap-3 flex-shrink-0">
+            <span
+              className="font-mono text-[9px] md:text-[10px] tracking-[0.25em] uppercase"
+              style={{ color: accent }}
             >
               Artifact
             </span>
             {isMobile && (
-              <motion.div
+              <motion.span
                 animate={{ rotate: isExpanded ? 180 : 0 }}
-                className="w-4 h-4 flex items-center justify-center opacity-50"
+                className="text-xs"
+                style={{ color: `${accent}80` }}
               >
                 ▼
-              </motion.div>
+              </motion.span>
             )}
           </div>
         </div>
 
-        {/* Expandable Content */}
+        {/* Expandable body */}
         <motion.div
           initial={false}
-          animate={{
-            height: isExpanded ? "auto" : 0,
-            opacity: isExpanded ? 1 : 0
-          }}
-          transition={{ duration: reducedMotion ? 0 : 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+          animate={{ height: isExpanded ? "auto" : 0, opacity: isExpanded ? 1 : 0 }}
+          transition={{ duration: reducedMotion ? 0 : 0.45, ease: [0.25, 0.1, 0.25, 1] }}
           className="overflow-hidden"
         >
-          <div className="p-5 md:p-8 pt-0 space-y-6 md:space-y-8">
-            
-            <div className="space-y-1.5 md:space-y-2">
-              <h4 className="text-[10px] md:text-xs font-mono text-white/40 uppercase tracking-widest">Why</h4>
-              <p className="text-white/80 font-sans leading-relaxed text-sm md:text-base">
-                {milestone.why}
-              </p>
-            </div>
+          <div className="px-5 pb-5 md:px-7 md:pb-6 flex flex-col gap-5">
+            <div className="h-px" style={{ background: `${accent}20` }} />
 
-            <div className="space-y-1.5 md:space-y-2">
-              <h4 className="text-[10px] md:text-xs font-mono text-white/40 uppercase tracking-widest">Capability</h4>
-              <p className="text-white/90 font-sans leading-relaxed font-medium text-sm md:text-base">
-                {milestone.capability}
-              </p>
-            </div>
+            {[
+              { label: "Why", text: milestone.why, italic: false },
+              { label: "Capability", text: milestone.capability, italic: false },
+              { label: "Proof", text: milestone.proof, italic: true },
+            ].map(({ label, text, italic }) => (
+              <div key={label}>
+                <p
+                  className="font-mono text-[9px] tracking-[0.25em] uppercase mb-2"
+                  style={{ color: `${accent}70` }}
+                >
+                  {label}
+                </p>
+                <p
+                  className="font-sans text-sm md:text-[0.95rem] leading-relaxed"
+                  style={{ color: "rgba(200,196,188,0.85)", fontStyle: italic ? "italic" : "normal" }}
+                >
+                  {text}
+                </p>
+              </div>
+            ))}
 
-            <div className="space-y-1.5 md:space-y-2">
-              <h4 className="text-[10px] md:text-xs font-mono text-white/40 uppercase tracking-widest">Proof</h4>
-              <p className="text-white/70 font-sans leading-relaxed italic text-sm md:text-base">
-                {milestone.proof}
-              </p>
-            </div>
-
-            <div className="pt-5 md:pt-6 border-t border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4 md:gap-6">
-              <div className="flex flex-wrap gap-2">
+            <div
+              className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-3 border-t"
+              style={{ borderColor: `${accent}15` }}
+            >
+              <div className="flex flex-wrap gap-1.5">
                 {milestone.stack.map(tech => (
-                  <span 
-                    key={tech} 
-                    className="text-[10px] md:text-xs font-mono px-2 py-1 rounded border border-white/10 bg-white/5 text-white/60"
+                  <span
+                    key={tech}
+                    className="font-mono text-[9px] px-2 py-1 rounded border"
+                    style={{
+                      borderColor: `${accent}22`,
+                      color: "rgba(148,163,184,0.7)",
+                      background: `${accent}08`,
+                    }}
                   >
                     {tech}
                   </span>
                 ))}
               </div>
-              
               <a
                 href={milestone.link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-xs md:text-sm font-medium transition-colors hover:text-white"
-                style={{ color: milestone.accent }}
-                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-2 font-mono text-xs font-semibold tracking-wide transition-opacity hover:opacity-75"
+                style={{ color: accent }}
+                onClick={e => e.stopPropagation()}
               >
                 {milestone.link.label}
-                <svg className="w-3 h-3 md:w-4 md:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}>
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
                 </svg>
               </a>
             </div>
-
           </div>
         </motion.div>
       </div>
