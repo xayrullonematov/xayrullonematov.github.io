@@ -1,11 +1,3 @@
-/**
- * FROM STONE TO SYSTEMS — Prologue
- * 
- * The entrance to the exhibition. Before any chapter begins,
- * the visitor encounters the central question and the name.
- * This is the first impression — the moment that sets the tone.
- */
-
 "use client";
 
 import { motion, useScroll, useTransform, useReducedMotion } from "framer-motion";
@@ -15,153 +7,153 @@ import { useExhibition } from "@/lib/ExhibitionContext";
 export function Prologue() {
   const prefersReducedMotion = useReducedMotion();
   const { state } = useExhibition();
-
-  // Use the window scroll to drive the timeline
   const { scrollYProgress } = useScroll();
 
-  // Prologue is chapter 0. It fades out as we approach chapter 1 (progress 0.125)
-  const end = 1 / 8; // 0.125
+  // Prologue is chapter 0 — fades out at 1/8 = 0.125
+  const end = 1 / 8;
 
-  const titleY = useTransform(scrollYProgress, [0, end], [0, prefersReducedMotion ? 0 : -60]);
-  const titleOpacity = useTransform(scrollYProgress, [0, end * 0.6], [1, 0]);
-  const subtitleOpacity = useTransform(scrollYProgress, [end * 0.1, end * 0.4], [0, 1]);
-  const narrativeOpacity = useTransform(scrollYProgress, [end * 0.2, end * 0.5], [0, 1]);
-  const narrativeY = useTransform(scrollYProgress, [end * 0.2, end * 0.5], [30, 0]);
-  const scrollHintOpacity = useTransform(scrollYProgress, [0, end * 0.2], [1, 0]);
-  const opacity = useTransform(scrollYProgress, [0, end * 0.8, end], [1, 1, 0]);
+  const opacity = useTransform(scrollYProgress, [0, end * 0.75, end], [1, 1, 0]);
+  const titleY = useTransform(scrollYProgress, [0, end], [0, prefersReducedMotion ? 0 : -80]);
+  const contentY = useTransform(scrollYProgress, [0, end], [0, prefersReducedMotion ? 0 : -40]);
+  const scrollHintOpacity = useTransform(scrollYProgress, [0, end * 0.15], [1, 0]);
+
   const isActive = state.progress <= end;
   const pointerEvents = isActive ? "auto" : "none";
-  const visibility = useTransform(scrollYProgress, (p) => p <= end ? "visible" : "hidden");
+  const visibility = useTransform(scrollYProgress, (p) => (p <= end ? "visible" : "hidden"));
 
   return (
     <motion.section
       id="prologue"
-      className="absolute inset-0 flex flex-col justify-start pt-[30vh] md:pt-[35vh] overflow-hidden"
+      className="absolute inset-0 flex flex-col justify-center overflow-hidden pointer-events-none"
       aria-labelledby="prologue-title"
-      style={prefersReducedMotion ? { opacity: isActive ? 1 : 0, pointerEvents, visibility: isActive ? "visible" : "hidden" } : { opacity, pointerEvents, visibility }}
+      style={
+        prefersReducedMotion
+          ? { opacity: isActive ? 1 : 0, pointerEvents, visibility: isActive ? "visible" : "hidden" }
+          : { opacity, pointerEvents, visibility }
+      }
       aria-hidden={!isActive}
     >
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-5 md:px-8">
-        {/* The name — large, confident, minimal */}
-        <motion.div style={{ y: titleY, opacity: titleOpacity }}>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="font-mono text-[10px] md:text-[11px] tracking-[0.25em] uppercase mb-6 md:mb-8"
-            style={{ color: "rgba(148, 163, 184, 0.5)" }}
-          >
-            An interactive exhibition
-          </motion.p>
+      {/* Full-bleed glow from top */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(246,244,239,0.05) 0%, transparent 60%)",
+        }}
+      />
 
+      {/* Large ghost title behind */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+        <span
+          className="font-display font-black text-center leading-none"
+          style={{
+            fontSize: "clamp(12rem, 35vw, 30rem)",
+            color: "rgba(246,244,239,0.025)",
+            letterSpacing: "-0.06em",
+          }}
+        >
+          FSS
+        </span>
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 w-full max-w-5xl mx-auto px-6 md:px-14 lg:px-20">
+
+        {/* Top label */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="font-mono text-[9px] md:text-[10px] tracking-[0.3em] uppercase mb-8 md:mb-12"
+          style={{ color: "rgba(148,163,184,0.4)" }}
+        >
+          An Interactive Exhibition · 2026
+        </motion.p>
+
+        {/* Title block */}
+        <motion.div style={{ y: titleY }}>
           <motion.h1
             id="prologue-title"
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.4, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-            className="text-[clamp(2.5rem,8vw,6rem)] font-semibold leading-[0.9] tracking-[-0.04em] mb-6 text-balance"
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="font-display font-black tracking-tighter leading-[0.88] mb-6 md:mb-8"
             style={{
-              fontFamily: "var(--font-display), var(--font-sans), system-ui, sans-serif",
+              fontSize: "clamp(4rem, 12vw, 10rem)",
               color: "#f6f4ef",
             }}
           >
             From Stone
             <br />
-            <span style={{ color: "rgba(246, 244, 239, 0.25)" }}>to Systems</span>
+            <span style={{ color: "rgba(246,244,239,0.2)" }}>to Systems</span>
           </motion.h1>
+        </motion.div>
 
+        {/* Author + divider */}
+        <motion.div
+          style={{ y: contentY }}
+          className="flex flex-col md:flex-row md:items-end gap-6 md:gap-12"
+        >
           <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
-            className="h-px w-24 md:w-32 origin-left mb-6"
-            style={{ background: "rgba(246, 244, 239, 0.15)" }}
-            aria-hidden
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.9 }}
+          >
+            <p
+              className="font-display text-lg md:text-xl font-semibold mb-1"
+              style={{ color: "rgba(246,244,239,0.85)" }}
+            >
+              {siteInfo.name}
+            </p>
+            <p
+              className="font-mono text-[9px] tracking-[0.2em] uppercase"
+              style={{ color: "rgba(148,163,184,0.35)" }}
+            >
+              {siteInfo.location}
+            </p>
+          </motion.div>
+
+          {/* Vertical separator */}
+          <motion.div
+            className="hidden md:block w-px self-stretch"
+            initial={{ scaleY: 0 }}
+            animate={{ scaleY: 1 }}
+            transition={{ duration: 0.8, delay: 1.1 }}
+            style={{ background: "rgba(246,244,239,0.08)", transformOrigin: "top" }}
           />
 
+          {/* Opening statement */}
           <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-            className="text-sm md:text-base"
-            style={{
-              color: "rgba(148, 163, 184, 0.7)",
-              fontFamily: "var(--font-display)",
-            }}
-          >
-            {siteInfo.name}
-          </motion.p>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.4 }}
-            className="font-mono text-[10px] tracking-[0.15em] uppercase mt-1"
-            style={{ color: "rgba(148, 163, 184, 0.35)" }}
-          >
-            {siteInfo.location}
-          </motion.p>
-        </motion.div>
-
-        {/* Opening question — appears as you begin to scroll */}
-        <motion.div
-          style={{ opacity: subtitleOpacity }}
-          className="mt-24 md:mt-32"
-        >
-          <p
-            className="text-xl md:text-2xl lg:text-3xl leading-relaxed italic max-w-2xl"
-            style={{
-              fontFamily: "var(--font-display)",
-              color: "rgba(246, 244, 239, 0.6)",
-            }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.9, delay: 1.1, ease: [0.22, 1, 0.36, 1] }}
+            className="font-display text-base md:text-lg italic max-w-sm leading-relaxed"
+            style={{ color: "rgba(246,244,239,0.45)" }}
           >
             &ldquo;Every builder begins with a question they cannot yet name.&rdquo;
-          </p>
-        </motion.div>
-
-        {/* Narrative — appears further into scroll */}
-        <motion.div
-          style={{ opacity: narrativeOpacity, y: prefersReducedMotion ? 0 : narrativeY }}
-          className="mt-12 md:mt-16"
-        >
-          <p
-            className="text-base md:text-lg leading-relaxed max-w-xl"
-            style={{ color: "rgba(148, 163, 184, 0.7)" }}
-          >
-            This is not a portfolio. This is a map of how one person learned
-            to build — from the ground, from nothing, from pure curiosity —
-            and why every tool, every line of code, every system traces back
-            to a single question:
-          </p>
-          <p
-            className="text-lg md:text-xl mt-6 font-medium"
-            style={{
-              fontFamily: "var(--font-display)",
-              color: "rgba(246, 244, 239, 0.85)",
-            }}
-          >
-            &ldquo;What if I could make this work?&rdquo;
-          </p>
+          </motion.p>
         </motion.div>
       </div>
 
-      {/* Scroll hint */}
+      {/* Scroll hint — animated arrow */}
       <motion.div
         style={{ opacity: scrollHintOpacity }}
-        className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
         aria-hidden
       >
-        <span
-          className="font-mono text-[9px] tracking-[0.2em] uppercase"
-          style={{ color: "rgba(148, 163, 184, 0.3)" }}
-        >
-          Scroll to begin
-        </span>
         <motion.div
-          animate={prefersReducedMotion ? {} : { y: [0, 6, 0] }}
-          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          className="w-px h-8"
-          style={{ background: "linear-gradient(to bottom, rgba(148, 163, 184, 0.3), transparent)" }}
-        />
+          animate={prefersReducedMotion ? {} : { y: [0, 8, 0], opacity: [0.4, 1, 0.4] }}
+          transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
+          className="flex flex-col items-center gap-1"
+        >
+          <div className="w-px h-10 rounded-full" style={{ background: "linear-gradient(to bottom, rgba(246,244,239,0.4), transparent)" }} />
+          <svg width="10" height="6" viewBox="0 0 10 6" fill="none" style={{ color: "rgba(246,244,239,0.3)" }}>
+            <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </motion.div>
+        <span className="font-mono text-[8px] tracking-[0.25em] uppercase" style={{ color: "rgba(148,163,184,0.25)" }}>
+          Scroll
+        </span>
       </motion.div>
     </motion.section>
   );

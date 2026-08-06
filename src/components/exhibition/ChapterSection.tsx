@@ -13,7 +13,6 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
   const start = chapter.index / TOTAL_CHAPTERS;
   const end = (chapter.index + 1) / TOTAL_CHAPTERS;
 
-  // Chapter text fades out at 0.40 so milestone cards (starting at 0.50) never overlap
   const fadeOutPoint = hasMilestone ? start + (end - start) * 0.40 : end;
   const maxFade = (fadeOutPoint - start) / 2.1;
   const fade = Math.min(0.03, maxFade);
@@ -26,7 +25,7 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
   const y = useTransform(
     scrollYProgress,
     [start - fade, start + fade, fadeOutPoint - fade, fadeOutPoint + fade],
-    [40, 0, 0, -40]
+    [50, 0, 0, -50]
   );
 
   const isActive = state.progress >= start - fade && state.progress <= fadeOutPoint + fade;
@@ -36,159 +35,187 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
     (p) => (p >= start - fade && p <= fadeOutPoint + fade) ? "visible" : "hidden"
   );
 
-  // Stagger config — shorter delays, no blur filter (too expensive mid-scroll)
-  const fadeUp = (delay: number) => ({
-    initial: { opacity: 0, y: 16 },
-    animate: isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 },
-    transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] as const },
+  const accent = chapter.palette.primary;
+
+  const in_ = (delay: number) => ({
+    animate: isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 },
+    transition: { duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] as const },
   });
 
-  const accent = chapter.palette.primary;
+  // Split narrative into sentences for stagger
+  const sentences = chapter.narrative.split(/(?<=\.)\s+/);
 
   return (
     <motion.section
       id={`chapter-${chapter.index}`}
-      className="absolute inset-0 flex flex-col justify-center px-5 md:px-12 lg:px-20 pt-16 pb-10 pointer-events-none overflow-hidden"
+      className="absolute inset-0 flex flex-col justify-center pointer-events-none overflow-hidden"
       style={
         reducedMotion
-          ? { opacity: state.activeChapterIndex === chapter.index ? 1 : 0, visibility: state.activeChapterIndex === chapter.index ? "visible" : "hidden" }
+          ? {
+              opacity: state.activeChapterIndex === chapter.index ? 1 : 0,
+              visibility: state.activeChapterIndex === chapter.index ? "visible" : "hidden",
+            }
           : { opacity, visibility }
       }
       aria-hidden={!isActive}
     >
-      {/* Ambient chapter glow */}
+      {/* Strong radial glow from bottom-left, unique per chapter */}
       <div
         className="absolute inset-0 pointer-events-none"
-        style={{ background: `radial-gradient(ellipse 70% 60% at 50% 50%, ${chapter.palette.glow} 0%, transparent 70%)` }}
+        style={{
+          background: `
+            radial-gradient(ellipse 80% 60% at 0% 100%, ${accent}18 0%, transparent 60%),
+            radial-gradient(ellipse 50% 40% at 100% 0%, ${accent}0a 0%, transparent 50%)
+          `,
+        }}
       />
 
-      {/* Giant watermark number */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+      {/* Giant chapter number — full bleed behind everything */}
+      <div className="absolute inset-0 flex items-end justify-end pointer-events-none select-none overflow-hidden pr-4 pb-2 md:pr-8 md:pb-4">
         <span
-          className="font-display font-bold leading-none"
+          className="font-display font-black leading-none"
           style={{
-            fontSize: "clamp(18rem, 45vw, 38rem)",
-            color: "rgba(246,244,239,0.018)",
-            letterSpacing: "-0.06em",
+            fontSize: "clamp(22rem, 55vw, 48rem)",
+            color: `${accent}09`,
+            letterSpacing: "-0.08em",
+            lineHeight: 0.8,
           }}
         >
           {String(chapter.index).padStart(2, "0")}
         </span>
       </div>
 
-      {/* Content — two-column on desktop, single on mobile */}
+      {/* Main content */}
       <motion.div
-        className="relative z-10 w-full max-w-6xl mx-auto"
+        className="relative z-10 w-full h-full flex flex-col justify-center px-6 md:px-14 lg:px-20"
         style={reducedMotion ? { pointerEvents } : { y, pointerEvents }}
       >
-        {/* Chapter badge */}
-        <motion.div {...fadeUp(0)} className="flex items-center gap-3 mb-8 md:mb-10">
-          <span className="font-mono text-[10px] md:text-xs tracking-[0.25em] text-white/30 uppercase">
+        {/* Top label row */}
+        <motion.div {...in_(0)} className="flex items-center gap-4 mb-10 md:mb-14">
+          <span
+            className="font-mono text-[11px] tracking-[0.3em] uppercase"
+            style={{ color: `${accent}80` }}
+          >
             CH {String(chapter.index).padStart(2, "0")}
           </span>
-          <div className="h-px w-8 bg-white/15" />
+          <div className="h-px flex-1 max-w-[60px]" style={{ background: `${accent}30` }} />
           <span
-            className="font-mono text-[10px] md:text-xs tracking-[0.2em] uppercase font-semibold"
+            className="font-mono text-[10px] tracking-[0.25em] uppercase font-semibold"
             style={{ color: accent }}
           >
             {chapter.primitive}
           </span>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
-          {/* LEFT — Title + Quote */}
-          <div className="flex flex-col gap-6 md:gap-8">
-            {/* Title */}
+        {/* Two-zone layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.1fr] gap-10 lg:gap-20 items-center max-w-7xl">
+
+          {/* LEFT ZONE — identity */}
+          <div className="flex flex-col gap-5 md:gap-7">
+
+            {/* Title — the biggest, boldest thing on screen */}
             <motion.h2
-              {...fadeUp(0.05)}
-              className="font-display font-bold tracking-tighter text-white leading-[0.95]"
-              style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)" }}
+              {...in_(0.05)}
+              className="font-display font-black tracking-tighter leading-[0.88] text-white"
+              style={{ fontSize: "clamp(3.5rem, 9vw, 7rem)" }}
             >
-              <ScrambleText text={chapter.title} isActive={isActive} delay={200} />
+              <ScrambleText text={chapter.title} isActive={isActive} delay={150} />
             </motion.h2>
 
             {/* Subtitle */}
             <motion.p
-              {...fadeUp(0.1)}
-              className="font-sans text-base md:text-lg tracking-wide"
-              style={{ color: "rgba(148,163,184,0.7)" }}
+              {...in_(0.1)}
+              className="font-mono text-[11px] md:text-xs tracking-[0.2em] uppercase"
+              style={{ color: `${accent}70` }}
             >
               {chapter.subtitle}
             </motion.p>
 
-            {/* THE QUOTE — hero element, full width, big, accented */}
-            <motion.blockquote
-              {...fadeUp(0.15)}
-              className="relative mt-2"
-            >
-              {/* Accent bar */}
+            {/* The quote — large, commanding, with strong accent bar */}
+            <motion.blockquote {...in_(0.17)} className="relative pl-5 md:pl-6 mt-2 md:mt-4">
               <div
-                className="absolute left-0 top-0 bottom-0 w-[3px] rounded-full"
-                style={{ background: accent }}
+                className="absolute left-0 top-1 bottom-1 w-[3px] md:w-[4px] rounded-full"
+                style={{ background: `linear-gradient(to bottom, ${accent}, ${accent}40)` }}
               />
               <p
-                className="pl-5 font-display font-medium leading-snug"
+                className="font-display font-semibold leading-[1.25]"
                 style={{
-                  fontSize: "clamp(1.15rem, 2.8vw, 1.75rem)",
-                  color: "rgba(246,244,239,0.92)",
+                  fontSize: "clamp(1.3rem, 3vw, 2.1rem)",
+                  color: "rgba(246,244,239,0.95)",
                 }}
               >
                 &ldquo;{chapter.opening}&rdquo;
               </p>
             </motion.blockquote>
 
-            {/* Anchor object — desktop only */}
+            {/* Anchor object — styled as a physical artifact tag */}
             {chapter.anchor && (
               <motion.div
-                {...fadeUp(0.2)}
-                className="hidden lg:flex items-start gap-4 mt-2 p-4 rounded-xl border"
-                style={{
-                  borderColor: `${accent}25`,
-                  background: `${accent}08`,
-                }}
+                {...in_(0.23)}
+                className="hidden lg:inline-flex items-center gap-3 mt-2 self-start"
               >
                 <div
-                  className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0"
-                  style={{ background: accent }}
-                />
-                <div>
-                  <p className="font-mono text-[10px] tracking-widest uppercase mb-1" style={{ color: `${accent}90` }}>
-                    Anchor
-                  </p>
-                  <p className="text-sm font-medium text-white/80 mb-0.5">{chapter.anchor.object}</p>
-                  <p className="text-xs text-white/40 italic">{chapter.anchor.meaning}</p>
+                  className="px-3 py-1.5 rounded-full text-[10px] font-mono tracking-widest uppercase border"
+                  style={{
+                    borderColor: `${accent}35`,
+                    color: `${accent}cc`,
+                    background: `${accent}0d`,
+                  }}
+                >
+                  ◈ {chapter.anchor.object}
                 </div>
               </motion.div>
             )}
           </div>
 
-          {/* RIGHT — Narrative sentences */}
-          <div className="flex flex-col gap-4 md:gap-5 lg:pt-2">
-            {chapter.narrative.split(/(?<=\.)\s+/).map((sentence, idx) => (
+          {/* RIGHT ZONE — narrative */}
+          <div className="flex flex-col justify-center gap-4 md:gap-5">
+            {sentences.map((sentence, idx) => (
               <motion.p
                 key={idx}
-                {...fadeUp(0.1 + idx * 0.08)}
-                className="font-sans leading-relaxed"
+                {...in_(0.12 + idx * 0.07)}
+                className="font-sans leading-[1.75]"
                 style={{
-                  fontSize: "clamp(0.9rem, 1.5vw, 1.1rem)",
-                  // First sentence is brighter to pull the eye in
+                  fontSize: "clamp(0.95rem, 1.4vw, 1.05rem)",
                   color: idx === 0
-                    ? "rgba(246,244,239,0.85)"
-                    : "rgba(148,163,184,0.75)",
+                    ? "rgba(246,244,239,0.88)"
+                    : "rgba(148,163,184,0.72)",
+                  borderLeft: idx === 0 ? `2px solid ${accent}50` : "none",
+                  paddingLeft: idx === 0 ? "1rem" : "0",
                 }}
               >
-                {/* Highlight stat-like fragments in accent color */}
-                {sentence.split(/(\d[\d,+]+\+?\s*(?:tests?|users?|hours?|downloads?|models?|%)?)/gi).map((part, pi) =>
-                  /^\d/.test(part) ? (
-                    <span key={pi} className="font-semibold" style={{ color: accent }}>
-                      {part}
-                    </span>
-                  ) : (
-                    part
-                  )
-                )}
+                {/* Highlight numbers in accent color */}
+                {sentence
+                  .split(/(\d[\d,+]*\+?\s*(?:tests?|users?|hours?|downloads?|models?|%)?)/gi)
+                  .map((part, pi) =>
+                    /^\d/.test(part) ? (
+                      <span key={pi} className="font-bold" style={{ color: accent }}>
+                        {part}
+                      </span>
+                    ) : (
+                      part
+                    )
+                  )}
               </motion.p>
             ))}
+
+            {/* Visual signature line at the bottom */}
+            <motion.div
+              {...in_(0.12 + sentences.length * 0.07)}
+              className="flex items-center gap-3 mt-4 pt-4"
+              style={{ borderTop: `1px solid ${accent}15` }}
+            >
+              <div
+                className="w-2 h-2 rounded-full flex-shrink-0"
+                style={{ background: accent, boxShadow: `0 0 8px ${accent}` }}
+              />
+              <span
+                className="font-mono text-[9px] md:text-[10px] tracking-[0.2em] uppercase"
+                style={{ color: `${accent}50` }}
+              >
+                {chapter.visualEra}
+              </span>
+            </motion.div>
           </div>
         </div>
       </motion.div>
