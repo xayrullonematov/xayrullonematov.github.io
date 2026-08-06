@@ -6,6 +6,16 @@ import { useExhibition } from "@/lib/ExhibitionContext";
 import { CurtainReveal } from "@/components/ui/CurtainReveal";
 import { WordReveal } from "@/components/ui/WordReveal";
 
+// Per-chapter image — right side of screen, subtle, adds visual texture
+const CHAPTER_IMAGES: Record<string, string> = {
+  curiosity:   "/images/generated/stone-prologue.jpg",   // stone era
+  survival:    "/images/generated/survival-phone.jpg",
+  discovery:   "/images/generated/survival-phone.jpg",   // same cold era
+  building:    "/images/generated/building-forge.jpg",
+  opensource:  "/images/generated/hamma-terminal.jpg",
+  ai:          "/images/generated/ai-circuit.jpg",
+};
+
 export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Chapter; hasMilestone?: boolean }) {
   const { reducedMotion, state } = useExhibition();
   const { scrollYProgress } = useScroll();
@@ -14,7 +24,6 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
   const start = chapter.index / TOTAL;
   const end = (chapter.index + 1) / TOTAL;
 
-  // Chapter text fades out early when a milestone follows
   const fadeOutPoint = hasMilestone ? start + (end - start) * 0.40 : end;
   const maxFade = (fadeOutPoint - start) / 2.1;
   const fade = Math.min(0.03, maxFade);
@@ -34,7 +43,6 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
     (p) => (p >= start - fade && p <= fadeOutPoint + fade) ? "visible" : "hidden"
   );
 
-  // Variable font weight — smoothly animates from previous chapter's weight
   const prevWeight = chapters[chapter.index - 1]?.fontWeight ?? chapter.fontWeight;
   const titleWeight: MotionValue<number> = useTransform(
     scrollYProgress,
@@ -45,8 +53,7 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
   const isActive = state.progress >= start - fade && state.progress <= fadeOutPoint + fade;
   const pointerEvents = isActive ? "auto" : "none";
   const accent = chapter.palette.primary;
-
-  // Sentence stagger for narrative
+  const chapterImage = CHAPTER_IMAGES[chapter.id];
   const sentences = chapter.narrative.split(/(?<=\.)\s+/).filter(Boolean);
 
   return (
@@ -63,15 +70,49 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
       }
       aria-hidden={!isActive}
     >
-      {/* Localized vignette behind text — no card, just darkness */}
+      {/* Chapter image — right half, fades in with chapter, masked at left edge */}
+      {chapterImage && (
+        <motion.div
+          className="absolute inset-y-0 right-0 w-[55%] pointer-events-none hidden md:block"
+          animate={isActive ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.9, delay: 0.1 }}
+        >
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url('${chapterImage}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              opacity: 0.28,
+              mixBlendMode: "luminosity",
+            }}
+          />
+          {/* Gradient mask — fades image out toward the left where text is */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: "linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 25%, rgba(0,0,0,0.1) 60%, rgba(0,0,0,0) 100%)",
+            }}
+          />
+          {/* Accent color overlay — ties image to chapter palette */}
+          <div
+            className="absolute inset-0"
+            style={{
+              background: `linear-gradient(135deg, transparent 40%, ${accent}12 100%)`,
+            }}
+          />
+        </motion.div>
+      )}
+
+      {/* Vignette behind text */}
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse 65% 90% at 18% 50%, rgba(0,0,0,0.65) 0%, transparent 100%)`,
+          background: `radial-gradient(ellipse 60% 90% at 15% 50%, rgba(0,0,0,0.75) 0%, transparent 100%)`,
         }}
       />
 
-      {/* Chapter number watermark — bottom right, architectural */}
+      {/* Chapter number watermark — bottom right */}
       <div
         className="absolute bottom-0 right-0 leading-none select-none pointer-events-none overflow-hidden"
         style={{
@@ -94,43 +135,36 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
         className="absolute inset-0 flex flex-col justify-center"
         style={reducedMotion ? { pointerEvents } : { y, pointerEvents }}
       >
-        <div className="px-[6vw] md:px-[6vw] max-w-4xl">
+        <div className="px-[6vw] max-w-3xl">
 
           {/* Top label row */}
           <motion.div
             animate={isActive ? { opacity: 1 } : { opacity: 0 }}
-            transition={{ duration: 0.4, delay: 0 }}
+            transition={{ duration: 0.4 }}
             className="flex items-center gap-3 mb-8 md:mb-10"
           >
-            <span
-              className="font-mono text-[10px] tracking-[0.3em] uppercase"
-              style={{ color: `${accent}80` }}
-            >
+            <span className="font-mono text-[10px] tracking-[0.3em] uppercase" style={{ color: `${accent}80` }}>
               CH {String(chapter.index).padStart(2, "0")}
             </span>
             <div className="h-px w-8" style={{ background: `${accent}30` }} />
-            <span
-              className="font-mono text-[10px] tracking-[0.2em] uppercase font-semibold"
-              style={{ color: accent }}
-            >
+            <span className="font-mono text-[10px] tracking-[0.2em] uppercase font-semibold" style={{ color: accent }}>
               {chapter.primitive}
             </span>
           </motion.div>
 
-          {/* Title — curtain wipe reveal, variable weight */}
+          {/* Title — curtain wipe */}
           <div className="mb-6 md:mb-8">
             <CurtainReveal isActive={isActive} delay={0.05} duration={0.8}>
-              <motion.h2
+              <h2
                 className="leading-[0.88] tracking-[-0.04em]"
                 style={{
                   fontFamily: "var(--font-display)",
-                  fontVariationSettings: titleWeight.get ? `'wght' ${titleWeight.get()}` : `'wght' ${chapter.fontWeight}`,
                   fontSize: "clamp(3.5rem, 10vw, 8rem)",
                   color: "#f0ece4",
                 }}
               >
                 <MotionTitle titleWeight={titleWeight}>{chapter.title}</MotionTitle>
-              </motion.h2>
+              </h2>
             </CurtainReveal>
           </div>
 
@@ -144,7 +178,7 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
             {chapter.subtitle}
           </motion.p>
 
-          {/* Quote — word-by-word reveal in accent color */}
+          {/* Quote — word-by-word in accent color */}
           <div className="mb-8 md:mb-10 max-w-2xl">
             <span
               style={{
@@ -156,16 +190,11 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
                 display: "block",
               }}
             >
-              <WordReveal
-                text={`"${chapter.opening}"`}
-                isActive={isActive}
-                delay={0.3}
-                stagger={0.04}
-              />
+              <WordReveal text={`"${chapter.opening}"`} isActive={isActive} delay={0.3} stagger={0.04} />
             </span>
           </div>
 
-          {/* Narrative sentences */}
+          {/* Narrative */}
           <div className="max-w-xl flex flex-col gap-3">
             {sentences.map((sentence, idx) => (
               <motion.p
@@ -183,21 +212,19 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
                 {sentence
                   .split(/(\d[\d,]*\+?\s*(?:tests?|users?|hours?|downloads?|models?|%)?)/gi)
                   .map((part, pi) =>
-                    /^\d/.test(part) ? (
-                      <span key={pi} style={{ color: accent, fontWeight: 700 }}>{part}</span>
-                    ) : part
+                    /^\d/.test(part)
+                      ? <span key={pi} style={{ color: accent, fontWeight: 700 }}>{part}</span>
+                      : part
                   )}
               </motion.p>
             ))}
           </div>
-
         </div>
       </motion.div>
     </motion.section>
   );
 }
 
-// Separate component so useTransform value updates the inline style reactively
 function MotionTitle({ children, titleWeight }: { children: React.ReactNode; titleWeight: MotionValue<number> }) {
   return (
     <motion.span

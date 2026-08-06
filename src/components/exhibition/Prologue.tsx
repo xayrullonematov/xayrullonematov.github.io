@@ -33,6 +33,18 @@ export function Prologue() {
       }
       aria-hidden={!isActive}
     >
+      {/* Stone texture background — prologue era */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: "url('/images/generated/stone-prologue.jpg')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          opacity: 0.18,
+          mixBlendMode: "luminosity",
+        }}
+      />
+
       {/* Subtle top-edge glow */}
       <div
         className="absolute inset-0 pointer-events-none"

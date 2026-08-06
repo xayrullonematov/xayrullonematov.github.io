@@ -5,6 +5,15 @@ import { motion, useScroll, useTransform, useMotionValue, useSpring } from "fram
 import { type Milestone, chapters } from "@/data/journey";
 import { useExhibition } from "@/lib/ExhibitionContext";
 
+// Milestone visual images
+const MILESTONE_IMAGES: Record<string, string> = {
+  autotestlar: "/images/generated/autotestlar-mockup.jpg",
+  hamma:       "/images/generated/hamma-terminal.jpg",
+  reposcope:   "/images/generated/ai-circuit.jpg",
+  hammadev:    "/images/generated/hamma-terminal.jpg",
+  moviebot:    "/images/generated/survival-phone.jpg",
+};
+
 export function MilestoneCard({
   milestone,
   milestoneIndex = 0,
@@ -104,6 +113,38 @@ export function MilestoneCard({
           boxShadow: isExpanded ? `0 24px 80px -20px ${accent}22` : "none",
         }}
       >
+        {/* Image panel — visible when expanded, subtle always */}
+        {MILESTONE_IMAGES[milestone.id] && (
+          <div
+            className="w-full overflow-hidden"
+            style={{ height: isExpanded ? "160px" : "80px", transition: "height 0.45s cubic-bezier(0.25,0.1,0.25,1)" }}
+          >
+            <div
+              style={{
+                width: "100%",
+                height: "160px",
+                backgroundImage: `url('${MILESTONE_IMAGES[milestone.id]}')`,
+                backgroundSize: "cover",
+                backgroundPosition: "center top",
+                opacity: isExpanded ? 0.55 : 0.25,
+                filter: "saturate(0.7)",
+                transition: "opacity 0.4s ease",
+              }}
+            />
+            {/* Gradient fade to card background */}
+            <div
+              className="absolute left-0 right-0"
+              style={{
+                bottom: 0,
+                height: "80px",
+                background: `linear-gradient(to top, rgba(8,8,12,0.95), transparent)`,
+                marginTop: "-80px",
+                position: "relative",
+              }}
+            />
+          </div>
+        )}
+
         {/* Header */}
         <div className="px-5 py-4 md:px-7 md:py-5 flex items-center justify-between gap-4">
           <h3
