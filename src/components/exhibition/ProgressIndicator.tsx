@@ -3,14 +3,35 @@
 import { useState } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useExhibition } from "@/lib/ExhibitionContext";
-import { chapters } from "@/data/journey";
+import { chapters, type Chapter } from "@/data/journey";
 import { audio } from "@/lib/AudioEngine";
+
+// Hooks cannot be called inside .map() — extract each bar into its own component
+function StoryBar({ chapter, index }: { chapter: Chapter; index: number }) {
+  const { scrollYProgress } = useScroll();
+  const start = index / chapters.length;
+  const end = (index + 1) / chapters.length;
+
+  const fillWidth = useTransform(scrollYProgress, (p) => {
+    if (p >= end) return "100%";
+    if (p <= start) return "0%";
+    return `${((p - start) / (end - start)) * 100}%`;
+  });
+
+  return (
+    <div className="h-1 flex-1 bg-white/20 rounded-full overflow-hidden">
+      <motion.div
+        className="h-full rounded-full"
+        style={{ width: fillWidth, backgroundColor: chapter.palette.primary }}
+      />
+    </div>
+  );
+}
 
 export function ProgressIndicator() {
   const { state, goToChapter, isMobile, reducedMotion } = useExhibition();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [audioPlaying, setAudioPlaying] = useState(false);
-  const { scrollYProgress } = useScroll();
 
   const toggleAudio = async () => {
     if (audio) {
@@ -28,36 +49,9 @@ export function ProgressIndicator() {
     return (
       <nav className="fixed top-0 left-0 w-full z-50 px-2 pt-4 pointer-events-none">
         <div className="flex gap-1.5 w-full">
-          {chapters.map((chapter, i) => {
-            const start = i / chapters.length;
-            const end = (i + 1) / chapters.length;
-            
-            // Map the global scroll progress to 0-100% for this specific chunk
-            const width = useTransform(
-              scrollYProgress,
-              [start, end],
-              ["0%", "100%"]
-            );
-            
-            // If we are past this chapter, ensure it stays 100%, if before, 0%
-            const fillWidth = useTransform(scrollYProgress, (p) => {
-              if (p >= end) return "100%";
-              if (p <= start) return "0%";
-              return `${((p - start) / (end - start)) * 100}%`;
-            });
-
-            return (
-              <div key={chapter.id} className="h-1 flex-1 bg-white/20 rounded-full overflow-hidden">
-                <motion.div
-                  className="h-full rounded-full"
-                  style={{ 
-                    width: fillWidth,
-                    backgroundColor: chapter.palette.primary 
-                  }}
-                />
-              </div>
-            );
-          })}
+          {chapters.map((chapter, i) => (
+            <StoryBar key={chapter.id} chapter={chapter} index={i} />
+          ))}
         </div>
       </nav>
     );
@@ -122,7 +116,7 @@ export function ProgressIndicator() {
                 aria-current={isActive ? "step" : undefined}
               >
                 <motion.div
-                  className="rounded-full transition-all duration-300"
+                  className="rounded-full"
                   animate={{
                     width: isActive ? 12 : isHovered ? 10 : 8,
                     height: isActive ? 12 : isHovered ? 10 : 8,
@@ -131,14 +125,9 @@ export function ProgressIndicator() {
                       : isPast
                       ? `${chapter.palette.primary}80`
                       : "rgba(255, 255, 255, 0.2)",
-                    boxShadow: isActive
-                      ? `0 0 12px ${chapter.palette.glow}`
-                      : "none",
+                    boxShadow: isActive ? `0 0 12px ${chapter.palette.glow}` : "none",
                   }}
-                  transition={{
-                    duration: reducedMotion ? 0 : 0.4,
-                    ease: "easeOut",
-                  }}
+                  transition={{ duration: reducedMotion ? 0 : 0.3, ease: "easeOut" }}
                 />
               </button>
             </li>

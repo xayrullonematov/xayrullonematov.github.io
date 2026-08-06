@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { motion, useInView, useScroll, useTransform, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from "framer-motion";
 import { type Milestone, chapters } from "@/data/journey";
 import { useExhibition } from "@/lib/ExhibitionContext";
 
@@ -76,7 +76,7 @@ export function MilestoneCard({ milestone, milestoneIndex = 0, totalMilestones =
   const isBeforeEnd = state.progress <= disappearEnd;
   const isFullyVisible = isActiveChapter && isPastAppearPoint && isBeforeEnd;
   
-  const isExpanded = isMobile ? isManuallyExpanded : (isActiveChapter && isPastAppearPoint);
+  const isExpanded = isMobile ? isManuallyExpanded : isFullyVisible;
 
   const toggleExpand = () => {
     if (isMobile) setIsManuallyExpanded(!isManuallyExpanded);

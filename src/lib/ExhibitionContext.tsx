@@ -100,8 +100,11 @@ export function ExhibitionProvider({ children }: { children: ReactNode }) {
   const goToChapter = useCallback(
     (index: number) => {
       if (!lenis) return;
-      const scrollTarget = (index / TOTAL_SECTIONS) * document.documentElement.scrollHeight;
-      lenis.scrollTo(scrollTarget, { duration: 1.8 });
+      // Use scrollHeight ratio rather than absolute dvh — accounts for
+      // any extra body padding and matches how Lenis reports progress (0→1)
+      const totalScrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollTarget = (index / TOTAL_SECTIONS) * totalScrollable;
+      lenis.scrollTo(scrollTarget, { duration: 1.5 });
     },
     [lenis]
   );
