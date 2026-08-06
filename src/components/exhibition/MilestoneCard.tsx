@@ -88,7 +88,7 @@ export function MilestoneCard({ milestone, milestoneIndex = 0, totalMilestones =
   return (
     <motion.div
       ref={cardRef}
-      className="relative w-full max-w-2xl mx-auto my-auto cursor-pointer md:cursor-default px-5 md:px-0 pb-24 md:pb-0 perspective-1000"
+      className="relative w-full max-w-2xl mx-auto my-auto cursor-pointer md:cursor-default px-4 md:px-0 perspective-1000"
       onClick={toggleExpand}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -103,15 +103,15 @@ export function MilestoneCard({ milestone, milestoneIndex = 0, totalMilestones =
       }}
       aria-hidden={!isFullyVisible}
     >
-      {/* Decorative connection line to Canvas */}
+      {/* Decorative connection line — desktop only (hidden on mobile to avoid overflow) */}
       <div 
-        className="absolute top-1/2 -left-8 md:-left-24 w-8 md:w-24 h-px bg-gradient-to-r from-transparent to-current opacity-30"
+        className="hidden md:block absolute top-1/2 -left-24 w-24 h-px bg-gradient-to-r from-transparent to-current opacity-30"
         style={{ color: milestone.accent }}
       />
       
-      {/* Marker dot */}
+      {/* Marker dot — desktop only */}
       <motion.div 
-        className="absolute top-1/2 -left-8 md:-left-24 -translate-y-1/2 w-2 h-2 rounded-full"
+        className="hidden md:block absolute top-1/2 -left-24 -translate-y-1/2 w-2 h-2 rounded-full"
         style={{ backgroundColor: milestone.accent, boxShadow: `0 0 10px ${milestone.accent}` }}
         animate={{ 
           scale: isExpanded ? 1.5 : 1,

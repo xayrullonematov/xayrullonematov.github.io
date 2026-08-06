@@ -1,14 +1,13 @@
 /**
  * FROM STONE TO SYSTEMS — Future Horizon
- * 
+ *
  * The final state of the exhibition. Intentionally unfinished.
  * The system extends beyond the visible. Clear next actions.
  */
 
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { futureActions, siteInfo } from "@/data/journey";
 import { useExhibition } from "@/lib/ExhibitionContext";
 import { ScrambleText } from "@/components/ui/ScrambleText";
@@ -39,213 +38,206 @@ const icons = {
   ),
 };
 
+// Reusable fade-up driven by isActive so it replays on re-entry
+function FadeUp({
+  children,
+  isActive,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  isActive: boolean;
+  delay?: number;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      className={className}
+      animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.6, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 export function FutureHorizon() {
   const { state, reducedMotion } = useExhibition();
-
-  // Use the window scroll to drive the timeline
   const { scrollYProgress } = useScroll();
 
-  // Future is chapter 7
+  // Future is chapter 7 (index 7 of 8)
   const start = 7 / 8; // 0.875
-  const fade = 0.05;
+  const fade = 0.04;
 
   const opacity = useTransform(scrollYProgress, [start, start + fade], [0, 1]);
-  const y = useTransform(scrollYProgress, [start, start + fade], [50, 0]);
-  
+  const y = useTransform(scrollYProgress, [start, start + fade], [40, 0]);
+  const visibility = useTransform(scrollYProgress, (p) =>
+    p >= start - fade ? "visible" : "hidden"
+  );
+
   const isActive = state.activeChapterIndex === 7;
   const pointerEvents = isActive ? "auto" : "none";
-  const visibility = useTransform(scrollYProgress, (p) => p >= start - fade ? "visible" : "hidden");
 
   return (
     <motion.section
       id="future"
-      className="absolute inset-0 flex flex-col justify-center py-24 md:py-32 overflow-hidden pointer-events-none"
+      className="absolute inset-0 flex flex-col justify-center overflow-hidden pointer-events-none"
       aria-labelledby="future-title"
-      style={reducedMotion ? { opacity: isActive ? 1 : 0, pointerEvents, visibility: isActive ? "visible" : "hidden" } : { opacity, pointerEvents, visibility }}
+      style={
+        reducedMotion
+          ? { opacity: isActive ? 1 : 0, pointerEvents, visibility: isActive ? "visible" : "hidden" }
+          : { opacity, y, pointerEvents, visibility }
+      }
       aria-hidden={!isActive}
     >
-      {/* Ambient glow — the open edge */}
+      {/* Ambient glow */}
       <div
         className="absolute inset-0 pointer-events-none"
         aria-hidden
         style={{
-          background: "radial-gradient(ellipse 60% 50% at 50% 70%, rgba(246, 244, 239, 0.04) 0%, transparent 70%)",
+          background:
+            "radial-gradient(ellipse 70% 50% at 50% 60%, rgba(246,244,239,0.05) 0%, transparent 70%)",
         }}
       />
 
-      <div className="relative z-10 w-full max-w-4xl mx-auto px-5 md:px-8 max-h-[100dvh] overflow-y-auto no-scrollbar pb-24 md:pb-0">
-        <div className="flex flex-col justify-center text-center space-y-6 md:space-y-12">
+      <div className="relative z-10 w-full max-w-4xl mx-auto px-5 md:px-8 overflow-y-auto pb-20 md:pb-0"
+        style={{ maxHeight: "100dvh", scrollbarWidth: "none" }}
+      >
+        <div className="flex flex-col text-center gap-6 md:gap-10 pt-16 md:pt-0">
+
           {/* Chapter marker */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={isActive ? { opacity: 1 } : {}}
-            transition={{ duration: 0.8 }}
-            className="mb-2 md:mb-8"
-          >
+          <FadeUp isActive={isActive} delay={0}>
             <span
-              className="inline-block font-mono text-xs md:text-[11px] tracking-widest uppercase"
-              style={{ color: "rgba(246, 244, 239, 0.4)" }}
+              className="inline-block font-mono text-xs tracking-widest uppercase"
+              style={{ color: "rgba(246,244,239,0.35)" }}
             >
               07 — Future
             </span>
-          </motion.div>
+          </FadeUp>
 
-          {/* Opening */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={isActive ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="text-xl md:text-2xl italic max-w-xl mx-auto"
-            style={{ color: "rgba(246, 244, 239, 0.6)", fontFamily: "var(--font-display)" }}
-          >
-            &ldquo;The most honest thing a builder can say is: I am not done yet.&rdquo;
-          </motion.p>
+          {/* Opening quote */}
+          <FadeUp isActive={isActive} delay={0.08}>
+            <p
+              className="text-lg md:text-2xl italic max-w-xl mx-auto leading-relaxed"
+              style={{ color: "rgba(246,244,239,0.6)", fontFamily: "var(--font-display)" }}
+            >
+              &ldquo;The most honest thing a builder can say is: I am not done yet.&rdquo;
+            </p>
+          </FadeUp>
 
           {/* Title */}
-          <motion.h2
-            id="future-title"
-            initial={{ opacity: 0, y: 30 }}
-            animate={isActive ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.9, delay: 0.2 }}
-            className="text-[clamp(2.5rem,8vw,4.5rem)] font-semibold leading-[0.95] tracking-[-0.04em] text-balance"
-            style={{ fontFamily: "var(--font-display), var(--font-sans), system-ui, sans-serif", color: "#f6f4ef" }}
-          >
-            <ScrambleText text="The system is" isActive={isActive} delay={400} />
-            <br />
-            <span style={{ color: "rgba(246, 244, 239, 0.3)" }}>
-              <ScrambleText text="intentionally" isActive={isActive} delay={800} />
-            </span>
-            <br />
-            <ScrambleText text="unfinished." isActive={isActive} delay={1200} />
-          </motion.h2>
+          <FadeUp isActive={isActive} delay={0.16}>
+            <h2
+              id="future-title"
+              className="font-semibold leading-[0.95] tracking-[-0.04em] text-balance"
+              style={{
+                fontSize: "clamp(2.2rem, 7vw, 4.5rem)",
+                fontFamily: "var(--font-display), var(--font-sans), system-ui, sans-serif",
+                color: "#f6f4ef",
+              }}
+            >
+              <ScrambleText text="The system is" isActive={isActive} delay={300} />
+              <br />
+              <span style={{ color: "rgba(246,244,239,0.3)" }}>
+                <ScrambleText text="intentionally" isActive={isActive} delay={700} />
+              </span>
+              <br />
+              <ScrambleText text="unfinished." isActive={isActive} delay={1100} />
+            </h2>
+          </FadeUp>
 
           {/* Narrative */}
-          <div className="max-w-2xl mx-auto space-y-6 md:space-y-4 px-4 md:px-0">
+          <FadeUp isActive={isActive} delay={0.24} className="max-w-2xl mx-auto space-y-3 text-left px-2 md:px-0">
             {"From Stone Age to Cyber Punk is not a tagline — it is a trajectory. The countryside curiosity, the cracked phone screen, the slow laptop, the first shipped product, the open-source conviction, the AI-augmented engineering — they are all one continuous thread. The future is the next question that cannot yet be named."
               .split(/(?<=\.)\s+/)
               .map((sentence, idx) => (
-                <motion.p
+                <p
                   key={idx}
-                  initial={{ opacity: 0, y: 15 }}
-                  animate={isActive ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: 0.35 + idx * 0.15 }}
-                  className="text-base md:text-lg leading-relaxed"
-                  style={{ color: "rgba(148, 163, 184, 0.9)" }}
+                  className="text-sm md:text-base leading-relaxed"
+                  style={{ color: "rgba(148,163,184,0.85)" }}
                 >
                   {sentence}
-                </motion.p>
+                </p>
               ))}
-          </div>
+          </FadeUp>
 
           {/* Divider */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={isActive ? { scaleX: 1 } : {}}
-            transition={{ duration: 1, delay: 0.4 }}
-            className="h-[2px] md:h-px w-16 md:w-full max-w-[200px] mx-auto origin-center mt-12 md:mt-16"
-            style={{ background: "rgba(246, 244, 239, 0.2)" }}
-            aria-hidden
-          />
+          <FadeUp isActive={isActive} delay={0.3}>
+            <div
+              className="h-px w-24 mx-auto"
+              style={{ background: "rgba(246,244,239,0.15)" }}
+              aria-hidden
+            />
+          </FadeUp>
         </div>
 
         {/* Next Actions */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isActive ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.5 }}
-        >
-          <h3
-            className="font-mono text-[11px] tracking-[0.2em] uppercase mb-8"
-            style={{ color: "rgba(246, 244, 239, 0.3)" }}
+        <FadeUp isActive={isActive} delay={0.36} className="mt-10 md:mt-12">
+          <p
+            className="font-mono text-[10px] tracking-[0.2em] uppercase mb-6 text-center"
+            style={{ color: "rgba(246,244,239,0.3)" }}
           >
             Continue the thread →
-          </h3>
+          </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {futureActions.map((action, i) => (
               <motion.a
                 key={action.label}
                 href={action.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 16 }}
-                animate={isActive ? { opacity: 1, y: 0 } : {}}
-                transition={{
-                  duration: 0.6,
-                  delay: 0.55 + i * 0.08,
-                  ease: [0.22, 1, 0.36, 1],
-                }}
-                className="group relative flex items-start gap-4 p-5 rounded-2xl border transition-all duration-300"
+                animate={isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+                transition={{ duration: 0.5, delay: 0.4 + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
+                className="group flex items-start gap-3 p-4 rounded-xl border transition-colors duration-300"
                 style={{
-                  background: "rgba(19, 23, 34, 0.5)",
-                  borderColor: "rgba(246, 244, 239, 0.06)",
+                  background: "rgba(15,18,28,0.6)",
+                  borderColor: "rgba(246,244,239,0.07)",
                   backdropFilter: "blur(8px)",
                 }}
                 onMouseEnter={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(246, 244, 239, 0.15)";
-                  e.currentTarget.style.background = "rgba(19, 23, 34, 0.8)";
+                  e.currentTarget.style.borderColor = "rgba(246,244,239,0.18)";
+                  e.currentTarget.style.background = "rgba(25,30,45,0.8)";
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.borderColor = "rgba(246, 244, 239, 0.06)";
-                  e.currentTarget.style.background = "rgba(19, 23, 34, 0.5)";
+                  e.currentTarget.style.borderColor = "rgba(246,244,239,0.07)";
+                  e.currentTarget.style.background = "rgba(15,18,28,0.6)";
                 }}
               >
                 <div
-                  className="flex-shrink-0 w-10 h-10 rounded-xl flex items-center justify-center transition-colors duration-300"
-                  style={{
-                    background: "rgba(246, 244, 239, 0.04)",
-                    color: "rgba(246, 244, 239, 0.5)",
-                  }}
+                  className="flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
+                  style={{ background: "rgba(246,244,239,0.05)", color: "rgba(246,244,239,0.45)" }}
                 >
                   {icons[action.icon]}
                 </div>
-                <div className="flex-1 min-w-0">
-                  <p
-                    className="text-sm font-medium mb-1 transition-colors duration-300 group-hover:text-white"
-                    style={{ color: "rgba(246, 244, 239, 0.9)" }}
-                  >
+                <div className="flex-1 min-w-0 text-left">
+                  <p className="text-sm font-medium mb-0.5 group-hover:text-white transition-colors duration-200" style={{ color: "rgba(246,244,239,0.88)" }}>
                     {action.label}
-                    <span className="inline-block ml-1.5 transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    <span className="inline-block ml-1 transition-transform duration-200 group-hover:translate-x-1">→</span>
                   </p>
-                  <p
-                    className="text-xs"
-                    style={{ color: "rgba(148, 163, 184, 0.6)" }}
-                  >
+                  <p className="text-xs" style={{ color: "rgba(148,163,184,0.55)" }}>
                     {action.description}
                   </p>
                 </div>
               </motion.a>
             ))}
           </div>
-        </motion.div>
+        </FadeUp>
 
         {/* Identity footer */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={isActive ? { opacity: 1 } : {}}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="mt-20 pt-8 text-center"
-          style={{ borderTop: "1px solid rgba(246, 244, 239, 0.05)" }}
-        >
-          <p
-            className="text-sm font-medium mb-2"
-            style={{ color: "rgba(246, 244, 239, 0.7)", fontFamily: "var(--font-display)" }}
-          >
-            {siteInfo.name}
-          </p>
-          <p
-            className="font-mono text-[10px] tracking-[0.15em] uppercase mb-4"
-            style={{ color: "rgba(148, 163, 184, 0.4)" }}
-          >
-            {siteInfo.location}
-          </p>
-          <p
-            className="font-mono text-[10px] tracking-[0.1em]"
-            style={{ color: "rgba(148, 163, 184, 0.25)" }}
-          >
-            {siteInfo.tagline}
-          </p>
-        </motion.div>
+        <FadeUp isActive={isActive} delay={0.55} className="mt-12 pt-6 text-center" >
+          <div style={{ borderTop: "1px solid rgba(246,244,239,0.06)" }} className="pt-6">
+            <p className="text-sm font-medium mb-1" style={{ color: "rgba(246,244,239,0.65)", fontFamily: "var(--font-display)" }}>
+              {siteInfo.name}
+            </p>
+            <p className="font-mono text-[10px] tracking-[0.15em] uppercase mb-3" style={{ color: "rgba(148,163,184,0.35)" }}>
+              {siteInfo.location}
+            </p>
+            <p className="font-mono text-[10px] tracking-[0.1em]" style={{ color: "rgba(148,163,184,0.2)" }}>
+              {siteInfo.tagline}
+            </p>
+          </div>
+        </FadeUp>
       </div>
     </motion.section>
   );
