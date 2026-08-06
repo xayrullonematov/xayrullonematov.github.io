@@ -116,10 +116,17 @@ export function WorldCanvas() {
     const numNodes = isMobile ? 60 : 150;
     const nClusters = isMobile ? 5 : 12;
 
-    const clusters = Array.from({ length: nClusters }, () => ({
-      x: 0.1 + Math.random() * 0.8,
-      y: 0.1 + Math.random() * 0.8,
-    }));
+    const clusters = Array.from({ length: nClusters }, () => {
+      // Keep clusters away from the horizontal center (avoid 0.25 to 0.75)
+      let cx = Math.random();
+      if (cx > 0.25 && cx < 0.75) {
+        cx = cx > 0.5 ? cx + 0.25 : cx - 0.25;
+      }
+      return {
+        x: clamp(cx, 0.05, 0.95),
+        y: 0.1 + Math.random() * 0.8,
+      };
+    });
 
     const ns: GraphNode[] = [];
     for (let i = 0; i < numNodes; i++) {
@@ -134,10 +141,17 @@ export function WorldCanvas() {
       const ex = cx < 0.5 ? cx - 0.3 - Math.random() * 0.4 : cx + 0.3 + Math.random() * 0.4;
       const ey = cy < 0.5 ? cy - 0.3 - Math.random() * 0.4 : cy + 0.3 + Math.random() * 0.4;
 
+      // Keep scattered marks away from the horizontal center too
+      let bx = Math.random();
+      if (bx > 0.25 && bx < 0.75) {
+        bx = bx > 0.5 ? bx + 0.25 : bx - 0.25;
+      }
+      bx = clamp(bx, 0.05, 0.95);
+
       ns.push({
         id: i,
         clusterIndex,
-        bx: Math.random(),
+        bx,
         by: Math.random(),
         cx,
         cy,
