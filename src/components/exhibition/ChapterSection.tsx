@@ -1,29 +1,21 @@
 "use client";
 
-import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { type Chapter } from "@/data/journey";
 import { useExhibition } from "@/lib/ExhibitionContext";
 import { ScrambleText } from "@/components/ui/ScrambleText";
 
 export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Chapter, hasMilestone?: boolean }) {
-  const { isMobile, reducedMotion, state } = useExhibition();
-
-  // Use the window scroll to drive the timeline
+  const { reducedMotion, state } = useExhibition();
   const { scrollYProgress } = useScroll();
 
   const TOTAL_CHAPTERS = 8;
   const start = chapter.index / TOTAL_CHAPTERS;
   const end = (chapter.index + 1) / TOTAL_CHAPTERS;
 
-  // If a milestone exists, we fade the chapter text out early
-  // so the milestone can take over the screen. This creates a slide sequence.
-  // Use 0.40 (not 0.45) so the chapter is fully gone before the milestone starts at 0.50.
+  // Chapter text fades out at 0.40 so milestone cards (starting at 0.50) never overlap
   const fadeOutPoint = hasMilestone ? start + (end - start) * 0.40 : end;
-
-  // Dynamically calculate fade so offsets remain monotonically non-decreasing
-  // We need start + fade < fadeOutPoint - fade
-  const maxFade = (fadeOutPoint - start) / 2.1; 
+  const maxFade = (fadeOutPoint - start) / 2.1;
   const fade = Math.min(0.03, maxFade);
 
   const opacity = useTransform(
@@ -31,131 +23,172 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
     [start - fade, start + fade, fadeOutPoint - fade, fadeOutPoint + fade],
     [0, 1, 1, 0]
   );
-
   const y = useTransform(
     scrollYProgress,
     [start - fade, start + fade, fadeOutPoint - fade, fadeOutPoint + fade],
-    [50, 0, 0, -50]
+    [40, 0, 0, -40]
   );
-  
-  // Only allow interactions when fully visible
-  const isActive = (state.progress >= start - fade && state.progress <= fadeOutPoint + fade);
+
+  const isActive = state.progress >= start - fade && state.progress <= fadeOutPoint + fade;
   const pointerEvents = isActive ? "auto" : "none";
-  const visibility = useTransform(scrollYProgress, (p) => (p >= start - fade && p <= fadeOutPoint + fade) ? "visible" : "hidden");
+  const visibility = useTransform(
+    scrollYProgress,
+    (p) => (p >= start - fade && p <= fadeOutPoint + fade) ? "visible" : "hidden"
+  );
 
-  // Determine typography classes based on chapter index
-  const getTypographyClasses = (index: number) => {
-    if (index <= 2) {
-      return "font-sans font-light tracking-wide"; // Handwritten/organic feel
-    } else if (index <= 4) {
-      return "font-sans font-medium tracking-normal"; // Structured
-    } else {
-      return "font-mono font-normal tracking-tight"; // Technical
-    }
-  };
+  // Stagger config — shorter delays, no blur filter (too expensive mid-scroll)
+  const fadeUp = (delay: number) => ({
+    initial: { opacity: 0, y: 16 },
+    animate: isActive ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 },
+    transition: { duration: 0.55, delay, ease: [0.22, 1, 0.36, 1] as const },
+  });
 
-  const typoClass = getTypographyClasses(chapter.index);
+  const accent = chapter.palette.primary;
 
   return (
-    <motion.section 
+    <motion.section
       id={`chapter-${chapter.index}`}
-      className="absolute inset-0 flex flex-col justify-center pt-8 pb-32 md:py-32 px-5 md:px-12 lg:px-24 pointer-events-none"
-      style={reducedMotion ? { opacity: state.activeChapterIndex === chapter.index ? 1 : 0, visibility: state.activeChapterIndex === chapter.index ? "visible" : "hidden" } : { opacity, visibility }}
+      className="absolute inset-0 flex flex-col justify-center px-5 md:px-12 lg:px-20 pt-16 pb-10 pointer-events-none overflow-hidden"
+      style={
+        reducedMotion
+          ? { opacity: state.activeChapterIndex === chapter.index ? 1 : 0, visibility: state.activeChapterIndex === chapter.index ? "visible" : "hidden" }
+          : { opacity, visibility }
+      }
       aria-hidden={!isActive}
     >
-      {/* Background Gradient */}
-      <div 
-        className="absolute inset-0 opacity-20 pointer-events-none"
-        style={{
-          background: `radial-gradient(circle at center, ${chapter.palette.glow} 0%, transparent 70%)`
-        }}
+      {/* Ambient chapter glow */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{ background: `radial-gradient(ellipse 70% 60% at 50% 50%, ${chapter.palette.glow} 0%, transparent 70%)` }}
       />
 
-      {/* Large Chapter Watermark - slightly higher on mobile */}
-      <div className="absolute inset-0 flex flex-col justify-center pointer-events-none overflow-hidden select-none pb-24 md:pb-0">
-        <span 
-          className="text-[40vw] font-display font-bold text-white/[0.02] leading-none text-center"
+      {/* Giant watermark number */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+        <span
+          className="font-display font-bold leading-none"
+          style={{
+            fontSize: "clamp(18rem, 45vw, 38rem)",
+            color: "rgba(246,244,239,0.018)",
+            letterSpacing: "-0.06em",
+          }}
         >
-          {String(chapter.index).padStart(2, '0')}
+          {String(chapter.index).padStart(2, "0")}
         </span>
       </div>
 
-      <motion.div 
-        className="relative z-10 max-w-5xl w-full mx-auto p-6 md:p-12 lg:p-16 rounded-[2rem] bg-[#050508]/80 backdrop-blur-2xl border border-white/5 shadow-[0_0_80px_rgba(0,0,0,0.8)]"
+      {/* Content — two-column on desktop, single on mobile */}
+      <motion.div
+        className="relative z-10 w-full max-w-6xl mx-auto"
         style={reducedMotion ? { pointerEvents } : { y, pointerEvents }}
       >
-        <div className="flex flex-col justify-center space-y-8 md:space-y-16 h-full w-full max-w-lg md:max-w-none mx-auto py-8 md:py-0">
-          
-          {/* Header */}
-          <div className="space-y-3 md:space-y-4 text-center md:text-left">
-            <motion.div 
-              className="flex items-center justify-center md:justify-start gap-3 md:gap-4"
-            >
-              <span className="text-xs md:text-sm font-mono tracking-widest text-white/50">
-                CH {String(chapter.index).padStart(2, '0')}
-              </span>
-              <div className="h-px w-8 md:w-12 bg-white/20" />
-              <span 
-                className="text-[10px] md:text-sm font-mono tracking-widest uppercase"
-                style={{ color: chapter.palette.primary }}
-              >
-                {chapter.primitive}
-              </span>
-            </motion.div>
+        {/* Chapter badge */}
+        <motion.div {...fadeUp(0)} className="flex items-center gap-3 mb-8 md:mb-10">
+          <span className="font-mono text-[10px] md:text-xs tracking-[0.25em] text-white/30 uppercase">
+            CH {String(chapter.index).padStart(2, "0")}
+          </span>
+          <div className="h-px w-8 bg-white/15" />
+          <span
+            className="font-mono text-[10px] md:text-xs tracking-[0.2em] uppercase font-semibold"
+            style={{ color: accent }}
+          >
+            {chapter.primitive}
+          </span>
+        </motion.div>
 
-            <motion.h2 
-              className="font-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter text-white leading-[1.1] text-balance"
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+          {/* LEFT — Title + Quote */}
+          <div className="flex flex-col gap-6 md:gap-8">
+            {/* Title */}
+            <motion.h2
+              {...fadeUp(0.05)}
+              className="font-display font-bold tracking-tighter text-white leading-[0.95]"
+              style={{ fontSize: "clamp(2.8rem, 7vw, 5.5rem)" }}
             >
-              <ScrambleText text={chapter.title} isActive={state.activeChapterIndex === chapter.index} delay={300} />
+              <ScrambleText text={chapter.title} isActive={isActive} delay={200} />
             </motion.h2>
 
-            <motion.p 
-              className="text-base md:text-2xl text-white/60 font-sans tracking-wide"
+            {/* Subtitle */}
+            <motion.p
+              {...fadeUp(0.1)}
+              className="font-sans text-base md:text-lg tracking-wide"
+              style={{ color: "rgba(148,163,184,0.7)" }}
             >
               {chapter.subtitle}
             </motion.p>
+
+            {/* THE QUOTE — hero element, full width, big, accented */}
+            <motion.blockquote
+              {...fadeUp(0.15)}
+              className="relative mt-2"
+            >
+              {/* Accent bar */}
+              <div
+                className="absolute left-0 top-0 bottom-0 w-[3px] rounded-full"
+                style={{ background: accent }}
+              />
+              <p
+                className="pl-5 font-display font-medium leading-snug"
+                style={{
+                  fontSize: "clamp(1.15rem, 2.8vw, 1.75rem)",
+                  color: "rgba(246,244,239,0.92)",
+                }}
+              >
+                &ldquo;{chapter.opening}&rdquo;
+              </p>
+            </motion.blockquote>
+
+            {/* Anchor object — desktop only */}
+            {chapter.anchor && (
+              <motion.div
+                {...fadeUp(0.2)}
+                className="hidden lg:flex items-start gap-4 mt-2 p-4 rounded-xl border"
+                style={{
+                  borderColor: `${accent}25`,
+                  background: `${accent}08`,
+                }}
+              >
+                <div
+                  className="w-1.5 h-1.5 rounded-full mt-2 flex-shrink-0"
+                  style={{ background: accent }}
+                />
+                <div>
+                  <p className="font-mono text-[10px] tracking-widest uppercase mb-1" style={{ color: `${accent}90` }}>
+                    Anchor
+                  </p>
+                  <p className="text-sm font-medium text-white/80 mb-0.5">{chapter.anchor.object}</p>
+                  <p className="text-xs text-white/40 italic">{chapter.anchor.meaning}</p>
+                </div>
+              </motion.div>
+            )}
           </div>
 
-          {/* Content */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16">
-            
-            {/* Left Column - Opening & Anchor */}
-            <div className="md:col-span-5 flex flex-col gap-6 md:space-y-12 text-center md:text-left">
-              <motion.blockquote 
-                className={`text-xl md:text-3xl leading-relaxed text-white/90 md:border-l-2 border-l-0 border-t-2 md:border-t-0 pt-6 md:pt-0 pl-0 md:pl-6 ${typoClass}`}
-                style={{ borderColor: chapter.palette.primary }}
+          {/* RIGHT — Narrative sentences */}
+          <div className="flex flex-col gap-4 md:gap-5 lg:pt-2">
+            {chapter.narrative.split(/(?<=\.)\s+/).map((sentence, idx) => (
+              <motion.p
+                key={idx}
+                {...fadeUp(0.1 + idx * 0.08)}
+                className="font-sans leading-relaxed"
+                style={{
+                  fontSize: "clamp(0.9rem, 1.5vw, 1.1rem)",
+                  // First sentence is brighter to pull the eye in
+                  color: idx === 0
+                    ? "rgba(246,244,239,0.85)"
+                    : "rgba(148,163,184,0.75)",
+                }}
               >
-                "{chapter.opening}"
-              </motion.blockquote>
-
-              {chapter.anchor && (
-                <motion.div
-                  className="hidden md:block p-4 md:p-6 rounded-lg bg-white/[0.02] border border-white/5 backdrop-blur-sm"
-                >
-                  <h4 className="text-[10px] md:text-xs font-mono text-white/40 uppercase tracking-widest mb-1 md:mb-2">Anchor Object</h4>
-                  <div className="text-white/80 font-medium text-sm md:text-base mb-1">{chapter.anchor.object}</div>
-                  <div className="text-white/50 text-xs md:text-sm italic">{chapter.anchor.meaning}</div>
-                </motion.div>
-              )}
-            </div>
-
-            {/* Right Column - Narrative */}
-            <div className="md:col-span-7 flex flex-col justify-center text-left">
-              <div className="space-y-4 md:space-y-6">
-                {chapter.narrative.split(/(?<=\.)\s+/).map((sentence, idx) => (
-                  <motion.p
-                    key={idx}
-                    initial={{ opacity: 0, y: 10, filter: "blur(4px)" }}
-                    animate={state.activeChapterIndex === chapter.index ? { opacity: 1, y: 0, filter: "blur(0px)" } : { opacity: 0, y: 10, filter: "blur(4px)" }}
-                    transition={{ duration: 0.7, delay: 0.2 + idx * 0.15, ease: [0.22, 1, 0.36, 1] }}
-                    className={`text-base md:text-xl text-white/70 leading-relaxed md:leading-relaxed ${typoClass}`}
-                  >
-                    {sentence}
-                  </motion.p>
-                ))}
-              </div>
-            </div>
-            
+                {/* Highlight stat-like fragments in accent color */}
+                {sentence.split(/(\d[\d,+]+\+?\s*(?:tests?|users?|hours?|downloads?|models?|%)?)/gi).map((part, pi) =>
+                  /^\d/.test(part) ? (
+                    <span key={pi} className="font-semibold" style={{ color: accent }}>
+                      {part}
+                    </span>
+                  ) : (
+                    part
+                  )
+                )}
+              </motion.p>
+            ))}
           </div>
         </div>
       </motion.div>

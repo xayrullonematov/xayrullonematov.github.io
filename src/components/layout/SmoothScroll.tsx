@@ -8,13 +8,12 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     <ReactLenis
       root
       options={{
-        lerp: 0.08,
-        duration: 1.2,
+        // Faster lerp = more responsive, less "swimming" feeling
+        lerp: 0.12,
+        duration: 0.9,
         smoothWheel: true,
-        wheelMultiplier: 0.9,
-        // Don't intercept native touch — mobile browsers handle momentum
-        // scroll natively and Lenis + snap-mandatory fighting each other
-        // is what blocks scrolling on iOS/Android.
+        wheelMultiplier: 1.0,
+        // Let mobile browsers handle touch natively — no interception
         touchMultiplier: 2,
         syncTouch: false,
       }}
