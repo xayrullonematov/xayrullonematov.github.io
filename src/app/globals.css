@@ -211,7 +211,16 @@ svg {
   border-radius: 8px;
 }
 
-/* Screen reader only — preserved for accessibility */
+/* ─── Scroll Snap — desktop only ───────────────────────────────────── */
+/* On mobile, native momentum scroll is used; snap-mandatory + Lenis    */
+/* intercept touch events and lock the page.                             */
+@media (min-width: 769px) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
+}
+
+/* ─── Screen reader only — preserved for accessibility ─────────────── */
 .sr-only {
   position: absolute;
   width: 1px;

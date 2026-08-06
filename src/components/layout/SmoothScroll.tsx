@@ -12,8 +12,11 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
         duration: 1.2,
         smoothWheel: true,
         wheelMultiplier: 0.9,
-        touchMultiplier: 1.5,
-        syncTouch: true,
+        // Don't intercept native touch — mobile browsers handle momentum
+        // scroll natively and Lenis + snap-mandatory fighting each other
+        // is what blocks scrolling on iOS/Android.
+        touchMultiplier: 2,
+        syncTouch: false,
       }}
     >
       {children}

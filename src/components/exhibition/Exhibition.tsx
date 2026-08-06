@@ -58,7 +58,7 @@ export function Exhibition() {
           const chapterMilestones = milestonesByChapter[chapter.id] || [];
           const hasMilestone = chapterMilestones.length > 0;
           
-          const fadeOutPoint = hasMilestone ? start + (end - start) * 0.45 : end;
+          const fadeOutPoint = hasMilestone ? start + (end - start) * 0.40 : end;
           const maxFade = (fadeOutPoint - start) / 2.1; 
           const fade = Math.min(0.03, maxFade);
 
@@ -73,13 +73,20 @@ export function Exhibition() {
                 style={{ top: `${textSnapPoint * 100}%`, height: '1px' }} 
               />
               
-              {/* Milestone snap point */}
-              {hasMilestone && (
-                <div 
-                  className="absolute w-full snap-start" 
-                  style={{ top: `${(start + (end - start) * 0.6) * 100}%`, height: '1px' }} 
-                />
-              )}
+              {/* One snap point per milestone slot */}
+              {hasMilestone && chapterMilestones.map((_, mi) => {
+                const totalM = chapterMilestones.length;
+                const slotSize = (0.95 - 0.50) / totalM;
+                const slotStart = 0.50 + mi * slotSize;
+                const snapAt = start + (end - start) * (slotStart + 0.02);
+                return (
+                  <div
+                    key={mi}
+                    className="absolute w-full snap-start"
+                    style={{ top: `${snapAt * 100}%`, height: '1px' }}
+                  />
+                );
+              })}
             </div>
           );
         })}
@@ -111,12 +118,19 @@ export function Exhibition() {
           const hasMilestone = chapterMilestones.length > 0;
           return (
             <div key={chapter.id} className="absolute inset-0 pointer-events-none">
-              <ChapterSection chapter={chapter} hasMilestone={hasMilestone} />
+              <div className="absolute inset-0" style={{ zIndex: 0 }}>
+                <ChapterSection chapter={chapter} hasMilestone={hasMilestone} />
+              </div>
 
-              {/* Milestones that belong to this chapter */}
-              <div className="absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 pointer-events-none px-4 md:px-0">
-                {chapterMilestones.map((milestone) => (
-                  <MilestoneCard key={milestone.id} milestone={milestone} />
+              {/* Milestones that belong to this chapter — rendered above chapter text */}
+              <div className="absolute inset-0 flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 pointer-events-none px-4 md:px-0" style={{ zIndex: 1 }}>
+                {chapterMilestones.map((milestone, milestoneIndex) => (
+                  <MilestoneCard
+                    key={milestone.id}
+                    milestone={milestone}
+                    milestoneIndex={milestoneIndex}
+                    totalMilestones={chapterMilestones.length}
+                  />
                 ))}
               </div>
             </div>

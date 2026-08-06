@@ -18,7 +18,8 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
 
   // If a milestone exists, we fade the chapter text out early
   // so the milestone can take over the screen. This creates a slide sequence.
-  const fadeOutPoint = hasMilestone ? start + (end - start) * 0.45 : end;
+  // Use 0.40 (not 0.45) so the chapter is fully gone before the milestone starts at 0.50.
+  const fadeOutPoint = hasMilestone ? start + (end - start) * 0.40 : end;
 
   // Dynamically calculate fade so offsets remain monotonically non-decreasing
   // We need start + fade < fadeOutPoint - fade
@@ -80,10 +81,10 @@ export function ChapterSection({ chapter, hasMilestone = false }: { chapter: Cha
       </div>
 
       <motion.div 
-        className="relative z-10 max-w-4xl w-full mx-auto"
+        className="relative z-10 max-w-5xl w-full mx-auto p-6 md:p-12 lg:p-16 rounded-[2rem] bg-[#050508]/80 backdrop-blur-2xl border border-white/5 shadow-[0_0_80px_rgba(0,0,0,0.8)]"
         style={reducedMotion ? { pointerEvents } : { y, pointerEvents }}
       >
-        <div className="flex flex-col justify-center space-y-8 md:space-y-16 h-full w-full max-w-lg md:max-w-none mx-auto py-12 md:py-0">
+        <div className="flex flex-col justify-center space-y-8 md:space-y-16 h-full w-full max-w-lg md:max-w-none mx-auto py-8 md:py-0">
           
           {/* Header */}
           <div className="space-y-3 md:space-y-4 text-center md:text-left">

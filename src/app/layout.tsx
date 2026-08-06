@@ -84,7 +84,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${outfit.variable} ${spaceGrotesk.variable} ${jetbrains.variable} h-full antialiased snap-y snap-mandatory`}
+      className={`${outfit.variable} ${spaceGrotesk.variable} ${jetbrains.variable} h-full antialiased`}
     >
       <body className="noise min-h-full bg-bg text-text">
         <SmoothScroll>

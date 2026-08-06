@@ -5,7 +5,7 @@ import { motion, useInView, useScroll, useTransform, useMotionValue, useSpring, 
 import { type Milestone, chapters } from "@/data/journey";
 import { useExhibition } from "@/lib/ExhibitionContext";
 
-export function MilestoneCard({ milestone }: { milestone: Milestone }) {
+export function MilestoneCard({ milestone, milestoneIndex = 0, totalMilestones = 1 }: { milestone: Milestone; milestoneIndex?: number; totalMilestones?: number }) {
   const { isMobile, reducedMotion, state } = useExhibition();
   const [isManuallyExpanded, setIsManuallyExpanded] = useState(false);
   const cardRef = useRef<HTMLDivElement>(null);
@@ -41,25 +41,39 @@ export function MilestoneCard({ milestone }: { milestone: Milestone }) {
   const chapterIndex = chapters.findIndex(ch => ch.id === chapterId);
   const start = chapterIndex / TOTAL_CHAPTERS;
   const end = (chapterIndex + 1) / TOTAL_CHAPTERS;
+  const length = end - start;
   
-  // Appears halfway through the chapter's scroll length
-  const appear = start + (end - start) * 0.4;
-  const fade = 0.03;
+  // Divide the milestone window (0.50 → 0.95) equally among all milestones in
+  // this chapter so they appear one at a time instead of all at once.
+  // Each slot is: [slotStart, slotEnd] within the chapter's scroll range.
+  const milestoneWindowStart = 0.50;
+  const milestoneWindowEnd = 0.95;
+  const slotSize = (milestoneWindowEnd - milestoneWindowStart) / totalMilestones;
+  const slotStart = milestoneWindowStart + milestoneIndex * slotSize;
+  const slotEnd = slotStart + slotSize;
+  const fadeDuration = Math.min(0.04, slotSize * 0.2);
+
+  const appearStart = start + length * slotStart;
+  const appearEnd = start + length * (slotStart + fadeDuration);
+
+  // Disappears at end of its slot
+  const disappearStart = start + length * (slotEnd - fadeDuration);
+  const disappearEnd = start + length * slotEnd;
 
   const opacity = useTransform(
     scrollYProgress,
-    [appear - fade, appear + fade, end - fade, end + fade],
+    [appearStart, appearEnd, disappearStart, disappearEnd],
     [0, 1, 1, 0]
   );
   const y = useTransform(
     scrollYProgress,
-    [appear - fade, appear + fade, end - fade, end + fade],
+    [appearStart, appearEnd, disappearStart, disappearEnd],
     [40, 0, 0, -40]
   );
 
   const isActiveChapter = state.activeChapterIndex === chapterIndex;
-  const isPastAppearPoint = state.progress >= appear - fade;
-  const isBeforeEnd = state.progress <= end + fade;
+  const isPastAppearPoint = state.progress >= appearStart;
+  const isBeforeEnd = state.progress <= disappearEnd;
   const isFullyVisible = isActiveChapter && isPastAppearPoint && isBeforeEnd;
   
   const isExpanded = isMobile ? isManuallyExpanded : (isActiveChapter && isPastAppearPoint);
@@ -69,7 +83,7 @@ export function MilestoneCard({ milestone }: { milestone: Milestone }) {
   };
 
   const pointerEvents = isFullyVisible ? "auto" : "none";
-  const visibility = useTransform(scrollYProgress, (p) => (p >= appear - fade && p <= end + fade) ? "visible" : "hidden");
+  const visibility = useTransform(scrollYProgress, (p) => (p >= appearStart && p <= disappearEnd) ? "visible" : "hidden");
 
   return (
     <motion.div
