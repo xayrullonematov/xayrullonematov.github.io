@@ -8,11 +8,11 @@ import { WordReveal } from "@/components/ui/WordReveal";
 
 // Per-chapter image — right side of screen, subtle, adds visual texture
 const CHAPTER_IMAGES: Record<string, string> = {
-  curiosity:   "/images/generated/stone-prologue.jpg",   // stone era
+  curiosity:   "/images/generated/curiosity-electronics.jpg",
   survival:    "/images/generated/survival-phone.jpg",
-  discovery:   "/images/generated/survival-phone.jpg",   // same cold era
+  discovery:   "/images/generated/discovery-laptop.jpg",
   building:    "/images/generated/building-forge.jpg",
-  opensource:  "/images/generated/hamma-terminal.jpg",
+  opensource:  "/images/generated/opensource-network.jpg",
   ai:          "/images/generated/ai-circuit.jpg",
 };
 
