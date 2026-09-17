@@ -1,12 +1,12 @@
-name: Deploy to GitHub Pages
+name: Deploy portfolio to GitHub Pages
 
 on:
   push:
-    branches: ["main", "master"]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
   pages: write
   id-token: write
 
@@ -24,29 +24,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: "20"
-          cache: "npm"
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Build site
-        run: npm run build
-
-      - name: Upload artifact for GitHub Actions deployment
+      - name: Upload portfolio
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./out"
+          path: "./site"
 
-      - name: Deploy to GitHub Pages Action
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-      - name: Deploy to gh-pages branch (fallback)
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          folder: out
-          branch: gh-pages
