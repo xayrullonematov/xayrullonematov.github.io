@@ -2,13 +2,13 @@
 
 import React, { useId, useRef, useState } from "react";
 import { motion, MotionConfig } from "framer-motion";
-import { Menu, X, type LucideIcon } from "lucide-react";
+import { Menu, X, Pause, Play, type LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface MinimalistHeroProps {
   logoText: string;
   navLinks: { label: string; href: string }[];
-  mainText: string;
+  mainText: React.ReactNode;
   readMoreLink: string;
   imageSrc: string;
   imageAlt: string;
@@ -46,6 +46,7 @@ export const MinimalistHero = ({
   overlayText, socialLinks, locationText, className, onNavigate,
 }: MinimalistHeroProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [motionPaused, setMotionPaused] = useState(false);
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
   const menuId = useId();
   const menuButton = useRef<HTMLButtonElement>(null);
@@ -54,6 +55,7 @@ export const MinimalistHero = ({
   return (
     <MotionConfig reducedMotion="user">
       <section id="top" aria-label="Introduction"
+        data-motion-paused={motionPaused}
         className={cn("relative isolate flex min-h-svh w-full flex-col items-center justify-between overflow-x-clip bg-background px-6 py-6 font-sans text-foreground sm:px-8 md:px-12 md:py-10", className)}
         onKeyDown={(event) => {
           if (event.key === "Escape" && menuOpen) {
@@ -61,7 +63,8 @@ export const MinimalistHero = ({
             menuButton.current?.focus();
           }
         }}>
-        <header className="relative z-30 flex w-full max-w-7xl flex-wrap items-center justify-between gap-4">
+        <div className="load-line" aria-hidden="true" />
+        <header className="hero-enter relative z-30 flex w-full max-w-7xl flex-wrap items-center justify-between gap-4">
           <motion.a href="#top" initial={false}
             className="text-lg font-bold tracking-wide sm:text-xl">
             {logoText}
@@ -87,7 +90,7 @@ export const MinimalistHero = ({
 
         <div className="relative grid w-full max-w-7xl flex-1 grid-cols-1 items-center gap-8 py-12 lg:grid-cols-[0.8fr_1.1fr_1fr] lg:gap-4 lg:py-20">
           <motion.div initial={false} whileInView={{ opacity: 1, y: 0 }}
-            className="relative z-20 order-3 text-center lg:order-1 lg:text-left">
+            className="hero-enter hero-enter-copy relative z-20 order-3 text-center lg:order-1 lg:text-left">
             <p className="mx-auto max-w-xs text-base leading-relaxed text-foreground/80 lg:mx-0">{mainText}</p>
             {onNavigate ? <button type="button" onClick={() => onNavigate(readMoreLink)} aria-haspopup="dialog"
               className="mt-4 inline-flex min-h-11 items-center text-sm font-medium underline decoration-from-font underline-offset-4">Read More</button> : <a href={readMoreLink}
@@ -96,8 +99,9 @@ export const MinimalistHero = ({
             </a>}
           </motion.div>
 
-          <div className="relative order-2 flex min-w-0 items-center justify-center py-6">
-            <div className="aspect-square w-full max-w-[280px] shrink-0 overflow-hidden rounded-full bg-[#24211e] shadow-2xl sm:max-w-[340px] lg:max-w-[420px]">
+          <div className="hero-enter hero-enter-portrait relative order-2 flex min-w-0 items-center justify-center py-6">
+            <div className="portrait-orbit aspect-square w-full max-w-[280px] shrink-0 sm:max-w-[340px] lg:max-w-[420px]">
+            <div className="h-full w-full overflow-hidden rounded-full bg-[#24211e] shadow-2xl">
             {imageFailed ? (
               <div role="img" aria-label={imageAlt}
                 className="flex h-full w-full items-center justify-center p-6 text-center text-sm">
@@ -111,11 +115,12 @@ export const MinimalistHero = ({
                 onError={() => setFailedSrc(imageSrc)} />
             )}
             </div>
+            </div>
           </div>
 
-          <motion.div initial={false} className="relative z-20 order-1 min-w-0 text-center lg:order-3 lg:text-left">
+          <motion.div initial={false} className="hero-enter hero-enter-title relative z-20 order-1 min-w-0 text-center lg:order-3 lg:text-left">
             <h1 className="break-words text-[clamp(3.5rem,6vw,6rem)] font-extrabold leading-[0.94] tracking-[-0.055em]">
-              {overlayText.part1}<br />{overlayText.part2}
+              {overlayText.part1}<br /><span className="highlight">{overlayText.part2}</span>
             </h1>
           </motion.div>
         </div>
@@ -125,6 +130,9 @@ export const MinimalistHero = ({
             {socialLinks.map(link => <SocialIcon key={link.href} {...link} />)}
           </div>
           <p className="text-sm font-medium text-foreground/70">{locationText}</p>
+          <button type="button" className="motion-toggle" aria-pressed={motionPaused} onClick={() => setMotionPaused(paused => !paused)} aria-label={motionPaused ? "Resume ambient animation" : "Pause ambient animation"}>
+            {motionPaused ? <Play size={14} aria-hidden="true" /> : <Pause size={14} aria-hidden="true" />}<span>{motionPaused ? "Motion off" : "Motion on"}</span>
+          </button>
         </footer>
       </section>
     </MotionConfig>

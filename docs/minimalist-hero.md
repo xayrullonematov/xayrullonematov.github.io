@@ -75,6 +75,26 @@ background scrolling. No additional component package is needed for the dialog.
 
 ## Deployment
 
+## Motion, shared brand, and project wheel
+
+Active headings and body text use Manrope, with copper emphasis on charcoal.
+The compact modal toolbar repeats the homepage brand and offers Home plus the
+four section buttons. Entrance CSS animates content without delaying access;
+the portrait's outline rotates slowly and can be paused. Reduced-motion users
+get static content, and the ambient animation pauses while a section is open.
+
+`src/components/ui/works-wheel.tsx` adapts the supplied ring-to-drum design.
+Production items live in `PortfolioContent.tsx` and retain the approved project
+descriptions, honest notes, URLs, and actual logo assets. No stock art is used.
+Selection supports project buttons, Previous/Next, arrow/Home/End keys, and
+horizontal swipes. Desktop wheel input is bounded and releases page scrolling
+at the ends; mobile retains vertical page scrolling. Reduced motion uses a
+single static card. React state holds only active selection, ring mode, and
+measured width; Framer Motion animates transitions without an idle rAF loop.
+No new dependencies, providers, setup commands, or second UI folder are needed.
+
+## Publishing
+
 GitHub Actions runs `npm ci` and `npm run build`, then publishes the `out/`
 static export. `public/CNAME` preserves nematov.com. The previous `site/` release
 and historical exhibition components are retained, but are not the active page.

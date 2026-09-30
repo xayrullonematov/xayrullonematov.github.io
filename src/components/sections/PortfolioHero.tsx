@@ -14,7 +14,7 @@ export function PortfolioHero({ onNavigate }: { onNavigate?: (href: string) => v
         { label: "SMALL WINS", href: "#results" },
         { label: "CONTACT", href: "#contact" },
       ]}
-      mainText="I’m a builder from Urgut, Uzbekistan. I learn by making useful things: pickup ordering for bazaar kitchens, offline exam practice, and private tools for remote work."
+      mainText={<>I’m a builder from <strong className="highlight">Urgut, Uzbekistan.</strong> I learn by making useful things: pickup ordering for bazaar kitchens, offline exam practice, and private tools for remote work.</>}
       readMoreLink="#story"
       imageSrc="/portfolio/portrait.webp"
       imageAlt="Portrait of Xayrillo Ne’matov in a black turtleneck"

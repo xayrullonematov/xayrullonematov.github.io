@@ -47,19 +47,20 @@ export function PortfolioExperience() {
     <PortfolioHero onNavigate={openSection} />
     <dialog ref={dialog} className="portfolio-dialog" aria-labelledby="section-title" onClose={close}>
       <header className="section-toolbar">
-        <h2 id="section-title">{sections.find(section => section.id === active)?.label ?? "Portfolio"}</h2>
-        <button type="button" autoFocus onClick={() => dialog.current?.close()} className="section-close" aria-label="Close section and return home">
-          <span>Back home</span><X size={20} aria-hidden="true" />
-        </button>
+        <button type="button" onClick={() => dialog.current?.close()} className="section-brand">Xayrillo Ne’matov</button>
+        <h2 id="section-title" className="sr-only">{sections.find(section => section.id === active)?.label ?? "Portfolio"}</h2>
         <nav aria-label="Portfolio sections">
           {sections.map(section => <button type="button" key={section.id}
             aria-pressed={active === section.id} onClick={() => setActive(section.id)}>
             {section.label}
           </button>)}
         </nav>
+        <button type="button" autoFocus onClick={() => dialog.current?.close()} className="section-close" aria-label="Close section and return home">
+          <span>Home</span><X size={18} aria-hidden="true" />
+        </button>
       </header>
       <div ref={scroller} className="section-scroll">
-        {active && <PortfolioContent section={active} />}
+        {active && <div key={active} className="section-enter"><PortfolioContent section={active} /></div>}
       </div>
     </dialog>
   </>;

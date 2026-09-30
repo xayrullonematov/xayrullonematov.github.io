@@ -24,6 +24,12 @@ without a yellow surround. Story (including admissions), Projects, Small wins,
 and Contact are opened explicitly in a native modal dialog; preserve Escape,
 focus restoration, and background scroll locking.
 
+Active brand refinement: use Manrope for headings and body throughout the active
+portfolio, warm ivory on charcoal, with a restrained copper accent for selected
+words. Inner navigation is a compact single row on desktop. Use a brief entrance
+reveal and a pausable ambient portrait orbit, respecting reduced motion. Projects
+use an adapted WorksWheel with real logos, accessible controls and project notes.
+
 <!-- BEGIN:brand-system -->
 
 # Brand System — "From Stone to Systems"
