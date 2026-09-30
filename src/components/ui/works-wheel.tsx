@@ -16,6 +16,8 @@ export interface WorksWheelProps extends Omit<ComponentPropsWithoutRef<"section"
 // reading view; details only mount after an explicit selection or scroll gesture.
 export function WorksWheel({ items, label = "Selected work", action = "View project", introduction, className, ...props }: WorksWheelProps) {
   const [active, setActive] = useState<number | null>(null);
+  const [introVisible, setIntroVisible] = useState(Boolean(introduction));
+  const [ready, setReady] = useState(!introduction);
   const [width, setWidth] = useState(0);
   const stage = useRef<HTMLDivElement>(null);
   const gesture = useRef<{ x: number; y: number } | null>(null);
@@ -30,6 +32,13 @@ export function WorksWheel({ items, label = "Selected work", action = "View proj
   const choose = (index: number) => setActive(Math.max(0, Math.min(items.length - 1, index)));
 
   useEffect(() => {
+    if (!introduction) return;
+    if (reduced) { setIntroVisible(false); setReady(true); return; }
+    const timer = window.setTimeout(() => setIntroVisible(false), 1400);
+    return () => window.clearTimeout(timer);
+  }, [introduction, reduced]);
+
+  useEffect(() => {
     const el = stage.current;
     if (!el) return;
     const read = () => setWidth(el.clientWidth);
@@ -40,7 +49,7 @@ export function WorksWheel({ items, label = "Selected work", action = "View proj
 
   useEffect(() => {
     const el = stage.current;
-    if (!el || compact || reduced) return;
+    if (!el || !ready || compact || reduced) return;
     const wheel = (event: WheelEvent) => {
       if (event.ctrlKey || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
       if ((event.target as HTMLElement).closest(".wheel-detail")) return;
@@ -56,7 +65,7 @@ export function WorksWheel({ items, label = "Selected work", action = "View proj
     };
     el.addEventListener("wheel", wheel, { passive: false });
     return () => el.removeEventListener("wheel", wheel);
-  }, [active, compact, reduced, items.length]);
+  }, [active, compact, reduced, items.length, ready]);
 
   if (!items.length) return null;
   const ringW = compact ? Math.min(width * .32, 150) : Math.min(width * .25, 220);
@@ -67,7 +76,18 @@ export function WorksWheel({ items, label = "Selected work", action = "View proj
   const transition = { duration: reduced ? 0 : .7, ease: [.22, 1, .36, 1] as [number, number, number, number] };
 
   return <section className={cn("works-wheel", className)} data-view={overview ? "overview" : "project"} aria-label={label} {...props}>
-    {introduction && <motion.div className="wheel-introduction" initial={false} animate={{ height: overview ? "auto" : 0, opacity: overview ? 1 : 0, y: overview ? 0 : -20 }} transition={transition} aria-hidden={!overview}>{introduction}</motion.div>}
+    <AnimatePresence onExitComplete={() => setReady(true)}>
+      {introVisible && <motion.div key="introduction" className="wheel-introduction"
+        initial={{ opacity: 0, y: reduced ? 0 : 18 }} animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: reduced ? 0 : -18 }}
+        transition={{ duration: reduced ? 0 : .4, ease: [.22, 1, .36, 1] }}>
+        {introduction}
+      </motion.div>}
+    </AnimatePresence>
+    <motion.div className="wheel-browser" inert={!ready} aria-hidden={!ready}
+      style={{ visibility: ready ? "visible" : "hidden" }}
+      initial={{ opacity: 0 }} animate={{ opacity: ready ? 1 : 0 }}
+      transition={{ duration: reduced ? 0 : .5 }}>
     <div className="wheel-index" aria-label="Choose a project">
       {items.map((item, index) => <button key={item.title} type="button" aria-pressed={active === index} aria-controls={`${id}-detail`} onClick={() => choose(index)}><span>0{index + 1}</span>{item.title}</button>)}
     </div>
@@ -121,6 +141,7 @@ export function WorksWheel({ items, label = "Selected work", action = "View proj
         <button type="button" onClick={() => choose(overview ? 0 : active + 1)} disabled={active === items.length - 1}>{overview ? "Explore" : "Next"}</button>
       </div>
     </div>
+    </motion.div>
   </section>;
 }
 export default WorksWheel;

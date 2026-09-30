@@ -84,9 +84,11 @@ get static content, and the ambient animation pauses while a section is open.
 `src/components/ui/works-wheel.tsx` adapts the supplied ring design.
 Production items live in `PortfolioContent.tsx` and retain the approved project
 descriptions, honest notes, URLs, and actual logo assets. No stock art is used.
-Selection starts at null: the overview renders all three logos and no project
-details. Selection collapses the headline, moves the same logo left, and mounts
-its story on the right with a directional entrance. Mobile stacks the logo above
+Projects first presents a brief animated headline. It exits fully before the
+circle and controls fade in, occupying the same space with no leftover heading
+or extra section. Reduced motion skips the intro. Selection starts at null: the
+overview renders three logos and no project details. Selection moves the same
+logo left and mounts its story on the right with a directional entrance. Mobile stacks the logo above
 the story. All projects or Home resets the overview; End selects the last item.
 Buttons, arrow keys, horizontal swipes, and bounded desktop wheel input select
 projects. Scrolling over text remains native. Reduced motion removes transitions

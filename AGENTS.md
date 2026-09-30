@@ -29,10 +29,12 @@ portfolio, warm ivory on charcoal, with a restrained copper accent for selected
 words. Inner navigation is a compact single row on desktop. Use a brief entrance
 reveal and a pausable ambient portrait orbit, respecting reduced motion. Projects
 use an adapted WorksWheel with real logos, accessible controls and project notes.
-The project overview has no selected item or mounted details. Selecting a logo
-or scrolling over the desktop wheel collapses the intro and moves the selected
-logo left with its story entering from the right. Mobile stacks these in one
-reading view. All projects resets to the initial three-logo overview.
+Projects opens with a brief animated headline in the same visual space as the
+wheel. The headline fully exits before the circle and controls appear; it leaves
+no heading space behind. The overview has no selected item or mounted details.
+Selecting or scrolling moves the selected logo left with its story entering
+from the right. Mobile stacks these in one reading view. All projects resets
+to the circle without replaying the intro; reduced motion skips the intro.
 
 <!-- BEGIN:brand-system -->
 
