@@ -44,6 +44,11 @@ lesson. Keep the three approved outcomes and make the friend's IELTS result
 explicitly his. Use accessible story tabs and reduced-motion transitions.
 Do not invent testimonials, certificates, dates, or evidence links.
 
+Contact follows the supplied oversized stacked-link reference, using actual
+Email, Telegram and GitHub destinations. Keep Manrope, ivory/charcoal/copper,
+short staggered entrance, rolling hover/focus text and reduced-motion support.
+Do not add unverified social accounts from the reference image.
+
 <!-- BEGIN:brand-system -->
 
 # Brand System — "From Stone to Systems"
