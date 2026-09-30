@@ -60,6 +60,19 @@ visible in the server-rendered HTML, even without animation or JavaScript.
 The standalone demo uses an Unsplash stock portrait. The production portfolio
 deliberately keeps Xayrillo's supplied portrait and real contact links.
 
+## Hero-only landing view
+
+The portrait uses a square `object-cover` image inside a circular overflow-hidden
+container, centered on the face. The source portrait is unchanged and no yellow
+surround is rendered. Its original square framing keeps the head inside the crop.
+
+`PortfolioExperience` owns the active section. Only the hero is shown initially,
+including when an old `#story` URL is visited. Navigation and Read More use the
+optional `onNavigate` callback to open a native modal dialog. Only the selected
+section is mounted: Story also includes the admissions gallery. Switching sections
+resets the panel scroll. Escape and Back home close it, restore focus, and unlock
+background scrolling. No additional component package is needed for the dialog.
+
 ## Deployment
 
 GitHub Actions runs `npm ci` and `npm run build`, then publishes the `out/`

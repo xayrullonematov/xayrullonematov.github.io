@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+.portfolio-dialog { position: fixed; inset: 0; width: 100%; max-width: none; height: 100svh; max-height: none; margin: 0; padding: 0; border: 0; background: #141311; color: #eee7de; }
+.portfolio-dialog[open] { display: flex; flex-direction: column; }
+.portfolio-dialog::backdrop { background: #141311; }
+.section-toolbar { flex: none; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px; padding: 16px max(20px,calc((100% - 1120px)/2)); background: #141311; border-bottom: 1px solid #403a35; }
+.section-toolbar h2 { font: 500 1.5rem/1.2 Newsreader,Georgia,serif; margin: 0; }
+.section-toolbar nav { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+.section-toolbar nav button { min-height: 44px; padding: 8px 14px; border: 1px solid transparent; font-size: 14px; color: #b8afa6; }
+.section-toolbar nav button[aria-pressed="true"] { border-color: #b7866e; color: #eee7de; }
+.section-close { display: inline-flex; min-height: 44px; align-items: center; gap: 12px; padding: 8px 12px; border: 1px solid #62564c; font-size: 14px; }
+.section-scroll { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; }
+.section-scroll .thread, .section-scroll .work, .section-scroll .receipts, .section-scroll .ending { padding-top: 60px; }
+@media(max-width:560px) { .section-toolbar { padding: 12px 14px; }.section-toolbar nav { gap: 2px; }.section-toolbar nav button { padding: 8px 10px; } }
+
 @theme inline {
   --color-background: #141311;
   --color-foreground: #eee7de;

@@ -3,9 +3,10 @@
 import { Github, Mail, Send } from "lucide-react";
 import { MinimalistHero } from "@/components/ui/minimalist-hero";
 
-export function PortfolioHero() {
+export function PortfolioHero({ onNavigate }: { onNavigate?: (href: string) => void }) {
   return (
     <MinimalistHero
+      onNavigate={onNavigate}
       logoText="Xayrillo Ne’matov"
       navLinks={[
         { label: "STORY", href: "#story" },

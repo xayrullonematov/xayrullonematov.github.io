@@ -22,6 +22,7 @@ required in production; `next start` is not used for static exports.
 ## Active source
 
 - `src/app/page.tsx`: page composition
+- `src/components/sections/PortfolioExperience.tsx`: hero-only landing and on-demand section dialogs
 - `src/app/globals.css`: Tailwind tokens and editorial styles
 - `src/components/ui/minimalist-hero.tsx`: reusable hero
 - `src/components/ui/demo.tsx`: stock-image usage example (not published as a route)

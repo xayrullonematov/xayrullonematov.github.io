@@ -16,12 +16,16 @@ export interface MinimalistHeroProps {
   socialLinks: { icon: LucideIcon; href: string; label?: string }[];
   locationText: string;
   className?: string;
+  onNavigate?: (href: string) => void;
 }
 
 const NavLink = ({ href, children, onClick }: {
   href: string; children: React.ReactNode; onClick?: () => void;
 }) => (
-  <a href={href} onClick={onClick}
+  onClick ? <button type="button" onClick={onClick} aria-haspopup="dialog"
+    className="inline-flex min-h-11 items-center text-sm font-medium tracking-widest text-foreground/60 transition-colors hover:text-foreground">
+    {children}
+  </button> : <a href={href}
     className="inline-flex min-h-11 items-center text-sm font-medium tracking-widest text-foreground/60 transition-colors hover:text-foreground">
     {children}
   </a>
@@ -39,7 +43,7 @@ const SocialIcon = ({ href, icon: Icon, label }: {
 
 export const MinimalistHero = ({
   logoText, navLinks, mainText, readMoreLink, imageSrc, imageAlt,
-  overlayText, socialLinks, locationText, className,
+  overlayText, socialLinks, locationText, className, onNavigate,
 }: MinimalistHeroProps) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [failedSrc, setFailedSrc] = useState<string | null>(null);
@@ -63,7 +67,7 @@ export const MinimalistHero = ({
             {logoText}
           </motion.a>
           <nav aria-label="Main navigation" className="hidden items-center gap-8 md:flex">
-            {navLinks.map(link => <NavLink key={link.href} href={link.href}>{link.label}</NavLink>)}
+            {navLinks.map(link => <NavLink key={link.href} href={link.href} onClick={onNavigate ? () => onNavigate(link.href) : undefined}>{link.label}</NavLink>)}
           </nav>
           <button ref={menuButton} type="button" onClick={() => setMenuOpen(open => !open)}
             className="inline-flex h-11 w-11 items-center justify-center md:hidden"
@@ -75,7 +79,7 @@ export const MinimalistHero = ({
             <nav id={menuId} aria-label="Mobile navigation"
               className="flex w-full flex-col border-y border-foreground/20 py-3 md:hidden">
               {navLinks.map(link => (
-                <NavLink key={link.href} href={link.href} onClick={() => setMenuOpen(false)}>{link.label}</NavLink>
+                <NavLink key={link.href} href={link.href} onClick={onNavigate ? () => { setMenuOpen(false); onNavigate(link.href); } : undefined}>{link.label}</NavLink>
               ))}
             </nav>
           )}
@@ -85,29 +89,28 @@ export const MinimalistHero = ({
           <motion.div initial={false} whileInView={{ opacity: 1, y: 0 }}
             className="relative z-20 order-3 text-center lg:order-1 lg:text-left">
             <p className="mx-auto max-w-xs text-base leading-relaxed text-foreground/80 lg:mx-0">{mainText}</p>
-            <a href={readMoreLink}
+            {onNavigate ? <button type="button" onClick={() => onNavigate(readMoreLink)} aria-haspopup="dialog"
+              className="mt-4 inline-flex min-h-11 items-center text-sm font-medium underline decoration-from-font underline-offset-4">Read More</button> : <a href={readMoreLink}
               className="mt-4 inline-flex min-h-11 items-center text-sm font-medium underline decoration-from-font underline-offset-4">
               Read More
-            </a>
+            </a>}
           </motion.div>
 
-          <div className="relative order-2 flex min-w-0 items-center justify-center py-6 md:min-h-[480px]">
-            <motion.div aria-hidden="true" initial={false}
-              animate={{ scale: [0.96, 1] }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-              className="absolute h-[280px] w-[280px] rounded-full bg-yellow-400/90 sm:h-[340px] sm:w-[340px] lg:h-[420px] lg:w-[420px]" />
+          <div className="relative order-2 flex min-w-0 items-center justify-center py-6">
+            <div className="aspect-square w-full max-w-[280px] shrink-0 overflow-hidden rounded-full bg-[#24211e] shadow-2xl sm:max-w-[340px] lg:max-w-[420px]">
             {imageFailed ? (
               <div role="img" aria-label={imageAlt}
-                className="relative z-10 flex aspect-[4/5] w-56 items-center justify-center rounded-t-full bg-foreground/10 p-6 text-center text-sm md:w-64 lg:w-72">
+                className="flex h-full w-full items-center justify-center p-6 text-center text-sm">
                 Portrait unavailable
               </div>
             ) : (
-              <motion.img src={imageSrc} alt={imageAlt} width={640} height={800}
+              <motion.img src={imageSrc} alt={imageAlt} width={640} height={640}
                 fetchPriority="high"
-                className="relative z-10 aspect-[4/5] w-56 rounded-t-full object-cover object-top shadow-2xl md:w-64 lg:w-72"
-                initial={false} animate={{ y: [12, 0] }}
-                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                className="block h-full w-full object-cover object-center"
+                initial={false}
                 onError={() => setFailedSrc(imageSrc)} />
             )}
+            </div>
           </div>
 
           <motion.div initial={false} className="relative z-20 order-1 min-w-0 text-center lg:order-3 lg:text-left">

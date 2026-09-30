@@ -19,6 +19,11 @@ support. The older exhibition rules below apply only to the retained exhibition
 components, not to the active homepage. Components live in `src/components/ui`
 via the existing `@/*` alias; global styles live in `src/app/globals.css`.
 
+The landing view shows only the hero. The portrait fills a true circular crop
+without a yellow surround. Story (including admissions), Projects, Small wins,
+and Contact are opened explicitly in a native modal dialog; preserve Escape,
+focus restoration, and background scroll locking.
+
 <!-- BEGIN:brand-system -->
 
 # Brand System — "From Stone to Systems"
