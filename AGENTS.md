@@ -39,6 +39,11 @@ The project-name index appears only after selection. The overview uses a compact
 invitation and animated Explore projects pill. Autotestlar's transparent padding
 is compensated in CSS; Hamma uses the transparent extracted PNG asset.
 
+Small wins uses one selected personal story, a large outcome, contribution, and
+lesson. Keep the three approved outcomes and make the friend's IELTS result
+explicitly his. Use accessible story tabs and reduced-motion transitions.
+Do not invent testimonials, certificates, dates, or evidence links.
+
 <!-- BEGIN:brand-system -->
 
 # Brand System — "From Stone to Systems"

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { SmallWins } from "./SmallWins";
 import { WorksWheel, type WorksWheelItem } from "@/components/ui/works-wheel";
 
 const projects: WorksWheelItem[] = [
@@ -42,9 +43,7 @@ export function PortfolioContent({ section }: { section: PortfolioSection }) {
 </div><div className="wrap carousel-hint mono">Swipe or use the controls · 01—03</div></section>
 </>}
 {section === "work" && <section className="work" id="work"><div className="wrap"><WorksWheel items={projects} label="Selected projects" introduction={<h2><span className="highlight">Useful</span> before impressive.</h2>} /></div></section>}
-{section === "results" && <section className="receipts" id="results"><div className="wrap"><span className="mono">A few small receipts</span><h2>Results I’m <span className="highlight">quietly proud of.</span></h2><p className="lead">No inflated dashboards. Just outcomes that meant something because a real person, classroom, or decision sat behind them.</p><div className="moments"><article className="moment"><div><span className="big">1 friend</span><p>Two months of daily speaking practice helped him reach <strong className="highlight">IELTS Speaking 7.</strong></p></div><small>I learned to teach confidence before vocabulary.</small></article><article className="moment"><div><span className="big">30+ students</span><p>joined the weekly English speaking club I organized at school.</p></div><small>The format mattered: debates and activities, not another lecture.</small></article><article className="moment"><div><span className="big">Top 50</span><p>among more than 20,000 participants in the IBRAT English and critical-thinking marathon.</p></div><small>A useful signal—not a personality.</small></article></div></div></section>
-
-}
+{section === "results" && <SmallWins />}
 {section === "contact" && <footer className="ending" id="contact"><div className="wrap"><span className="mono">Still learning in public</span><h2>If the problem is <span className="highlight">real,</span><br />I’m interested.</h2><div className="contacts"><a href="mailto:hello@nematov.com">Email me</a><a href="https://t.me/mr_khayrulloh" target="_blank" rel="noreferrer">Telegram</a><a href="https://github.com/xayrullonematov" target="_blank" rel="noreferrer">GitHub</a></div><div className="foot"><span>© 2026 Xayrillo Ne’matov</span><span>Built in Urgut. Continued in Tashkent.</span></div></div></footer>}
 
   </div>;
