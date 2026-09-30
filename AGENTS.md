@@ -39,10 +39,14 @@ The project-name index appears only after selection. The overview uses a compact
 invitation and animated Explore projects pill. Autotestlar's transparent padding
 is compensated in CSS; Hamma uses the transparent extracted PNG asset.
 
-Small wins uses one selected personal story, a large outcome, contribution, and
-lesson. Keep the three approved outcomes and make the friend's IELTS result
-explicitly his. Use accessible story tabs and reduced-motion transitions.
-Do not invent testimonials, certificates, dates, or evidence links.
+The In practice section replaces Small wins with three verifiable artifacts:
+the published HAMMA GGUF model, Hamma v1.2.0 installers, and Autotestlar's public
+20-question web demo. Evidence is a quiet link within each story, never invented
+social proof. Projects includes only verified available products (Hamma and
+Autotestlar); Nma Yeymiz remains historical context while its domain is unavailable.
+Desktop Projects progresses through normal scrolling with a sticky scene; mobile
+uses a natural vertical reading flow. Keep buttons and reduced-motion support.
+Section hashes support direct links and browser history; legacy #results works.
 
 Contact follows the supplied oversized stacked-link reference, using actual
 Email, Telegram and GitHub destinations. Keep Manrope, ivory/charcoal/copper,

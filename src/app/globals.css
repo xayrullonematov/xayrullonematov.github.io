@@ -287,3 +287,51 @@ body{background:radial-gradient(circle at 82% 8%,#29231f 0,transparent 24rem),va
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
 }
+
+/* Verified work: native scroll chapters and evidence woven into the story. */
+:focus-visible { outline-color:var(--accent); }
+.portfolio-content .thread { padding-bottom:48px; }
+.portfolio-content .admissions { padding-top:56px; }
+.portfolio-content .entry p,.portfolio-content .section-top p { color:#b8afa6; }
+.wheel-scroll-track .wheel-introduction { bottom:auto; height:calc(100svh - 150px); }
+.wheel-sticky-browser { background:#141311; min-height:calc(100svh - 132px); padding-top:1px; }
+.wheel-scroll-track .wheel-stage { cursor:auto; }
+.wheel-scroll-track .wheel-card { cursor:pointer; }
+.wheel-scroll-track .wheel-controls { margin-bottom:8px; }
+.project-actions { display:flex; flex-wrap:wrap; align-items:center; gap:12px 24px; }
+.project-evidence { display:inline-flex; align-items:center; color:#b8afa6; font-size:13px; min-height:44px; margin-top:24px; }
+.project-evidence:hover { color:var(--accent); }
+.evidence-link { gap:10px; }
+.practice-word { color:var(--accent); font-size:clamp(64px,8vw,108px); font-weight:800; letter-spacing:-.075em; line-height:1.2; margin:22px 0; }
+.practice .wins-result { max-width:none; }
+.practice .wins-copy h3 { font-size:clamp(30px,3vw,42px) !important; }
+.practice .wins-detail { margin-top:20px; }
+.practice .wins-lesson { margin-top:24px; }
+.artifact-detail { margin-top:30px; padding-top:18px; border-top:1px solid #403a35; max-width:340px; }
+.artifact-detail>span { font-size:10px; letter-spacing:.14em; color:#b8afa6; }
+.artifact-detail small { display:block; font-size:12px; color:#aaa198; margin-top:10px; line-height:1.6; font-weight:400; }
+.artifact-file { display:flex; justify-content:space-between; font-size:28px; letter-spacing:-.04em; margin-top:12px; color:#eee7de; }
+.artifact-file span { color:var(--accent); }
+.artifact-platforms { display:flex; justify-content:space-between; gap:12px; margin-top:18px; font-size:14px; }
+.artifact-questions { display:grid; grid-template-columns:repeat(10,1fr); gap:5px; margin-top:16px; }
+.artifact-questions span { display:grid; place-items:center; aspect-ratio:1; border:1px solid #50443a; color:#c79b80; font-size:10px; }
+.mobile-projects { margin-top:40px; }
+.mobile-project-story { padding:40px 0; border-top:1px solid #403a35; scroll-margin-top:20px; }
+.mobile-project-story p { color:#b8afa6; line-height:1.8; }
+.mobile-project-story h3 { margin:14px 0 20px; }
+.mobile-project-logo { position:relative; display:grid; place-items:center; width:220px; height:160px; padding:24px; background:#211f1c; border:1px solid #403a35; border-radius:12px; margin:0 auto 32px; overflow:hidden; }
+.mobile-project-logo img { height:100%; width:100%; object-fit:contain; }
+.mobile-project-logo.wheel-logo-auto img { height:212% !important; width:auto; }
+@media(max-width:760px) {
+  .wheel-sticky-browser { min-height:0; }
+  .wheel-scroll-track .wheel-introduction { height:390px; }
+  .wheel-scroll-track .wheel-stage { height:290px; min-height:290px; }
+  .wheel-scroll-track .wheel-ring-label { display:none; }
+  .project-evidence { margin-top:0; }
+  .practice-word { font-size:clamp(64px,16vw,100px); margin:16px 0; }
+  .artifact-detail { max-width:none; margin-top:24px; }
+  .artifact-questions { max-width:340px; }
+  .practice .wins-copy { padding-top:28px; }
+  .practice .wins-header { align-items:flex-start; }
+  .portfolio-content .admissions { padding-top:40px; }
+}

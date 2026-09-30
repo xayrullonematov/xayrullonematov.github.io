@@ -11,10 +11,10 @@ export function PortfolioHero({ onNavigate }: { onNavigate?: (href: string) => v
       navLinks={[
         { label: "STORY", href: "#story" },
         { label: "PROJECTS", href: "#work" },
-        { label: "SMALL WINS", href: "#results" },
+        { label: "IN PRACTICE", href: "#results" },
         { label: "CONTACT", href: "#contact" },
       ]}
-      mainText={<>I’m a builder from <strong className="highlight">Urgut, Uzbekistan.</strong> I learn by making useful things: pickup ordering for bazaar kitchens, offline exam practice, and private tools for remote work.</>}
+      mainText={<>I’m a builder from <strong className="highlight">Urgut, Uzbekistan.</strong> I build tools for real tasks: practising for a driving exam, managing servers, and running AI locally.</>}
       readMoreLink="#story"
       imageSrc="/portfolio/portrait.webp"
       imageAlt="Portrait of Xayrillo Ne’matov in a black turtleneck"

@@ -8,7 +8,7 @@ import { PortfolioContent, type PortfolioSection } from "./PortfolioContent";
 const sections: { id: PortfolioSection; label: string }[] = [
   { id: "story", label: "Story" },
   { id: "work", label: "Projects" },
-  { id: "results", label: "Small wins" },
+  { id: "results", label: "In practice" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -18,12 +18,33 @@ export function PortfolioExperience() {
   const scroller = useRef<HTMLDivElement>(null);
   const opener = useRef<HTMLElement | null>(null);
 
+  const readHash = () => {
+    const hash = window.location.hash;
+    const normalized = hash === "#practice" ? "#results" : hash === "#projects" ? "#work" : hash;
+    return sections.find(section => normalized === `#${section.id}`)?.id ?? null;
+  };
+  const navigate = (selected: PortfolioSection) => {
+    const hash = selected === "results" ? "#practice" : `#${selected}`;
+    if (window.location.hash !== hash) window.history.pushState(null, "", hash);
+    setActive(selected);
+  };
   const openSection = (href: string) => {
     const selected = sections.find(section => href === `#${section.id}`);
     if (!selected) return;
     opener.current = document.activeElement as HTMLElement | null;
-    setActive(selected.id);
+    navigate(selected.id);
   };
+  useEffect(() => {
+    const sync = () => {
+      const selected = readHash();
+      setActive(selected);
+      if (!selected && dialog.current?.open) dialog.current.close();
+    };
+    sync();
+    window.addEventListener("popstate", sync);
+    window.addEventListener("hashchange", sync);
+    return () => { window.removeEventListener("popstate", sync); window.removeEventListener("hashchange", sync); };
+  }, []);
 
   useEffect(() => {
     if (!active) return;
@@ -37,6 +58,7 @@ export function PortfolioExperience() {
 
   const close = () => {
     setActive(null);
+    if (readHash()) window.history.pushState(null, "", "#top");
     const target = opener.current?.isConnected
       ? opener.current
       : document.querySelector<HTMLButtonElement>('#top button[aria-controls]');
@@ -51,7 +73,7 @@ export function PortfolioExperience() {
         <h2 id="section-title" className="sr-only">{sections.find(section => section.id === active)?.label ?? "Portfolio"}</h2>
         <nav aria-label="Portfolio sections">
           {sections.map(section => <button type="button" key={section.id}
-            aria-pressed={active === section.id} onClick={() => setActive(section.id)}>
+            aria-pressed={active === section.id} onClick={() => navigate(section.id)}>
             {section.label}
           </button>)}
         </nav>
