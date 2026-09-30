@@ -83,7 +83,7 @@ export function WorksWheel({ items, label = "Selected work", action = "View proj
   const radius = ringW / 1.45 * 1.08;
   const transition = { duration: reduced ? 0 : .7, ease: [.22, 1, .36, 1] as [number, number, number, number] };
 
-  return <section ref={root} style={{ paddingBottom: compact ? 0 : scrollStep * items.length }} className={cn("works-wheel", "wheel-scroll-track", className)} data-view={overview ? "overview" : "project"} aria-label={label} {...props}>
+  return <section ref={root} style={{ minHeight: compact ? undefined : `calc(100svh - 132px + ${scrollStep * items.length}px)` }} className={cn("works-wheel", "wheel-scroll-track", className)} data-view={overview ? "overview" : "project"} aria-label={label} {...props}>
     <AnimatePresence onExitComplete={() => setReady(true)}>
       {introVisible && <motion.div key="introduction" className="wheel-introduction"
         initial={{ opacity: 0, y: reduced ? 0 : 18 }} animate={{ opacity: 1, y: 0 }}
@@ -123,7 +123,7 @@ export function WorksWheel({ items, label = "Selected work", action = "View proj
         const visible = overview || index === active;
         return <motion.button type="button" key={item.title} className="wheel-card" aria-label={`Select ${item.title}`} aria-hidden={!visible} tabIndex={visible ? 0 : -1}
           onClick={() => { if (!dragged.current) choose(index); }} initial={false}
-          animate={{ x: overview ? Math.sin(radians) * radius * (items.length === 2 ? 1.65 : 1) : compact ? 0 : -width * .285, y: overview ? -Math.cos(radians) * radius : 0,
+          animate={{ x: overview ? Math.sin(radians) * radius * (items.length === 2 ? (compact ? 1.3 : 1.65) : 1) : compact ? 0 : -width * .285, y: overview ? -Math.cos(radians) * radius : 0,
             rotate: overview ? (items.length === 2 ? (index === 0 ? -12 : 12) : angle) : 0, scale: overview ? .72 : index === active ? 1 : .65,
             opacity: visible ? 1 : 0, width: cardW, height: cardH, marginLeft: -cardW / 2, marginTop: -cardH / 2 }}
           transition={transition} style={{ zIndex: index === active ? 3 : 1, pointerEvents: visible ? "auto" : "none" }}>
