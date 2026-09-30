@@ -35,6 +35,9 @@ no heading space behind. The overview has no selected item or mounted details.
 Selecting or scrolling moves the selected logo left with its story entering
 from the right. Mobile stacks these in one reading view. All projects resets
 to the circle without replaying the intro; reduced motion skips the intro.
+The project-name index appears only after selection. The overview uses a compact
+invitation and animated Explore projects pill. Autotestlar's transparent padding
+is compensated in CSS; Hamma uses the transparent extracted PNG asset.
 
 <!-- BEGIN:brand-system -->
 

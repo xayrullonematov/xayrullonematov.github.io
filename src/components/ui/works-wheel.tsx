@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 export interface WorksWheelItem {
-  title: string; image: string; href?: string; category?: string;
+  title: string; image: string; href?: string; category?: string; logoClassName?: string;
   description?: string; noteLabel?: string; note?: string; actionLabel?: string;
 }
 export interface WorksWheelProps extends Omit<ComponentPropsWithoutRef<"section">, "children"> {
@@ -72,7 +72,7 @@ export function WorksWheel({ items, label = "Selected work", action = "View proj
   const selectedW = compact ? Math.min(width * .48, 210) : Math.min(width * .32, 340);
   const cardW = overview ? ringW : selectedW;
   const cardH = cardW / 1.45;
-  const radius = ringW / 1.45 * 1.14;
+  const radius = ringW / 1.45 * 1.08;
   const transition = { duration: reduced ? 0 : .7, ease: [.22, 1, .36, 1] as [number, number, number, number] };
 
   return <section className={cn("works-wheel", className)} data-view={overview ? "overview" : "project"} aria-label={label} {...props}>
@@ -88,9 +88,9 @@ export function WorksWheel({ items, label = "Selected work", action = "View proj
       style={{ visibility: ready ? "visible" : "hidden" }}
       initial={{ opacity: 0 }} animate={{ opacity: ready ? 1 : 0 }}
       transition={{ duration: reduced ? 0 : .5 }}>
-    <div className="wheel-index" aria-label="Choose a project">
+    {!overview && <div className="wheel-index" aria-label="Choose a project">
       {items.map((item, index) => <button key={item.title} type="button" aria-pressed={active === index} aria-controls={`${id}-detail`} onClick={() => choose(index)}><span>0{index + 1}</span>{item.title}</button>)}
-    </div>
+    </div>}
     <div ref={stage} className="wheel-stage" tabIndex={0} role="region" aria-label="Project wheel. Use left and right arrow keys or the project buttons."
       onKeyDown={event => {
         if ((event.target as HTMLElement).closest(".wheel-detail")) return;
@@ -119,7 +119,7 @@ export function WorksWheel({ items, label = "Selected work", action = "View proj
             rotate: overview ? angle : 0, scale: overview ? .72 : index === active ? 1 : .65,
             opacity: visible ? 1 : 0, width: cardW, height: cardH, marginLeft: -cardW / 2, marginTop: -cardH / 2 }}
           transition={transition} style={{ zIndex: index === active ? 3 : 1, pointerEvents: visible ? "auto" : "none" }}>
-          <img src={item.image} alt={`${item.title} logo`} draggable={false} width={320} height={220} />
+          <span className={cn("wheel-logo", item.logoClassName)}><img src={item.image} alt={`${item.title} logo`} draggable={false} width={320} height={220} /></span>
         </motion.button>;
       })}
       <div id={`${id}-detail`} className="wheel-detail-slot">
@@ -133,14 +133,17 @@ export function WorksWheel({ items, label = "Selected work", action = "View proj
         </AnimatePresence>
       </div>
     </div>
-    <div className="wheel-controls">
-      {overview ? <span>Choose a logo to begin</span> : <button type="button" onClick={() => setActive(null)}>All projects</button>}
-      <span className="wheel-position" aria-live="polite">{overview ? `${items.length} projects` : `0${active + 1} / 0${items.length}`}</span>
+    <motion.div className={cn("wheel-controls", overview && "wheel-controls-overview")}
+      initial={false} animate={{ opacity: ready ? 1 : 0, y: ready || reduced ? 0 : 8 }} transition={{ duration: reduced ? 0 : .5, delay: reduced ? 0 : .15 }}>
+      {overview ? <span className="wheel-invitation">Pick a logo. Meet the project.</span> : <button type="button" onClick={() => setActive(null)}>All projects</button>}
+      {!overview && <span className="wheel-position" aria-live="polite">0{active + 1} / 0{items.length}</span>}
       <div className="wheel-step-controls">
         {!overview && <button type="button" onClick={() => choose(active - 1)} disabled={active === 0}>Previous</button>}
-        <button type="button" onClick={() => choose(overview ? 0 : active + 1)} disabled={active === items.length - 1}>{overview ? "Explore" : "Next"}</button>
+        <motion.button type="button" className={overview ? "wheel-explore" : undefined}
+          whileHover={reduced ? undefined : { y: -2 }} whileTap={reduced ? undefined : { scale: .97 }}
+          onClick={() => choose(overview ? 0 : active + 1)} disabled={active === items.length - 1}>{overview ? "Explore projects" : "Next"}</motion.button>
       </div>
-    </div>
+    </motion.div>
     </motion.div>
   </section>;
 }
