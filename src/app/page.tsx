@@ -1,13 +1,6 @@
-/**
- * FROM STONE TO SYSTEMS — Exhibition Page
- * 
- * The main orchestration page. Assembles the prologue,
- * seven chapters, milestones, and future horizon into
- * one continuous journey.
- */
-
-import { Exhibition } from "@/components/exhibition/Exhibition";
+import { PortfolioHero } from "@/components/sections/PortfolioHero";
+import { PortfolioContent } from "@/components/sections/PortfolioContent";
 
 export default function Home() {
-  return <Exhibition />;
+  return <main id="main"><PortfolioHero /><PortfolioContent /></main>;
 }

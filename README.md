@@ -1,45 +1,39 @@
-# Xayrullo Nematov — Portfolio
+# Xayrillo Ne’matov — Portfolio
 
-Premium portfolio for an AI engineer, open-source developer, and founder of Hamma Labs.
+Editorial personal portfolio with a reusable MinimalistHero, personal stories,
+a swipeable university admissions gallery, authentic project logos, and contact links.
 
 ## Stack
 
-- **Next.js 16** (App Router)
-- **React 19** + TypeScript
-- **Tailwind CSS 4**
-- **Framer Motion** — reveals, staggered animations, magnetic buttons
-- **Lenis** — smooth scrolling
+Next.js App Router · React · TypeScript · Tailwind CSS v4 · Framer Motion · Lucide
 
-## Develop
+## Develop and build
 
 ```bash
-npm install
+npm ci
 npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
-
-## Build
-
-```bash
 npm run build
-npm start
 ```
 
-## Structure
+The production build is a static export in `out/`. GitHub Actions publishes it
+to GitHub Pages at [nematov.com](https://nematov.com). A Next.js server is not
+required in production; `next start` is not used for static exports.
 
-```
-src/
-  app/           # Layout, page, SEO
-  components/
-    layout/      # Nav, footer, cursor, smooth scroll
-    sections/    # Hero → Contact
-    ui/          # Reveal, buttons, visuals
-  data/          # Content & project copy
-```
+## Active source
 
-## Design
+- `src/app/page.tsx`: page composition
+- `src/app/globals.css`: Tailwind tokens and editorial styles
+- `src/components/ui/minimalist-hero.tsx`: reusable hero
+- `src/components/ui/demo.tsx`: stock-image usage example (not published as a route)
+- `src/components/sections/PortfolioHero.tsx`: real portfolio props
+- `src/components/sections/PortfolioContent.tsx`: stories, gallery, projects, results
+- `public/portfolio/`: portrait, logos, and acceptance letters
+- `components.json`: shadcn configuration
 
-- Background `#050505` · Surface `#101010` · Text `#F5F5F5` · Muted `#8A8A8A` · Accent `#6C63FF`
-- Display: Syne · Body: Inter · Mono: JetBrains Mono
-- Motion respects `prefers-reduced-motion`
+The `@/*` alias maps to `src/*`; reusable UI components belong in
+`src/components/ui`. See [integration notes](docs/minimalist-hero.md) for
+dependencies, setup, accessibility, responsive behavior, and reuse.
+
+The previous static `site/` release and historical exhibition components remain
+in version control as reference. The current deployment builds the React app;
+editing `site/index.html` no longer changes the homepage.

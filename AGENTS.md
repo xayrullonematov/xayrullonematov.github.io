@@ -9,6 +9,16 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 <!-- END:nextjs-agent-rules -->
 
 
+## Active portfolio direction (2026-09-30)
+
+The user replaced the exhibition with an editorial portfolio and now requests the
+MinimalistHero React component. For the active homepage, preserve the approved
+story, admissions carousel, logo-only projects, and results from `site/index.html`.
+Use the requested three-column hero, an accessible mobile menu, and reduced-motion
+support. The older exhibition rules below apply only to the retained exhibition
+components, not to the active homepage. Components live in `src/components/ui`
+via the existing `@/*` alias; global styles live in `src/app/globals.css`.
+
 <!-- BEGIN:brand-system -->
 
 # Brand System — "From Stone to Systems"

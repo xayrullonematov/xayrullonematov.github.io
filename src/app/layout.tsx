@@ -1,90 +1,42 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Inter, JetBrains_Mono } from "next/font/google";
-import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import "./globals.css";
-
-// Variable display font — weight 200→900 driven by scroll
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-display",
-  subsets: ["latin"],
-  display: "swap",
-  axes: ["wdth"],
-});
-
-// Variable body font
-const inter = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const jetbrains = JetBrains_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["400", "500", "600"],
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://nematov.com"),
-  title: "From Stone to Systems — Xayrillo Ne'matov",
-  description:
-    "An interactive exhibition of one builder's journey from countryside curiosity to AI-augmented engineering. Open-source tools, real products, local-first principles.",
-  keywords: [
-    "Xayrillo Ne'matov",
-    "Nematov Xayrillo",
-    "xayrullonematov",
-    "AI engineer",
-    "open source",
-    "Hamma",
-    "HammaDev",
-    "RepoScope",
-    "Autotestlar",
-    "local-first AI",
-    "From Stone to Systems",
-    "Samarkand",
-    "Uzbekistan",
-  ],
-  authors: [{ name: "Xayrillo Ne'matov", url: "https://nematov.com" }],
-  creator: "Xayrillo Ne'matov",
+  title: "Xayrillo Ne’matov — A builder from Urgut",
+  description: "Xayrillo Ne’matov builds useful products from problems close to home. Projects, lessons, and a journey from Urgut, Uzbekistan.",
+  authors: [{ name: "Xayrillo Ne’matov", url: "https://nematov.com" }],
   openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://nematov.com",
-    title: "From Stone to Systems — Xayrillo Ne'matov",
-    description:
-      "An interactive exhibition: from countryside curiosity to AI-augmented engineering.",
-    siteName: "Xayrillo Ne'matov",
+    type: "website", locale: "en_US", url: "https://nematov.com",
+    title: "Xayrillo Ne’matov — A builder from Urgut",
+    description: "Useful products, honest lessons, and a builder’s journey from Uzbekistan.",
+    siteName: "Xayrillo Ne’matov",
   },
   twitter: {
     card: "summary_large_image",
-    title: "From Stone to Systems — Xayrillo Ne'matov",
-    description:
-      "An interactive exhibition: from countryside curiosity to AI-augmented engineering.",
+    title: "Xayrillo Ne’matov — A builder from Urgut",
+    description: "Useful products, honest lessons, and a builder’s journey from Uzbekistan.",
   },
   robots: { index: true, follow: true },
   alternates: { canonical: "https://nematov.com" },
+  icons: { icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23141311'/%3E%3Cpath d='M16 18h7l9 13 9-13h7L36 36v10h-8V36z' fill='%23c49a82'/%3E%3C/svg%3E" },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0905",
-  colorScheme: "dark",
-  width: "device-width",
-  initialScale: 1,
+  themeColor: "#141311", colorScheme: "dark", width: "device-width", initialScale: 1,
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html
-      lang="en"
-      className={`${bricolage.variable} ${inter.variable} ${jetbrains.variable} h-full antialiased`}
-    >
-      <body className="noise min-h-full bg-bg text-text">
-        <SmoothScroll>
-          <main id="main">{children}</main>
-        </SmoothScroll>
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet" />
+      </head>
+      <body>
+        <a className="skip-link" href="#main">Skip to content</a>
+        {children}
       </body>
     </html>
   );
