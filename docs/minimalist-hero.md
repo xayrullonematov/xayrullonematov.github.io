@@ -73,8 +73,6 @@ section is mounted: Story also includes the admissions gallery. Switching sectio
 resets the panel scroll. Escape and Back home close it, restore focus, and unlock
 background scrolling. No additional component package is needed for the dialog.
 
-## Deployment
-
 ## Motion, shared brand, and project wheel
 
 Active headings and body text use Manrope, with copper emphasis on charcoal.
@@ -83,14 +81,17 @@ four section buttons. Entrance CSS animates content without delaying access;
 the portrait's outline rotates slowly and can be paused. Reduced-motion users
 get static content, and the ambient animation pauses while a section is open.
 
-`src/components/ui/works-wheel.tsx` adapts the supplied ring-to-drum design.
+`src/components/ui/works-wheel.tsx` adapts the supplied ring design.
 Production items live in `PortfolioContent.tsx` and retain the approved project
 descriptions, honest notes, URLs, and actual logo assets. No stock art is used.
-Selection supports project buttons, Previous/Next, arrow/Home/End keys, and
-horizontal swipes. Desktop wheel input is bounded and releases page scrolling
-at the ends; mobile retains vertical page scrolling. Reduced motion uses a
-single static card. React state holds only active selection, ring mode, and
-measured width; Framer Motion animates transitions without an idle rAF loop.
+Selection starts at null: the overview renders all three logos and no project
+details. Selection collapses the headline, moves the same logo left, and mounts
+its story on the right with a directional entrance. Mobile stacks the logo above
+the story. All projects or Home resets the overview; End selects the last item.
+Buttons, arrow keys, horizontal swipes, and bounded desktop wheel input select
+projects. Scrolling over text remains native. Reduced motion removes transitions
+and wheel interception; buttons still work. Framer Motion animates transitions
+without an idle rAF loop.
 No new dependencies, providers, setup commands, or second UI folder are needed.
 
 ## Publishing
